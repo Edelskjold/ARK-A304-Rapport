@@ -1,0 +1,154 @@
+% Typen af dokumentklassen
+\documentclass[a4paper,11pt,twoside]{report}
+
+% Sæt encoding så indstillingerne kan loades korrekt
+\usepackage[utf8]{inputenc}
+
+% Indlæs indstillinger
+\input{Preamble/Settings.tex}           
+
+% Indlæs packages
+\usepackage{tabularx}                   % Til tabeller
+\usepackage{fourier}                    % Font
+\usepackage[danish]{babel}              % Dansk sprog
+\usepackage{a4}                         % A4 format
+\usepackage[margin=3.0cm]{geometry}     % Til at sætte margin
+\usepackage{fancyhdr}                   % Pæn header og footer
+\usepackage{lastpage}                   % Til at finde sidste side
+\usepackage{hyperref}                   % Referencer i PDF dokumentet og referencer til labels
+\usepackage{float}                      % Til at sætte figurer korrekt
+\usepackage{url}                        % Til at lave URL
+\usepackage{titlesec}                   % Til at ændre på størrelsen på sections
+\usepackage{xr}                         % Gør det muligt at cross referere i andre filer
+\usepackage{amsmath}                    % Matematik-ting
+\usepackage{mathtools}                  % Flere matematik-ting
+\usepackage{multirow}                   % Multirows i tabel
+\usepackage{threeparttable}             % Til fodnoter i tabeller
+\usepackage{natbib}                     % Udvidelse af kilder
+\usepackage[toc,page]{appendix}         % Til bilag
+\usepackage{enumitem}                   % Til lister
+\usepackage{graphicx}                   % Billeder
+\usepackage{pdfpages}                   % PDF sider
+\usepackage{color}                      % Farver
+\usepackage{soulutf8}                   % Til highlight
+\ifdefined\draft\usepackage{Preamble/Packages/currfile}\fi% Til indsættelse af filnavn - kun hvis draft er til
+
+% Dokument informationskommandoer
+\newcommand{\currentpage}{\thepage}     % nuværende side
+\newcommand{\numpages}{\pageref{LastPage}}% antal sider
+\newcommand{\sidetal}{Side {\currentpage} af {\numpages}} % side informationer
+\newcommand{\pagetitle}{\rightmark}     % nuværende sektion
+
+% Definerer titel osv.
+\title{\rapportnavn}
+\author{\gruppen}
+\date{\afldate}
+
+% Setup af header og footer
+\fancypagestyle{plain}{
+    % Nulstil header og footer
+    \fancyhead{}
+    \fancyfoot{}
+
+    % Setup header
+    % Left / Right - Even / Odd
+    \fancyhead[LE]{\rapportnavn}        % Lige sider
+    \fancyhead[RO]{\pagetitle}          % Ulige sider
+
+    % Sæt footer op
+    \fancyfoot[LE]{\sidetal}            % Lige sider
+    \fancyfoot[RO]{\sidetal}            % Ulige sider
+    
+    % Sæt kun filnavn på en draft
+    \ifdefined\draft
+        \fancyfoot[LO]{\currfilepath}   % Ulige sider
+        \fancyfoot[RE]{\currfilepath}   % Lige sider
+    \fi
+}
+
+% Sætter pagestyle til plain - header og footer
+\pagestyle{plain}
+
+% Fjerner ligegyldig whitespace - men rykker ting op så vi ikke har teksten på slut
+\raggedbottom
+
+% Fjerner punktummet efter sektion-nummer i header (2.2. XXX --> 2.2 XXX)
+\renewcommand\sectionmark[1]{%
+  \markright{\MakeUppercase{\textbf{\thesection}\ #1}}}
+
+% Fjerner afstand mellem kapitel og sætter størrelsen på skriften - se evt. her: http://tex.stackexchange.com/questions/63390/how-to-decrease-spacing-before-chapter-title
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+% Indent til og fra
+\newcommand{\enableIndent}{\setlength\parindent{6pt}}
+\newcommand{\disableIndent}{\setlength\parindent{0pt}}
+\disableIndent
+
+% Opretter subsubsubsection og subsubsubsubsection
+\newcommand{\subsubsubsection}[1]{\noindent\paragraph{#1}\mbox{}\\}
+\newcommand{\subsubsubsubsection}[1]{\noindent\subparagraph{#1}\mbox{}\\}
+
+% Skriftstørrelse på sections
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titleformat*{\paragraph}{\normalsize\bfseries}
+\titleformat*{\subparagraph}{\normalsize\bfseries}
+
+% Definerer antallet af overskrifter der har tal, samt antallet af overskrifter i indholdsfortegnelsen
+\setcounter{secnumdepth}{2}             % Antallet af overskrifter der har et nr - dybden
+\setcounter{tocdepth}{2}                % Antallet af overskrifter i indholdsfortegnelse - dybden - eks. 1.1.1
+
+% Orddeling
+\hyphenation{}
+
+% Ændrer indstillingerne for caption for figurer, tabeller og kodestykker - tilføjer bla. kusiv og gør typenavnet bold (eks. Figur 1.1: bliver fed)
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+
+% FixMe
+\ifdefined\CMDFixMe
+    \input{Preamble/FixMe/Index.tex}
+\fi
+
+% Source code
+\ifdefined\CMDCode
+    \input{Preamble/CodeStyles/Index.tex}
+\fi
+
+% Kildeliste
+\bibpunct[, ]{[}{]}{;}{n}{,}{,} 		% Definerer de 6 parametre ved Harvard henvisning (bl.a. parantestype og seperatortegn)
+
+% Udseende af litteraturlisten
+%\bibliographystyle{Bibtex/Vancouver} 
+\bibliographystyle{unsrtnat}            % Inkluderer bl.a. isbn numre
+
+% Oprettelse af links inde i pdf dokumentet
+\hypersetup{
+    pdftitle={\rapportnavn},
+    pdfauthor={\gruppen},
+    pdfsubject={\rapportnavn},
+    bookmarksnumbered=true,
+    bookmarksopen=false,
+    bookmarksopenlevel=1,
+    colorlinks=false,
+    pdfstartview=Fit,
+    pdfpagemode=UseOutlines,
+    pdfpagelayout=TwoPageRight,
+    pdfborder = {0 0 0}
+}
+
+% Badness underfull og overfull
+\hbadness=10001                         % Slår alle underfull badness warnings fra
+\hfuzz=100.002pt                        % Slår de ligegyldige overfull warnings fra
+
+% Figurer
+\newcommand{\figur}[5][0]{
+		\begin{figure}[H] \centering \em %H / h!
+			\includegraphics[width=#5\textwidth, angle=#1]{#2}
+			\caption{#3}\label{fig:#4}
+		\end{figure}
+}
+
+% Environments
+\input{Preamble/Environments.tex}

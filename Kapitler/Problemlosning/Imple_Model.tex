@@ -1,0 +1,48 @@
+\subsection*{Model}
+% Rune 17-05-2014 15:55
+% Søren
+% Rune 20-05-2014 08:55
+Stort set alle felter i modellen er automatiske properties, og der er derfor ikke kodeeksempler på modellen. Se UML diagrammet på figur \ref{fig:UMLModel} for visuel repræsentation af modellen.
+
+\figur{Figurer/Database_Relationer.png}{UML diagram over modellen}{UMLModel}{1.0}
+
+\subsubsection*{Blanketter}
+I systemet findes to slags blanketter: Langturs- og skadesblanketer, hvor de tilhørende klasser henholdsvis hedder \textit{LongTripForms} og \textit{DamageForms}.
+
+% Rune 19-05-2014 22:50
+\subsubsubsection{LongTripForm}
+\textit{LongTripForm} er i et "0..1-0..N"\footnote{ZeroOrOne-to-many} forhold med \textit{Boat} klassen. Denne relation bruges til, at registrere den båd medlemmerne ønsker at benytte til en given tur, og fra den anden side af forholdet giver det mulighed for at finde alle LongTripForms der er blevet registrereret for en given Boat. Udover den ovennævnte relation så har \textit{LongTripForm} også en "0..N-0..N"\footnote{Many-to-many} relation med \textit{Members}. Relationen benyttes til at registrere, hvilke medlemmer der ønsker at komme på en langtur. Derudover er det ud fra et vilkårligt medlem muligt at finde alle LongTripForms, som det medlem optræder på. På samme tid har \textit{LongTripForm} også en "1-0..N"\footnote{One-to-many} relation med \textit{Member}. Relationen bruges til at registrere hvilket medlem der er ansvarlig for langturen. Denne relation er dog envejs fra \textit{LongTripForm} til \textit{Member}, da det ikke er interessant at kende til langture som medlemmet har været ansvarlig for, men kun langture som medlemmet har været med på.
+
+\subsubsubsection{DamageForm}
+\textit{DamageForm} er i et "0..N-1" forhold med \textit{Boat} klassen. Forholdet bruges til at registrere hvilken båd der er skadet. Forholdets kardinalitet er produktet af, at en båd kan have flere \textit{DamageForms} registreret. På samme måde som \textit{LongTripForm} har \textit{DamageForm} ligeledes en "1-0..N" relation med \textit{Member}. Denne relation er dog tovejs, da det er relevant at vide, både hvilket medlem der har registreret skadesanmeldelsen, og hvilke skadesanmeldelser et bestemt medlem har lavet.
+
+\subsubsection*{Trip}
+\textit{Trip} er i et "0..N-0..N" forhold med \textit{Member}. Kardinaliteten skyldes at der kan være flere medlemmer med på en tur, og et medlem kan have været på flere ture. \textit{Trip} deltager ligeledes i en "0..N-1" relation med \textit{Boat}. En båd kan derfor have været på flere ture, mens en tur kun kan registreres med en båd.
+
+\subsubsection*{Admin}
+\textit{Admin} klassen har et "1-0..1"\footnote{One-to-ZeroOrOne} envejs forhold med \textit{Member} klassen. Dette betyder en \textit{Admin} altid har en reference til et medlem, mens et medlem i modellen ikke nødvendigvis har en reference til en admin.
+
+\subsubsection*{TripWarningSms}
+\textit{TripWarningSms} har på samme måde som \textit{Admin} et "1-0..1" envejs forhold, dog med \textit{Trip}-klassen. Denne reference bruges til at holde styr på, hvorvidt der er blevet sendt en SMS ud til passagererne på en tur.
+
+\subsubsection*{Boat}
+Alle \textit{Boat}'s relationer er allerede beskrevet.
+
+\subsubsection*{Member}
+Alle relationer for \textit{Member}-klassen er beskrevet fra den anden side af relationerne.\\
+
+De resterende klasser i modellen er ikke videre interessante at beskrive, da de ikke deltager i nogen relationer med andre klasser. De eksisterer enten som skabeloner eller selvstændige klasser, hvilket medfører, at deres opbygning ikke har nogen ydeligere effekt på resten af modellen.
+
+\subsubsection{Entity Framework: Fluent API}
+I forbindelse med uarbejdelsen af modellen har det været nødvendigt at ignore nogle Code First konventioner. Dette er både sket af praktiske hensyn i forhold til design af modellen, og som en konsekvens af at Entity Framework er en leaky abstraction.
+
+\CSharp{Kode/FluentApi.cs}{Eksempel på anvendelse af Fluent API}{Fluent_api}
+
+Kode \ref{code:Fluent_api} er et eksempel på, hvordan vi anvender Fluent API til eksplicit at definere det under LongTripForm beskrevne "1-0..N"\mbox{}-forhold mellem \textit{LongTripForm} og \textit{Member}.\\
+På linje 1 specificeres der, at der er typen \textit{LongTripForm} der bliver konfigureret.\\
+Linje 2 specificerer at multipliciteten på denne side af forholdet er one, og sætter dermed et constraint op, som betyder at \textit{LongTripForm} ikke kan blive gemt, medmindre at propertien ResponsibleMember ikke er null.\\
+WithMany på linie 3 specificerer at multipliciteten fra \textit{Members} side er many.\\
+Linje 4 angiver hvilken af \textit{LongTripForms} properties der skal bruges som foreign key i forholdet.\\
+Linje 5 er hele årsagen til denne eksplicitte definition af dette forhold. Den sætter CascadeOnDelete til false, så hvis medlemmet, der bliver refereret til, bliver slettet, bliver LongTripForm'en ikke slettet.\\ 
+Standard konventionen med Code First er at alle forhold sætter CascadeOnDelete til true.
+Dette er ikke altid hensigtsmæssigt, og det er også et problem, hvis en klasse indgår i mere end ét forhold. Programmet anvender MySQL som den underliggende RDBMS. Denne har den begrænsning, at det ikke er muligt at have flere forhold med CascadeOnDelete til den samme klasse. Dette nødvendiggører flere steder at CascadeOnDelete eksplicit bliver sat til false.

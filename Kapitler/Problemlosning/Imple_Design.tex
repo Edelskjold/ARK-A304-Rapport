@@ -1,0 +1,32 @@
+% Mads
+% Rune 19-05-2014 20:00         Backup er gemt i old_imple_Design.tex
+\subsection{Design af brugergrænseflade}
+\label{sec:imple_design}
+
+Designet af brugergrænsefladen har været et af de mere prioriterede punkter for udviklingen af programmet. Gennem afsnittet redegøres de valg, som gruppen har truffet i forbindelse med udvikling af brugergrænsefladen. \\
+
+\textbf{Farver}\\
+Under udviklingen af brugergrænsefladen til protokolsystemet har farverne hertil haft en væsentlig prioritet, eftersom at det var ønsket af Aalborg Roklub, at brugergrænsefladen blev mere moderne og intuitiv. Farverne er tilpasset efter det, som gruppen har antaget værende passende, hvor eksempelvis farven grøn bruges til knapper, som godkender ting, og farven rød bruges til knapper, som afviser ting. Derudover er programmets farvepaletter blevet dæmpet for at farverne ikke skal konkurrere imod hinanden, hvilket er mere attraktivt for voksne mennesker. På figur \ref{fig:palet} vises farvepaleten til protokolsystemet. \cite{farve_design}\\
+
+\figur{Figurer/impl/palet.png}{Illustration af farvepalet \figuregroup}{palet}{0.5}
+
+Der bruges i programmet ligeledes gradient\footnote{F.eks. en knap, som har flere farvenuancer i sig, som gør at den går fra mørk til lys}-effekt på farverne. Derved ville man kunne tage farvepaletten som en retvisning, hvorimod farvens valør\footnote{Farvens nuance mellem hvid og sort} er varierende i forhold til at det er en gradient. Derudover er den knap man har valgt markeret, så det er tydeligt at se man er inde på det rigtige.
+
+\textbf{Skrifttype}\\
+Der er i programmet brugt Calibri som den primære font. Skrifttypen er sans-serif\footnote{Skrifttype uden fødder}, der oftest er lettere at læse i digitale medier. Derudover har skrifttypen brede og ensartede hårstreger, hvilket gør skriften mere tydelig, når den formindskes. Dette er passende i sammenhæng med, at touchskærmen, som programmet skal vises på, har en relativ lille opløsning. \cite{skrifttype_design}\\
+
+\textbf{Ikoner \& fade}\\
+I programmet bruges der ikoner for at brugeren hurtigt kan identificere emnet. Mennesket husker nemmere billeder og deres sammenhæng med tekst end bare almindelig tekst uden billeder. \cite{design_hukommelsen} Derfor er der i programmet tilføjet sammenhængende ikoner til teksten, som f.eks. "Vis Tastatur", hvor der er et ikon af et tastatur.\\
+
+Der er ligeledes valgt at gøre inaktive funktioner grå for at illustrere, at man ikke kan vælge eller bruge denne funktion. Dette giver brugeren et hurtigt overblik over, hvad han kan trykke på, uden at han skal forsøge med at trykke på det først. Et eksempel på hvordan dette er implementeret i vores program kan ses på figur \ref{fig:fade2}
+
+\figur{Figurer/impl/fade2.png}{Illustration af inaktive funktioner fra protokolsystemet \figuregroup}{fade2}{1.0}
+
+Derved skal brugeren af systemet klikke på en af de elementer, som er i den liste, som ikke er nedtonet med grå farve, før han kan gå videre til næste element.\\
+
+\textbf{F-mønster}\\
+Der er foretaget samme overvejelser mht. layoutet i administrationssystemet og i protokolsystemet. På figur \ref{fig:f-admin} ses en ældre version af brugergrænsefladen til administrationspanelet. Dog opfylder den afleverede version det samme F-mønster, hvilket i begge tilfælde markerer hovedfunktioner i administrationspanelet. Det indledende øjekast vil i den første horisontale linje angive brugerens nuværende position i programmet, og hvor brugeren kan navigere hen. Den efterfølgende horisontale linje vil lede brugeren ind til hovedindholdet på den pågældende side, hvorefter filtrene til venstre vil komme i fokus. Funktionernes placering er valgt med det ønske om, at brugeren intuitivt først skal vælge fra menuen i toppen, herefter lede efter det ønskede objekt og eventuelt filtrere eller søge efter det ønskede objekt.
+
+\figur{Figurer/impl/f-administration.png}{F-Pattern lagt ovenpå administrationssystemets brugergrænseflade \figuregroup}{f-admin}{1.0}
+
+Efter gennemgangen af brugergrænsefladen, er det relevant at undersøge hvordan den bagved liggende kode er opsat.

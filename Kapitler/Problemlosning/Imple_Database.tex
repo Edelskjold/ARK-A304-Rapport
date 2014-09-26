@@ -1,0 +1,27 @@
+% Mikkel, 29-04-2014
+\subsection{Database}
+\textit{En meget vigtig del af projektet er online tilgængelighed, som er opnået ved at lave en database, som er tilgængelig på internettet fra overalt. Afsnittet er opbygget på en sådan måde at der indledningsvis tages fat i en tabel, hvorefter de andre beskrives udfra relationer til den pågældende tabel. Databaserelationer generelt er allerede beskrevet i afsnit \ref{sec:teori_database}. Alle tabelnavne i databasen vil stå i kursiv. En illustration af alle relationer i databasen kan ses på bilag \ref{bil:db_relationer}.}
+\mifix{Jakob er lidt utilfreds med at diagrammet er i bilag}
+
+\subsubsection*{Blanketter}
+I systemet findes to slags blanketter - langtursblanketter og skadesblanketer, hvor tabellerne henholdvis hedder \textit{LongDistanceForm} og \textit{DamageForm}.\\
+
+\textbf{LongDistanceForm}\\
+\textit{LongDistanceForm} har to relationer - til \textit{Boat} og \textit{Member}. Relationen til Member er af typen one-to-many, som vil sige at hvert element af \textit{LongDistanceForm} kan have en, og kun en, båd tilknyttet - men omvendt kan hver båd altså have tilknyttelse til flere forskellige langtursblanketter. Dette er nødvendigt da der skal kunne søges om flere langture med den samme båd.\\
+
+Relationen til \textit{Member} er en many-to-many relation, hvor både \textit{LongDistanceForm} og \textit{Member} kan have flere elementer af den anden tilknyttet. Dette gør det muligt for et medlem at have flere langtursansøgninger i gang - og gør det muligt at tilknytte alle roerne i en og samme langtursansøgning.\\
+
+\textbf{DamageForm}\\
+\textit{DamageForm} indeholder en one-to-many med \textit{Boat}, så det er muligt for en båd at have flere skadesblanketter, men kun en båd per skadesblanket. Derudover indeholder den også en many-to-one med \textit{Member}, så skadesblanketten har ét medlem tilknyttet, men en medlem godt kan have lavet flere skadesblanketter.
+
+\subsubsection*{Ture}
+\textit{Trip} indeholder en one-to-many relation med \textit{Boat}, samt en many-to-many relation med \textit{Member}. Dette gør det muligt at en båd kan have flere ture, hvor en tur kun har én bestemt båd. Da der som regel er flere personer ombord på en måde, er det nødvendigt at kunne tilknytte flere medlemmer til en tur, hvilket er begrundelsen for en many-to-many relation.
+
+\subsubsection*{Medlemmer og både}
+\textit{Member} er med fire den tabel med flest relationer. Da blanketter og tures relationer til medlemmer allerede er beskrevet, er det kun relevant er uddybe \textit{Member -> Admin}, som er en one-to-zero-or-one relation. "One-to-zero"\mbox{}-delen er nødvendig, da et medlem ikke nødvendigvis har en relation til et \textit{Admin}-element - dette er tilfældet for alle andre personer end bestyrelsen. Enhver \textit{Admin} skal dog have tilknytning til en \textit{Member}, da alle administratorer skal være en del af foreningen.\\
+
+Da alle \textit{Boat}'s relationer er beskrevet tidligere\sfix{Lav reference eller skriv at det er det her afsnit}, er der ikke andet relevant i den forbindelse.
+
+%\subsubsection*{Opsummering}
+%Efter denne gennemgang af hvordan de forskellige dele er implementeret i %programmet, er det oplagt at beskrive hvordan forskellige slags tests er %implementeret, så der sikres et stabilt og bug-frit program.
+% Fjernet af Mikkel pga. ændring af rækkefølgen

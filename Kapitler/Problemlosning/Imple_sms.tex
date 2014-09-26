@@ -1,0 +1,44 @@
+\subsection{SMS-modul}
+\label{sec:imple_sms}
+
+% Rune, 17-05-2014 16:05
+\subsubsection{SMS-modul}
+SMS modulet er opdelt i to dele, som kan sende SMS´er og modtage dem, tilsammen giver dette et fuldt system, som fremmer trygheden i Aalborg roklub. Afsnittet vil indeholde eksempler på hvordan SMS-modulet bruges og hvordan funktionerne er konstrueret.
+
+\subsubsection{Task}
+Systemet har mulighed for at modtage beskeder via en database, hvor den henter nye SMS´er fra.
+Systemets task kører hvert femte sekund, hvilket gør at nye SMS´er senest vil blive registreret i systemet fem sekunder efter modtagelsen. Denne task kan køres i baggrunden, som beskrevet i afsnit \ref{subsec:pprogrammering}, hvilket gør at protokolsystemet kan køre, mens SMS-modulet tjekker efter nye beskeder.
+
+\subsubsubsection{Afsendelse af SMS}
+Systemet afsender sms-advarsler ved hjælp af funktionen HandleWarningSms, som først kopierer de advarsler, hvor der ikke er blevet sendt en sms, over i en ny IEnumerable, ved at vælge alle items hvor \textit{DateTime}-variablen \textit{SentSms} er null.\\
+
+Herefter bliver en foreach-løkke kørt på hvert besætningsmedlem på den pågældende tur, som har et telefonnummer associeret i databasen. For hvert sådant medlem, køres metoden \textit{SendSms}, som sender en informerende sms til medlemmet, omkring at de er ude for sent.\\
+
+Til sidst bliver det tidspunkt sms'en blev sendt, assignet til \textit{SentSms}, således at der ikke bliver sendt en ny sms til den samme modtager senere.\\
+
+Koden bag denne proces kan ses på kodestykke \ref{code:sendsms}.
+
+\CSharp{Kode/SMS/SMSWarningSend.cs}{Send af SMS}{sendsms}
+
+\subsubsubsection{Modtagelse af SMS}
+Ved modtagelse af en besked, bruges metoden HandleResponseSms som vist på kode \ref{code:modtagsms}, hvor den tager hver eneste advarsel, som er blevet sendt ud, og ser om der er kommet en besked tilbage.\\
+
+I det første loop tjekkes der efter, om der er kommet en besked fra telefonnummeret, som advarslen er blevet sendt til. Hvis der er kommet dette, går funktionen videre og tjekker efter hvad der står i beskeden. Hvis der står "ok", vil den sende en besked tilbage til personen, omkring at beskeden er modtaget og at den er godkendt. Hvis personen derimod svarer noget andet end ok, vil den sende en besked, omkring at beskeden ikke er blevet forstået. Koden bag denne proces kan ses på kodestykke \ref{code:modtagsms}.
+\CSharp{Kode/SMS/response.cs}{Modtagelse af SMS}{modtagsms}
+
+\subsubsubsection{Ingen svar}
+Hvis der ikke er modtaget svar fra et af medlemmerne inden for 20 minutter efter solnedgang, skal der sendes en sms ud til de valgte administratorer. Kode \ref{code:noresponse} håndterer denne funktionalitet. I den ydre løkke findes alle de udsendte advarsler om specifikke ture, hvor der er blevet sendt beskeder til medlemmerne på den pågældende tur og der ikke er blevet sendt beskeder til administratorene.\\
+
+Hver af disse ture sender en advarsels-sms til alle administratorer der er sat til at modtage beskeder omkring folk, der ikke er hjemme før solnedgang.
+
+\CSharp{Kode/SMS/noresponse.cs}{Intet svar fra person efter 20 min}{noresponse}
+
+\subsubsection{Kommunikation med sms-gateway}
+For at systemet kan sende SMS'er, er der brugt en online API til formålet. Denne API er integreret som vist på kodestykke \ref{code:SMSIT}.
+Systemet er opbygget således at der let kan skiftes til en anden API. Metoden som sender SMS'er (\textit{SendSms}) modtager en afsender (\textit{sender}), modtager (\textit{reciever}) og en besked (\textit{message}). Hertil opbygges url-adressen som indeholder baseurl'en, API-key'en samt inputparametrene.\\
+
+Derefter bliver der kaldt en "Webclient", som er en funktion i C\# som går ind og besøger url adressen. Der modtages et svar fra url-adressen, hvor 0 er godkendt, og at beskeden er afsendt. Hvis der skulle forekomme andet end 0 er beskeden ikke afsendt, jf. API-dokumentationen.
+
+\CSharp{Kode/SMS/SMSIT.cs}{Send SMS funktion}{SMSIT}
+
+Efter denne gennemgang af hvordan de forskellig funktioner er implementeret i programmet, er det yderst vigtigt at teste om disse funktioner rent faktisk også virker.

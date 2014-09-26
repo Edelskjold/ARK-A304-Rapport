@@ -1,0 +1,41 @@
+%Mads
+%Rettelser og korrektur af Mikkel, 27-04-14
+%Rettelser of korrektur af Martin, 16-05-14
+
+\chapter{Diskussion}
+\label{sec:Diskussion}
+
+I dette afsnit undersøges hele rapporten igennem, for at finde ud af om de valg og afgrænsninger der er blevet truffet undervejs var fyldestgørende. Ligeledes vil der blive diskuteret fejlkilder og hvordan dette har påvirket rapporten.\\
+
+\textbf{Database}\\
+Gruppen gør brug af 2 databaserm hvor den ene er en MySQL database, og den anden en xml-fil som der inporteres data fra.
+Dette er noget som gruppen har diskuteret meget, hvorvidt dette skulle ændres, således at man kun har én database, som indeholder alle deres informationer.\\
+
+Dette kunne evt. være en mysql-database, som kunne køre på deres webhotel hos Surftown\footnote{Hostingfirma}, hvor Aalborg Roklub allerede har et webhotel, som indeholder en mysql-database.
+Derved ville der ikke være yderligere omkosninger og man ville med fordel kunne trække data ud og opdatere data på kryds af tabeller i databasen. Dette har gruppen valgt at afgrænse sig fra, da dette ville betyde at gruppen skulle lave medlemskartotekeret, som der er ikke er tid til jf. antallet af ECTS-point. Gruppen har derfor valgt at implementere en MySQL-database i det program som der udvikles, hertil importeres der XML-filer fra deres medlemskartoteker. Gruppen har valgt at bruge XML-filen, da det er hurtigt at implementere, samt at der ikke behøves at blive lavet om i deres medlemskatoteker. Ulempen ved dette er at hvis der bliver ændret på medlemskartotekeret, som ændre på xml-filen ville programmet give nogle fejl, i forhold til at XML-filen er ændret, og ville derfor ikke kunne bruges før der har været en programmør inde i programfilerne og skrevet ændringerne ind.\\
+
+Derfor er dette ikke en holdbar løsning, men en løsning som gruppen har valgt at bruge pga. tidspres. Senere hen ville det være prefereret hvis man brugte den samme database til begge programmer.\\
+
+\textbf{Betalingssystem}\\
+Betalingssystemet, som Aalborg Roklub gør brug af, er et system som er udviklet af Danske Bank. Betalingssystemet er udelukkende ment til foreninger, og er konstrueret således at systemet opkræver medlemmerne via email eller betalingsservice i forhold til foreningens medlemsgebyrer. Hertil skal Aalborg Roklub afsende en besked til Danske Banks system, om at de skal opkræve penge, som derefter bliver tilbagesendt med hvem der har betalt. Dette er både en langsommelig og dyr process, da dette koster penge hver gang Aalborg Roklub skal tjekke om folk har betalt. 
+Derfor ville det være smart, og en ideel løsning, hvis klubben havde et betalingssystem selv. Dette kunne f.eks. være Quickpay, som sender en faktura på en email til foreningsmedlemmet, hvor medlemmet kan betale med Dankort eller lignende. Dette kræver selvfølgelig at medlemmet er på nettet, har en email og et betalingskort. Det må dog kunne antages at langt de fleste medlemmer har adgang til en computer og dermed mulighed for en email adresse - Aalborg Roklubs nuværende database indeholder e-mails på 90 procent af deres medlemmer.\\
+
+Efter hvad gruppen kan se, ville der ikke være nogen form for ulemper ved dette system, udover hvis personerne ikke har en email. Dog vælger gruppen ikke at implementere denne løsning - både fordi vi arbejder med protokolsystemet og ikke medlemskartotekeret, men ligeledes at dette kræver at man indgår bindende aftaler med Nets / Teller, som står for dankortbetalingen i Danmark. Dette er er langvarig process, hvor man skal godkendes, samt at der skal udleveres dokumentation omkring foreningens eksistensog da gruppen ikke har juridisk beføjelse til at fremskaffe, eller udlevere disse dokumenter, vælger gruppen at lade dette være en ide, som Aalborg Roklub selv kan få implementeret hvis det ønskes.\\
+
+\textbf{Touchskærm}\\
+Aalborg Roklub besidder en touchskærm, som deres protokolsystem kører på. Det er her hvor medlemmerne registerer sejlturer inden de tager ud på vandet, og melder deres hjemkost igen.\\
+Touchskærmens opløsning har gruppen valgt at designe systemet ud fra, da touch ikke virker særlig godt, hvis det er responsivt design. Dette betyder derfor at gruppen har valgt at fastsætte programmets størrelse til 1024x768 pixels.\\
+
+Gruppen har ligeledes gjort den overvejelse om hvorvidt man skulle kunne køre systemet på en anden computer. I dette tilfælde kom gruppen frem til den konklusion at systemet sagtens ville kunne bruges, da langt størstedelen af computerskærmene nutildags bruger en højere opløsning. Dette betyder måske at programmet ikke udfylder hele skærmen, men dette vælger gruppen at se bort fra, da der designes et program med henblik på at Aalborg Roklub ikke skal ud og investere i nyt udstyr. Alternativet ville være at lave alt grafik i Blend\footnote{En udvidelse af Visual Studio til design}, som ville gøre at man ville kunne skalere de genererede knapper og indhold. Dette kan desværre ikke gøres pt. da gruppen har designet knapper og tekstur i Adobe Photoshop, med en fast brede samt højde, og det derfor ville blive pixeleret, hvis det skulle opskaleres. Gruppen har til gengæld valgt at lave administrationspanelet responsivt, så det automatisk skaleres, alt efter hvilken skærmstørrelse brugeren bruger. Dette er grundet at der er flere personer i bestyrelsen, som skal have adgang til administrationspanelet fra forskellige computere. Dette gør at man bliver nødt til at tage hensyn til personer som har en lille opløsning og dem med en høj opløsning. Derfor er det responsivt, således at det selv skaleres op og ned efter skærmens behov.
+Ulempen ved dette er, at man som regel laver nogle større billedefiler i Photoshop, for at man ikke skal forvrænge kvaliteten ved opskalering af billederne. Dette er dog et lille program, og derfor ses der bort fra at filerne fylder lidt mere end det optimale.\\
+
+\textbf{Entity Framework}\\
+Gruppe har valgt at gøre brug af et ORM-framework som hedder EF\footnote{EF: Entity Framework}.
+Dette bruger gruppen til at håndtere MySQL databasen, hvor EF sørger for at mappe objekterne sammen med databasen. På denne måde er databasen altid opdateret, i det at EF sørger for at oprette nye elementer i databasen, hvis der er et objekt i koden til det.\\
+
+EF er dog ikke udviklet helt færdigt endnu, hvilket giver exceptions som NotImplementedException. Denne exception kommer f.eks. ved at bruger RenameColumn, som gerne skulle bruges da vi importerede fra Xml filen til databasen. Her var det meningen at nogle tabeller skulle have ændret navnet, hvilket ikke var muligt, da funktionen i EF ikke er lavet endnu.\\ EF har ligeledes den ulempe, at hvis man skal importere en mængde data i form af insert, delete, update eller read request, ville EF tage hver handling med en request af gangen. Derved går det meget langsomt, og tager mange resourcer i forhold til at databasen skal modtage og svarer på mange requests.\\
+Dette vælger vi i gruppen at overse da hastigheden på programmets start, ikke har nogle konsekvenser, hvis den er langsom. Dette er baseret på at Aalborg roklubs system hele tiden skulle være tændt, og derfor ville det kun engang imellem være irriterende ved f.eks. genstart af computeren.\\
+
+Gruppen har derfor valgt at bruge EF, fordi det ikke kræver lang tid at sætte sig ind i, da dette er et framework, som gør det meste af arbejdet i sig selv. Derfor passer det godt ind i programmet, da gruppen har valgt at lave 2 fulde systemer til Aalborg roklub, og derfor gerne vil spare tid på dele af programmet, hvor det er muligt. EF er ligeledes kodet i programmet, hvilket gør at alt kode (SQL) som er skrevet bliver valideret inden programmet compiler, og derved er man sikret ikke at få SQL fejl.\\
+
+\mifix{Skriv om at vi bør bruge mere asynkron programmering, så UI-tråden ikke hænger - Jonas' opgave}

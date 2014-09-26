@@ -1,0 +1,72 @@
+\subsection*{ViewModel}
+Den implementerede ViewModel benytter en hel del kodegenbrug for at undgå at skulle lave det samme kode flere gange. Dette gøres ved hjælp af nedarvning fra standardklasser, der indeholder bestemt funktionalitet til ViewModellen. Det følgende afsnit vil forklare omkring klassestrukturen i den implementerede ViewModel vha. UML diagrammer og konkrete kodeeksempler.
+
+\subsubsection*{Interfaces}
+Til oprettelse af ViewModels er det blevet valgt at arbejde med interfaces - denne konstruktion gør det muligt at lave nogle standardimplementationer af de forskellige interfaces, men også at kunne supportere at man ændrer på den konkrete implementation og dermed stadig kan referere til interfacet, da dette altid er ens. UML diagrammet af programmets generelle interfaces for programmets ViewModels kan ses i figur \ref{fig:ViewModelInterfaces}.
+
+\figur{Figurer/ViewModel/ViewModelInterfaces.png}{Programmets generelle ViewModel interfaces}{ViewModelInterfaces}{1.0}
+
+\textbf{IViewModelBase}\\
+I figur \ref{fig:ViewModelInterfaces} ses det at \textit{IViewModelBase} nedarver fra \textit{INotifyPropertyChanged}. Dette interface er et standard interface der notifiserer en klient om at en property har ændret værdi. Dette gør det muligt for brugerfladen at opdatere sig selv når en værdi bliver ændret.\\
+
+\textit{IViewModelBase} har 3 afledte interfaces herunder \textit{IFilterContainerViewModel}, \textit{IPageContainerViewModelBase} og \textit{IContentViewModelBase}.\\ 
+
+\textbf{IFilterContainerViewModel}\\
+\textit{IFilterContainerViewModel} beskriver en standardmetode til at lave filtrering og søgning på. Interfacet indeholder 2 bool-properties hvor deres værdi beskriver om filtre er slået til og om søgning er slået til. Derudover indeholder interfacet også 2 events som bliver kaldt når filtret eller søgeordet bliver ændret.\\
+
+\textbf{IContentViewModelBase}\\
+\textit{IContentViewModelBase} er et interface der bliver brugt af alle sider på hele systemet. Interfacet har en reference til en \textit{IViewModelBase}, som bliver sat efter construkteren er blevet kørt. Referencen bliver sat af den ViewModel der beder om at få \textit{IContentViewModelBase} sat. Parent kan ikke sættes i contructoren pga. dette kræver at ViewModel skulle instaliseres i CodeBehind, da WPF (i designkoden) kræver at ViewModel har en constructor med ingen parammetre.\\
+
+Systemet har nogle gange behov for at skulle kalde funktioner fra \textit{Parent}. Dette er dog ikke muligt fra constructoren, derfor er der oprettet event kaldet \textit{ParentAttached} som bliver kaldt når \textit{Parent} bliver sat. Da systemet også nogle gange kan have behov for at udføre nogle handlinger når der bliver skiftet væk fra en side bliver er eventet \textit{ParentDetached} lavet. Et eksempel på anvendelse er når der bliver bindet på at Keyboardet ændrer tekst. Dette event skal unbindes når at der bliver skiftet side, ellers risikereres det at der bliver lavet søgninger flere forskellige steder når keyboardet bliver benyttet.\\
+
+Den sidste property \textit{GotFocus} bliver brugt til når man trykker på en \textit{TextBox} eller \textit{PasswordBox} at Keyboardet bliver sat til at opdatere denne.\\
+
+\textbf{IPageContainerViewModelBase}\\
+\textit{IPageContainerViewModelBase} beskriver en ViewModel der kan navigere mellem sider, her er \textit{CurrentPage} en reference til den nuværende side, mens \textit{CurrentPageTitle} er en tekststreng der indeholder navnet på den nuværende side.\\
+
+Interfacet indeholder også en metode der navigerer til en side ud fra en side og en titel. Interfacet bryder dog MVVM princippet idet at \textit{CurrentPage} er en direkte reference til Viewet. MVVM princippet er dog et princip der er baseret på best case og det er meget svært at overholde et designprincip til punkt og prikke. Implementation af dette på en anden måde er praktisk så besværgeligt at det blev valgt, som en løsning i stedet.\\
+
+\textbf{IKeyboardContainerViewModelBase}\\
+\textit{IKeyboardContainerViewModelBase} beskriver en ViewModel der er afledt fra \textit{IPageContainerViewModelBase} og indeholder keyboard-funktionaliten. Interfacet indeholder 3 properties herunder kommandoen \textit{GotFocus}, som bliver brugt til at sætte keyboardet til at opdatere en \textit{TextBox} eller \textit{PasswordBox} når man trykker på denne. Herudover indeholder interfacet også en property der indeholder keyboardets tekst (\textit{KeyboardText}), samt om keyboardet er synligt (\textit{KeyboardToggled}).\\
+
+\textit{IKeyboardContainerViewModelBase} indeholder også 3 metoder, herunder \textit{KeyboardClear}, \textit{KeyboardHide}, samt \textit{KeyboardShow}, hvor handlingerne er henholdsvis at slette alt tekst på keyboardet, skjule keyboardet eller vise keyboardet. Derudover indeholder interfacet også et event der bliver kaldt når at teksten på keyboardet ændrer sig.
+
+\subsubsection*{Standardimplementation af interfaces}
+Under fremstillingen af systemet blev det ønsket at der blev benyttet så meget kodegenbrug som overhovedet muligt. Derfor er der lavet nogle standardimplementationer af alle interfaces (se UML diagram på figur \ref{fig:ViewModelClasses}). Den efterfølgende afsnit vil gennemgå implementationen af ViewModelBase.
+
+\figur{Figurer/ViewModel/ViewModelClasses.png}{ViewModel classes}{ViewModelClasses}{1.1}
+
+\textbf{ViewModelBase}\\
+\textit{ViewModelBase} er afledt fra \textit{IViewModelBase} og dermed afledt fra \textit{INotifyPropertyChanged}, som indeholder et event til at notificere en klient om at en property er ændret. For at kalde dette event er der blevet lavet 2 hjælpemetoder, herunder \textit{Notify} og \textit{NotifyCustom}. \textit{NotifyCustom} tager et navn på en property som en string og notifiserer klient(erne) omkring at den angivne property har ændret værdi. Denne metode er ikke særlig fleksibel, da den kræver at man specificerer navnet på propertien, hvilket ikke giver vedligeholdelsesvenlig kode, da man så skal opdatere navnet, hvis man ændrer navnet på propertien.\\
+
+Den anden metode bliver kaldet \textit{Notify} og er netop lavet for at undgå dette problem. Metoden benytter \textit{CallerMemberNameAttribute} som automatisk sender navnet på den kaldende property med. Funktionen \textit{Notify} kan dermed kalde \textit{NotifyCustom} for at maksimere kodegenbrug. Se kode \ref{code:BaseNotify} for begge funktioner.
+
+\CSharp{Kode/ViewModel/BaseNotify.cs}{Notify base}{BaseNotify}
+
+Funktionene \textit{GetCommand} er overloadet idet der er 4 metoder der tager forskellige argumenter. \textit{GetCommand} returnerer en ny \textit{RelayCommand} med de angivne argumenter. Metoderne er beholdt på grund af bagudkompatibilitet, da der tidligere blevet lavet en anden type kommando.
+
+\subsubsection*{Udførsel af kommandoer}
+Til udførsel af kommandoer på ViewModel benyttes \textit{ICommand}, som er et interface som \textit{RelayCommand} nedarver fra. For at oprette en kommando skal der laves et nyt objekt af interfacetypen \textit{ICommand}. Dette gøres ved at oprette et objekt af typen \textit{RelayCommand} og specifere en \textit{Action} af typen \textit{Object}, der skal udføres når kommandoen køres. Udover dette er det også muligt at specifere om kommandoen kan udføres. Dette gøres ved at sende en \textit{predicate} som den anden aktuelle parameter. Et eksempel på en kommando er vist i kode \ref{code:ICommandSample}.
+
+\CSharp{Kode/ViewModel/ICommandSample.cs}{Eksempel på oprettelsen af ny kommando}{ICommandSample}
+
+I kode \ref{code:ICommandSample} vises, hvordan protokolsystemet tilføjer en ny gæst til listen af medlemmer, der skal med på en given tur. Lamda-udtrykket tjekker først om antallet af medlemmer valgt er mindre end antallet af sæder der er i den pågældende båd. Hvis denne betingelse er sand oprettes der et nyt medlem af typen \textit{MemberViewModel}. Der bliver sendt en aktuel parameter med, herunder en ny instans af \textit{Member} som får sat navnet til Gæst og \textit{id} sat til -1.
+
+\subsubsection*{Indlæsning af data fra databasen}
+Som nævnt i afsnit \ref{sec:teori_database} bliver data gemt og indlæst vha. Entity Framework. Indlæsning af data sker dermed med LINQ. Et eksempel kan ses i kode \ref{code:EntityFrameworkLoadBoats}.
+
+\CSharp{Kode/ViewModel/EntityFrameworkLoadBoats.cs}{Eksempel på indlæsning af både på start rotur}{EntityFrameworkLoadBoats}
+
+I kode \ref{code:EntityFrameworkLoadBoats} vises det hvordan bådene bliver indlæst under menupunktet "Start Rotur"\mbox{} i protokolsystemet. ViewModellen starter med at beregne, hvilken dato det var for 8 dage siden. Denne værdi kaldet \textit{limit} bliver brugt til at sortere bådene så de mest benyttede både i de seneste 8 dage kommer først.\\
+
+På den efterfølgende linje er forespørgslen - her angiver \textit{FROM} hvilke datakilde forespørgslen skal køre på.\\
+
+\textit{WHERE} filtrerer elementerne - i dette tilfælde bliver kun aktive både returneret.\\
+
+\textit{OrderBy} speciferer hvilken rækkefølge resultatet skal komme efter. Her siger det første statement at de både der har en uafsluttet tur (båden har en tur, hvor afslutningstiden er sat til null) bliver placeret til sidst, fordi false kommer før true. Efter denne sortering bliver der sorteret efter hvor mange ture båden har været ude på de seneste par dage - her bliver der sorteret efter faldende rækkefølge \textit{descending}, da båden med flest ture skal være det første resultat.\\
+
+\textit{SELECT} speciferer at båden skal returneres som output.\\
+
+\textit{INCLUDE} insturerer Entity Framework om at indlæse alle turene den pågælden båd har været ude på.\\
+
+\textit{ToList} eksekverer forespørgslen og returnerer resultatet som en \textit{List}.

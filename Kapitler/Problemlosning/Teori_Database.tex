@@ -1,0 +1,112 @@
+% Skrevet af Søren og Martin
+% Rettet af Rune, 10-04-2014 13:30
+\subsection{Databaseteori}
+\label{sec:teori_database}
+%Databaser bruges til gemme større mængder data, som let kan tilgås vha. software til læsning af databasen. Fordelen ved at bruge en database er, at dataen i databasen er struktureret på en måde, der gør dataen hurtigst muligt tilgængelig. 
+I dette afsnit vil forskellige databasetypers egenskaber blive undersøgt, og om disse egenskaber med største fordel kan anvendes til projektet. Herefter undersøges der hvordan data hentes ud af en database, og hvordan data kan omdannes til objekter, som kan benyttes i programmet. Denne infomration vil blive brugt til udviklingen af programmet til Aalborg Roklub.
+
+% Rettet af Rune, 10-04-2014 13:50
+\subsubsection{Relationelle databaser}
+Relationelle databaser består af en række tabeller, som ofte har relationer til hinanden. En tabel repræsenterer en entitet, f.eks. en person eller bygning, som har en mængde informationer tilknyttet, såsom højde eller vægt. Instanser af entiteter kan ligeledes samles i en tabel, hvor søjler repræsenterer oplysninger, og rækker repræsenterer entiteter. Heri defineres ofte en primærnøgle for tabellen, såsom et person-id, som tildeler en unik værdi til hver instans, som de kan identificeres ved. Denne primærnøgle kan være et felt i tabellen. Der kan ligeledes tildeles fremmednøgler til instanser, som kan pege på primærnøgler i andre tabeller, hvorved tabellerne bliver sammenkoblet, så data kan tilgåes fra flere forskellige indgangsvinkler. Dette er meget brugbart ved søgning, da en bruger ikke behøver at følge et specifikt hieraki ved søgning. For eksempel, i et biblioteks database, ville en bruger være i stand til at finde en bog, ved at søge på et forfatternavn, eller et udgivelsesår. Der ville være fremmednøgler til den søgte bog i begge tabeller.\cite{database_hvad} På figur \ref{fig:relational_database} illustreres en relationel database.
+
+\figur{Figurer/Problemlosning/Relational_Database_Example.png}{Eksempel på en relationel database}{relational_database}{0.85}
+
+% Rettet af Rune, 10-04-2014 14:00
+\subsubsection{Hierakistiske databaser}
+En hierakistisk database er en ældre databasetype, som består af en "træstruktur", hvilket betyder, at data kun kan tilgåes ved at følge en "sti", bestående af "parent" og "children"\mbox{}-elementer. Et "parent"\mbox{}-element kan henlede til mange "children"\mbox{}-elementer, som i sig selv kan have mange "children". Et eksempel på dette er Stifinder i styresystemet Windows, hvori dataen gemmes i en mængde mapper, som selv kan indeholde flere mapper og så videre. Dette system er ineffektivt fra brugerens synspunkt, da søgningen er mindre fleksibel. Der er kun én måde at komme til den søgte fil, og det er ved at følge den korrekte sti. \cite{database_hvad}
+
+% Rettet af Rune, 10-04-2014 14:00
+\subsubsection{Opsummering}
+Der vil i problemløsningen blive benyttet en relationel databasetype (MySQL). Dette valg er foretaget på baggrund af at gruppen allerede har arbejdet med MySQL før. Af eventuelle hensyn til performance og serverkrav blev det vurderet irrelevante, da operationen som skal køres er i en størrelsesorden, hvor dette ikke spiller en rolle. Samtidig loader dataen med lazyloading, hvilket gør at programmet ikke bliver langsommere, mens systemet henter data fra databasen.
+
+% Rettet af Rune, 10-04-2014 14:10
+% Rettet af Mikkel 24-04-2014
+\subsubsection{Structured Query Language (SQL)}
+SQL er et query sprog, som er udviklet med det specifikke formål, at manipulere data fra et RDBMS\footnote{Relational Database Management System (RDBMS)} - såsom MySQL. En illustration af en relational database kan ses på figur \ref{fig:relational_database}.\\
+
+SQL består af mange forskellige sprogelementer såsom udtryk, prædikater og erklæringer. Disse elementer vil dog ikke blive uddybet, da de forekommer i de fleste programmeringssprog. Sprogelementet Query vil blive forklaret uddybende, da dette opfylder en central del af SQL's funktionalitet.
+
+% Rettet af Rune, 14-04-2014 10:30
+\subsubsubsection{Hentning af data}
+Formålet med en query operation kan være at hente specificeret data ud af et RDBMS. Dette gøres ved hjælp af en deklarativ SELECT-erklæring, med derpå følgende klausuler. Klausulerne kan inkludere følgende:
+
+\begin{itemize}
+  \item \textit{FROM}, som bestemmer hvilke tabeller data skal hentes fra. Kan inkludere JOIN underklausulet, for at hente data fra tabeller sammenkoblet de indledende tabeller
+  \item \textit{WHERE}, som inkluderer et sammenligningsprædikat, der begrænser hvilke rækker der returneres af query operationen
+  \item \textit{GROUP BY}, som organiserer datastrukturer i mindre datastrukturer. Bliver udført efter WHERE klausulen
+  \item \textit{HAVING}, som benytter et prædikat til at filtrere datastrukturer fået fra \textit{GROUP BY}
+  \item \textit{ORDER BY}, som bestemmer hvilke søjler der bliver brugt til at sortere rækker og hvilken retning (stigende eller faldende) de bør ordnes i
+\end{itemize}
+
+Et eksempel på et SQL-kald ses på kodestykke \ref{code:sqlselect}, hvor bognavne og antallet af forfattere tages ud af en tabel med navnet \textit{Book} og tilhægtede tabel \textit{Book\_author}. Kun bøger, hvor \textit{Price} overstiger 100, kommer ud. Bøgerne bliver sorteret efter titlernes rækkefølge i databasen.
+
+\sql{Kode/SQL/sqlselect.sql}{Eksempel på SQL kode og resulterende data udtræk. Stærk inspireret af kode eksempler på Wikipedia\cite{sqlwikipedia}.}{sqlselect}
+
+% Rettet af Rune, 14-14-2014 11:00
+\subsubsubsection{Datamanipulation}
+SELECT er en meget vigtig query i SQL, men andre funktioner spiller også en central rolle, såsom INSERT, UPDATE og DELETE. Disse funktioner kaldes datamanipulationsfunktioner, fordi de manipulerer på data indsat i tabeller modsat SELECT, som kun henter data.
+
+\begin{itemize_small}
+    \item INSERT indsætter data i en ny række. Se kodestykke \ref{code:sqlinsert}
+    \item UPDATE erstatter data i en række med ny data. Se kodestykke \ref{code:sqlupdate}
+    \item DELETE sletter rækker i en tabel. Se kodestykke \ref{code:sqldelete}
+\end{itemize_small}
+
+\sql{Kode/SQL/sqlinsert.sql}{Værdier 'test', 'N' og NULL indsættes i henholdsvis række 1, 2 og 3 i tabellen eksempel\_tabel.\cite{sqlwikipedia}}{sqlinsert}
+
+\sql{Kode/SQL/sqlupdate.sql}{I tabellen eksempel\_tabel, opdateres værdien fra felt1 i de instanser af felt2, hvor værdien er 'N'.\cite{sqlwikipedia}}{sqlupdate}
+
+\sql{Kode/SQL/sqldelete.sql}{Værdi 'N' og række 2 slettes fra tabellen eksempel\_tabel.\cite{sqlwikipedia}}{sqldelete}
+
+\subsubsubsection{Administrering af tabeller}
+% Mikkel, 24-04-2014
+Inden alle de tidligere nævnte operationer kan foretages, er det essentielt først at få strukturen på plads. Til dette forhold benyttes CREATE- og DROP-operationer, som henholdsvis opretter en tabel og sletter den. På kodeeksempel \ref{code:sqlcreate} ses et eksempel på oprettelse af en tabel.
+
+\sql{Kode/SQL/sqlcreate.sql}{Oprettelse af tabel i SQL}{sqlcreate}
+
+Som det ses, er syntaksen [navn] [datatype] [constraints]. En vigtig ting er bide mærke i, i forhold til constraints, er at der altid skal være en kolonne, der fungerer som "PRIMARY KEY", da denne unikke værdi bruges til at kende forskel på de forskellige rækker i databasen. Det er muligt at få hjælp til dette, ved at bruge "AUTO\_INCREMENT"\mbox{}-constraint, som sørger for at tælle værdien op ved hver ny datarække.\\
+
+\textbf{Opsummering af SQL}\\
+Dette er de centrale funktioner i SQL. De gør det muligt at hente og manipulere indholdet i en database. For at benytte dataen, som hentes herfra, kan et ORM\footnote{Object Relational Mapping} framework, såsom Entity Framework, benyttes.
+
+% Skrevet af Søren (?)
+% Rettet af Martin 23-03-2014 23:30
+% Rettet af Rune, 14-14-2014 11:30
+\subsubsection{Entity Framework}
+Entity Framework er et tekniklag mellem en database og et program. Det tillader kommunikation mellem relationelle databaser og et program gennem mapping af database-data til objekter i koden. Frameworket gør det muligt at modulere databasen vha. klasser med properties i C\#. Denne tilgang til oprettelsen af databasen, og administrationen af denne, gør det let fra et programmeringsperspektiv at oprette, ændre eller slette elementer fra databasen, da Entity Framework leverer en abstraktion som medfører at udvikleren ikke behøver at skrive SQL. Entity Framework håndterer desuden forbindelsen til databasen, hvilket skal håndteres manuelt, hvis der arbejdes med direkte SQL forbindelser. Kodestykket \ref{code:entityframeworkteori} viser et eksempel på en klasse, som Entity Framework kan konstruere en tabel ud fra:
+
+\CSharp{Kode/EntityFramework.cs}{Oprettelse af klassen kaldet student, som bruges til oprettelsen og redigering af data i databasen}{entityframeworkteori}
+
+Kodestykket \ref{code:entityframeworkteori} opretter en klasse kaldet \textit{Student}. Klassen har \textit{StudentID} og \textit{StudentName} som properties, hvilket er de informationer, en given \textit{Student} får tildelt. Denne fremgangsmåde til oprettelsen af databasen med Entity Framework kaldes "Code First". Det er også muligt, at fremstille en database ud fra oprettelsen af et klassediagram ("Model first") eller generering af modellen ud fra en eksisterende database ("Database first"). Denne rapport vil tage udgangspunkt i "Code First", da det efter gruppens mening giver mest mening at lave koden til modellen selv.\\
+
+Som nævnt håndterer Entity Framework både oprettelse af databaseskemaet og CRUD\footnote{Create, Read, Update, Delete} operationer på databasen. De to følgende afsnit vil beskrive henholdsvist hvordan EF opretter databaseskemaet og hvordan EF håndterer CRUD operationer.\\
+
+\label{subsubsubsec:efdbskema}
+\subsubsubsection{Entity Framework: Databaseskema}
+Code First indeholder nogle konventioner for hvordan EF skal behandle forskellige elementer i klasserne i modellen. Dette betyder at EF som standard vil oprette en tabel per klasse, og i disse tabeller, vil EF oprette en kolonne for hvert \textit{public} felt og for hver property med \textit{public} get/set. Code First har flere andre konventioner bl.a. konventioner for PRIMARY KEY og FOREIGN KEY, disse er dog omfattende, og der vil ikke blive gået i detaljen med dem.\\
+Det kan være nødvendigt at ignorere de indbyggede konventioner, i tilfælde hvor man har en model der ikke følger konventionerne. Dette kan opnåes vha. annoteringer\cite{annotations} eller EFs Fluent API\cite{fluentapi} (se også afsnit \ref{sec:imple_view}, dette gør det muligt manuelt at specificere detaljerne i databaseskemaet, uden at det er nødvendigt selv at håndtere databasen.\\
+
+Når modellen er oprettet bruges EF til at analysere den, og ud fra det vil EF generere en række af funktionskald som vil oprette databaseskemaet. Disse funktionskald bliver af EF konverteret til et sæt af SQL-statements, som derefter bliver eksekveret på databasen.\\
+Eventuelle ændringer til modellen vil gå i gennem samme proces, EF vil blot generere statements der vil ændre de eksisterende tabeller i stedet for at oprette nye tabeller.
+
+\subsubsubsection{Entity Framework: CRUD}
+Når der skal foretages "Read"\mbox{}-operationer på databasen via EF, så foregår det via LINQ\footnote{Language Integrated Query}\cite{linq} og en LINQ-provider "LINQ-to-Entities"\mbox{}\cite{linqtoentities}.\\
+Ud fra den LINQ-query udvikleren laver, vil EF generere et SQL-statement som returnerer de efterspurgte rækker fra databasen. Det rå data der bliver modtaget vil derefter blive konverteret ved at EF instantierer objekter og indsætter data i de korresponderende felter og properties.\\
+"CUD"\footnote{Create, Update, Delete} bliver med EF håndteret ved at udvikleren opretter, ændrer eller sletter objekter, hvorefter udvikleren fortæller EF at den skal gemme ændringerne til databasen. EF vil da generere SQL-statements der håndterer CUD og eksekvere disse.\\
+
+Den ovennævnte funktionalitet giver udvikleren en simpel abstraktion, som tillader en objekt-orienteret tilgang til persistens.
+
+\subsubsection{Sikkerhed}
+Når ting er tilgængelige på internettet, er det vigtigt at overveje det sikkerhedsmæssige aspekt i et produkt. For at sikre en MySQL-database er det muligt at lave forskellige rettighedsbrugere, hvor det blandt andet kan angives hvilke IP'er der kan tilgå disse rettighedsbrugere. Derudover bliver hver rettighedsbruger tildelt nogle relevante rettigheder. En oversigt over disse rettigheder findes på figur \ref{fig:mysql_rettigheder}
+
+\figur{Figurer/Problemlosning/mysql_rettigheder.png}{Oversigt over rettigheder i MySQL-databaser \screenshotgroup}{mysql_rettigheder}{1.0}
+
+De vigtigste rettigheder, i denne sammenhæng, findes i Data-kategorien. Det skyldes at disse bruges til at opdatere data, mens struktur bruges til at oprette nye tabeller - disse vil som udgangspunkt blive oprettet på forhånd, og er derfor ikke særlig aktuelle. Den sidste, Administration, bruges til at oprette nye brugere, give den rettigheder og så videre. Det er derfor mest interessant at beskrive Data-delen.\\
+
+Det ses som god skik, at have to brugere til et system - en til at læse data og en til at skrive data. Derudover er det også vigtigt, kun at give de rettigheder der er nødvensige \cite{mysql_goodpractice}. Rettighedsbrugeren til at læse data skal have rettigheden "SELECT", som bruges til at hente data med. Det gode ved at have denne som den eneste rettighed er, at denne bruger oftest vil være med i farezonen, eftersom den som regel bruges i frontend - altså den del af programmet, som alle brugere har adgang til. Hvis en ondsindet person skulle få fat i koden, kan der altså kun læses og ikke manipuleres med databasen. \\
+
+Når systemet skal kunne ændre noget i databasen, skal en ny bruger laves med rettighederne \textit{INSERT} og \textit{UPDATE}, som henholdvis bruges til at indsætte en row i databasen og ændre en eksisterende. "DELETE"\mbox{}-rettigheden vil som udgangspunkt være en god idé ikke at tildele en bruger fra systemet. Dette skyldes den potientielle risiko for, at en ondsindet person får adgang, og derved kan slette hele databasen. En bedre måde er, at tillade en rettighedsbruger at "deaktivere" felter fra databasen på, ved at have et felt kaldet "active" (eller lignende), som kan sættes til true eller false. Dette vil heller ikke betyde noget performance-mæssigt, når systemet ikke er større end det Aalborg Roklub har brug for.\\
+
+%\subsubsection*{Opsummering}
+%"Opsummering" er forkert
+Efter denne gennemgang af teorien omkring databaser, er det yderst relevant at undersøge hvordan denne teori kan anvendes på en sådan måde, at det hjælper med at løse en eller flere problemstillinger i kravspecifikationen (afsnit \ref{sec:kravspecifikation}). De to punkter, hvor MySQL-databasen har den største indflydelse, er "Nem søgning" og "Online tilgængelighed". Søgningen gøres væsentlig nemmere da der kan kaldes queries med WHERE-syntaksen. Online tilgængelighed opnås da MySQL vil stå på en server der er forbundet med internettet, så den kan tilgås både i klubben, men også hjemme ved bestyrelsesmedlemmerne selv.

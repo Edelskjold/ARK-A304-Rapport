@@ -1,0 +1,58 @@
+\subsection{Trunktesting}
+% Mikkel was here 16/02/14 16:04
+% Søren - 02/03/14
+% Søren - 03/03/14
+% Rune - 16-05-14 17:05
+\label{sec:trunktesting}
+
+For at kunne beskrive brugervenligheden på de forskellige systemer mere objektivt, benyttes en test kaldet trunktesting. Trunktesting udnytter at den typiske bruger af en hjemmeside scanner hjemmesidens opbygning i stedet for at læse informationerne på siden. I følgende afsnit vil der blive fortaget en trunktest, som er udviklet af Steve Krug med henblik på at forbedre navigationen på en hjemmeside.\\
+
+Steve Krugs' test forløber således, at det svarer til at man sidder blændet i en varevogn, hvorefter man kun lige præcis kan se igennem en lille revne i bilen. Her ser man en hjemmeside, og derefter skal man genfortælle om man kunne se følgende uden anstrengelser:
+
+\begin{enumerate_small}
+	\item Side ID (Hvilken hjemmeside er dette?)
+	\item Sidenavn (Hvor befinder du dig på siden?)
+	\item Sektioner (Er der sektionsopdeling?)
+	\item Lokal navigation (Er der en menu?)
+	\item Hvor er jeg? (Er der en "Her er du:"\mbox{}?)
+	\item Søgefunktion (Er der en søgefunktion? - kun for store sider)
+\end{enumerate_small}
+
+I stedet for at sidde i en varevogn, foreslår Steve Krug i sin bog: “Don't Make Me Think”, at man sidder med en udprintet udgave af hjemmesiden en armslængde fra papiret og hurtigst muligt lokaliserer de 6 punkter med cirkler i form af et skriveredskab.\\
+
+Hvis alle 6 spørgsmål er besvaret med en tilfredsstillende faktor, vil man kunne konkludere at siden har en fungerende navigation. Hvis det derimod ikke er alle 6 spørgsmål, som er opfyldt, betyder dette at man kan begynde at analysere på dette og evt. tilføje mangler. \cite{John_Trunktesting}\\
+
+Denne metode til usability testing vil blive udført på to af de allerede omtalte administrationsystemer. Derudover udføres trunktesten også på Aalborg Roklubs medlemssystem samt deres administrationssystem. Alle tests tager udgangspunkt i en tilfældig underside valgt af gruppen.
+
+\subsubsection{ForeningLet}
+\figur{Figurer/trunktesting/foreninglet_admin.png}{Administrationsdelen fra ForeningLet \screenshotgroup}{foreninglet_admin}{0.85}
+
+%Rettet af Rune 11-03-14 kl. 16:15
+\begin{enumerate}
+	\item \textbf{Side ID}: Site ID'et, "Demoforening", var ikke det som fangede øjnene mest. Efter at have kigget rundt i et kort stykke tid, blev det dog fundet i venstre hjørne, hvor det står skrevet med samme skriftstørrelse og farve som resten af teksten. Dette gør den svær at opdage og der kan altså i starten herske tvivl om hvilken side man besøger.
+	\item \textbf{Sidenavn}: Sidenavnet "Bookingoverblik" gør det meget tydeligt hvilken side man befinder sig på.
+	\item \textbf{Sektioner}: Administrationsdelen af ForeningLet har umiddelbart en meget overskuelig og intuitiv opdeling i sektioner, så det er nemt at navigere rundt i de mange funktioner som admin-delen rummer.
+	\item \textbf{Lokal navigation}: Navigationen som helhed, med den gode sektionsopdeling indregnet, er alt i alt tilfredsstillende og virker intuitivt at bruge for enhver. Dog kræver de mange funktioner noget tid at sætte sig ind i.
+	\item \textbf{Hvor er jeg}: Siden indeholder en "Her er du"\mbox{}-information, der gør det let at vide, hvor du er på siden og derfor har lettere ved at finde det samme sted igen. Derudover hjælper navigationsmenuerne også med at vise, hvor man er i systemet.
+	\item \textbf{Søgefunktion}: Søgefunktion har ForeningLet også fået implementeret på en god måde i menuen, som gør den let at få øje på.
+\end{enumerate}
+
+Det kan ud fra følgende test vurderes at ForeningLet har en overskuelig og intuitiv administrationsside. Systemet bliver altså af testpersonerne vurderet til at være meget brugervenligt.\\
+
+Denne test er dog kun blevet til på baggrund af én side fra hele systemet og det er derfor svært at vide om det er helt retvisende.
+
+\subsubsection{KlubModul}
+\figur{Figurer/trunktesting/klubmodul_admin.png}{Admin-del i KlubModul \screenshotgroup}{klubmodul_admin}{0.85}
+
+\begin{enumerate}
+	\item \textbf{Side ID}: Side ID'et er ikke særligt synligt pga. placeringen næstøverst til venstre - derudover er det heller ikke særlig stort. Hvilket gør det meget svært at vide hvilken side man er på, før man har brugt tid på at undersøge det nærmere.
+	\item \textbf{Sidenavn}: Sidenavnet er rimeligt markeret idet der er en overskrift med anden farve, som også er lidt større. Derudover viser menuerne også hvilken side man befinder sig på. %Rettet Rune 11-03-14 kl. 16:20
+	\item \textbf{Sektioner}: Siden indeholder sektionopdelinger, men det kan være svært at gennemskue, hvad de indeholder, eller hvordan man finder en specifik funktion.
+	\item \textbf{Lokal navigation}: Der er 2 navigationsmenuer. Det er på begge navigationsmenuer muligt at se, hvilken side man er inde på.
+	\item \textbf{Hvor er jeg}: Der er ingen "Her er du"\mbox{}-funktion - dog hjælper navigationsmenuerne med at vise hvor man er i systemet. Derfor vil man stadig kunne finde tilbage til den samme side.
+	\item \textbf{Søgefunktion}: Siden indeholder ingen synlig søgefunktion
+\end{enumerate}
+
+Det kan også ud fra følgende test vurderes at KlubModul er et overskueligt system - dog mangler siden noget synligt sektionsopdeling - hvis dette rettes, vil systemet være nemmere at overskue. Derudover er det heller ikke særligt synligt, at man befinder sig på KlubModuls side. For at forbedre siden kunne en "Her er du"\mbox{}-funktion implementeres.
+
+%Det kan ud fra trunk testen konkluderes at både ForeningLet og KlubModul begge har mangler mht. deres design, dog er det blevet vurderet at ForeningLets system virker meget mere brugervenligt og også indeholder flere af de krævede elementer i trunk testen. Denne information kan vi sammenligne med usability testen i afsnit \ref{sec:Usability} som også afslørede at ForeningLet virker som et bedre system.\\

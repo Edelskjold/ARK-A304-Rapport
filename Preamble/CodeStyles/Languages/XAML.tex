@@ -1,0 +1,12 @@
+\lstdefinelanguage{xaml} {
+    morekeywords={BooleanExpression},
+    alsoletter={:,,/,?},
+    morestring=[b]{"},
+    morecomment=[s]{&lt;!--}{--&gt;},keywordstyle=\color{forestGreen},
+    morekeywords={TypeArguments,Name,Default,DisplayName,OperationName,ServiceContractName,Key,AddressUri,
+CanCreateInstance, LogName, Message, MessageNumber, Expression,CorrelationHandle,Request}
+}
+
+\newcommand{\XAML}[3]{
+    \kodeprintstyle{#1}{#2}{#3}{xaml}
+}

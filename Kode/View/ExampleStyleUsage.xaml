@@ -1,0 +1,2 @@
+        <TextBox Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Style="{StaticResource ResourceKey=txbUserinput}" Grid.Row="3" Grid.Column="1" Height="100" Margin="5,0,0,0"/>

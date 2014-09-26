@@ -1,0 +1,64 @@
+\subsection{Testing}
+\label{sec:imple_test}
+For at kunne vurdere udbyttet af programmet er der fremstillet 2 forskellige tests med henbilk på at teste programmets funktionalitet samt brugervenligheden. Dette gøres ved hjælp af unit-testing, som tester programmets funktioner og en bruger-test, som tester brugervenligheden.
+
+\subsubsection{Unit-testing}
+Unit-tests vil tage udgangspunkt i metoden, som er beskrevet i afsnit \ref{sec:metode_testing}. Alle metoder, der indeholder tests, overholder navngivningsanbefalinger, som er: [ Metode ]\_[ Betingelse ]\_[ Forventning ]. Ligeledes er tests delt ind i fornuftige klasser jf. anbefalinger. \cite{Anbefal_unittest}\\
+
+Afsnittet vil ikke indeholde eksempler på alle unit-tests, men i stedet indeholde én ting for hver klasse, valgt på en sådan måde at disse illustrerer noget forskelligt.\\
+
+\textbf{Boat-klassen}\\
+I denne klasse, er der fokuseret på at teste read-only properties, for at sikre sig at disse udregnes korrekt ud fra de andre properties den pågældende båd har. Til dette eksempel (kode \ref{code:GetActiveTrip_WithTrip_ReturnTrip}) er \textit{GetActiveTrip\_WithTrip\_ReturnTrip} valgt.
+
+\CSharp{Kode/Unittest/GetActiveTrip_WithTrip_ReturnTrip.cs}{Test af read-only property GetActiveTrip}{GetActiveTrip_WithTrip_ReturnTrip}
+
+Linje 4-9 viser Arrange-delen, hvor en ny båd og tur instantieres, ligesom Trips laves til en liste af ture. Herefter tilføjes turen til listen over ture, som Boat-klassen indeholder. Til sidst assignes expected til den tur som er tilføjet til listen. \\
+
+Linje 12 kører Act-delen, hvor operationen som skal testes, altså \textit{GetActiveTrip}, testes. Linje 15 håndterer sammenligningen, hvor \textit{Assert.AreEqual} testes om \textit{expected} og \textit{actual} er ens - hvis de er det, godkendes testen.\\
+
+\textbf{Trip-klassen}\\
+I Trip-klassen er der også fokuseret på at teste read-only properties. Grunden til dette er at der ikke er lavet mockup-data til at kunne teste metoder og lignenden, som forbinder til databasen. Eksemplet (kode \ref{code:TimeBoatOut_Wait5Secs_Return5}) tager udgangspunkt i \textit{TimeBoatOut\_Wait5Secs\_Return5}, som er en read-only property der fortæller hvor lang tid båden har været på vandet.
+
+\CSharp{Kode/Unittest/TimeBoatOut_Wait5Secs_Return5.cs}{Test af read-only property TimeBoatOut}{TimeBoatOut_Wait5Secs_Return5}
+
+Arrange-delen assigner den nuværende dato og tid til \textit{TripStartTime}-property'en ved den nye trip. Herefter asssignes 5 til expected, hvilket giver mere mening længere nede i koden. I Act-delen "sover" programmet nemlig i 5000 ms (svarende til 5 sekunder), hvorefter \textit{actual} assignes til \textit{TimeBoatOut} i sekunder. Dette skulle også gerne give 5, da det er 5 sekunder siden den fik en starttid - dette tjekker \textit{Assert.AreEqual}.\\
+
+\textbf{XML-parser}\\
+XML-parseren bruges blandt andet til at indlæse data fra Aalborg Roklubs nuværende system, men dette er ikke det eneste. Den bruges også til at hente solnedgangstidspunktet, så sms-systemet kan sende advarsler ud, hvis folk ikke kommer tilbage inden mørkets frembrud. Unit-test af \textit{GetSunsetFromXml} vises i kode \ref{code:GetSunsetFromXml_WithData_ReturnDateTime}
+
+\CSharp{Kode/Unittest/GetSunsetFromXml_WithData_ReturnDateTime.cs}{Test af indlæsning af solnedgang fra XML-fil}{GetSunsetFromXml_WithData_ReturnDateTime}
+
+Arrange-delen på linje 5 sætter \textit{expected} til at være dags dato, mens \textit{actual} i Act-delen får dato og tid for solnedgang. Assert-delen sammenligner ved at tjekke datoen for de to DateTime-variable. Dette er for at teste at det er dagens solnedgang der er fundet. Hvis det er det, kan det konkluderes at det rigtige tidspunkt er fundet.\\
+
+For at kunne betegne programmet som en succes, er det dog ikke nok at lave unit-testing. Derfor skal der også laves bruger-testing, for at undersøge om systemet er funktionelt for Aalborg Roklub.
+
+% Rune 17-05-2014 16:30
+\subsubsection{Usability-testing}
+Projektet er blevet udviklet med eftertanke på, at det endelige program skal formes efter de ønsker og problemstllinger, der ligger hos Aalborg Roklub. Formålet med usability-testen er såfremt at finde og klargøre disse ønsker og problemstillinger, som det nuværende udviklet program ikke umiddelbart opfylder. fordelen ved testen er, at den kan fremhæve uforudsette mangler, som projektets gruppe ikke har gennemskuet. Testen er fremstillet vha. fremgangsmetode i teori-afsnittet om design af brugergrænseflader[\ref{sec:teoribrugerdesign}]\\
+
+\textbf{Fremvisning}\\
+Mødet i Aalborg Roklub d. 15. maj bestod af en usability-test af projektets program. Et enkelt medlem var mødt op i Aalborg Roklubs klubhus om morgenen, for at sætte programmet op på en touchskærm og teste systemet med nogle af de fremmødte medlemmer fra Aalborg Roklub. Processen blev filmet, og hele gruppen har efterfølgende set og analyseret videoerne i fællesskab. Testen bestod af flere cases, som kan findes i bilag \ref{bil:usability}. Alle cases har det tilfælles, at de kan gentages med flere forskellige medlemmer. Hertil er hvert case blevet fokuseret på de forskellige dele af protokolsystemet, der forventes at indeholde hyppigt fremkomne arbejdsopgaver for medlemmerne i Aalborg Roklub.\\
+
+De 5 forskellige cases tester medlemmernes evne til at:
+\begin{enumerate_small}
+    \item Starte en rotur
+    \item Afslutte en rotur
+    \item Få et overblik over de både, der er på vandet
+    \item Oprette en skade
+    \item Oprette en langtur
+\end{enumerate_small}
+
+Resultatet af ovenstående tests benyttes til at kritisere brugergrænsefladen af programmet og altså ikke medlemmernes evne til at udføre en bestemt opgave. De forskellige cases nåede ikke at blive gentaget mange gange, men de påvirker stadig projektets troværdighed og agilitet i en positiv retning, da det altid vil være muligt, at gentage denne test på et senere tidspunkt, for at følge op på forbedringer af protokolsystemet.\\
+
+\textbf{Respons}\\
+Testens forløb var en stor success: Der blev registreret flere program-relaterede- og intuitive designfejl til hvert af de ovenstående punkter, som ellers var overset af gruppen. Derudover, var der også enkelte forslag til forbedring. Enkelte af disse er som følgende:\\
+
+\begin{enumerate}
+    \item Det var svært at scrolle i "start en rotur". Problemet berører brugergrænsefladen som værende ikke-intuitiv
+    \item Hovedvinduet skal deaktiveres, når en afsluttet rotur skal bekræftes. Her opstod der problemer ved, at brugeren kunne trykke på knapper, der ikke relaterede sig til det aktive vindue
+    \item Det opstod som et irritationsmoment, at man under "Overblik over både" ikke kunne gå direkte til en båds pågældende medlem i medlemsinformation med et enkelt klik
+    \item Det var svært at finde knappen til at oprette en skade. Problemet påvirker hvor intuitivt programmet er
+    \item Brugeren var usikker ved tildeling af ansvarlig ved oprettelse af en langtur
+\end{enumerate}
+
+Det har ikke været muligt at rette de fejl, som blev erfaret under testen. Dette skyldes den sene udførelse af testen i projektets tidsforløb. Programmet kan stadig vurderes køreklart, eftersom de basale funktioner fungerer, men det vil være mest hensigtsmæssigt, hvis fejlene blev rettes før udgivelse, og programmet evt. kunne blive testet endnu en gang for så at rette efterfølgende fejl.

@@ -1,0 +1,44 @@
+\begin{itemize_small}
+
+\item Den lokale database skal tilgængeliggøres fra internettet, således at administration kan ske hjemmefra, enten igennem et installeret program eller en internet-browser
+
+\item Aalborg Roklubs nuværende design sætter en række udbyggelsesmæssige begrænsninger, og derfor forslås det, at der konstrueres et helt nyt bruger-interface (WPF baseret)
+\begin{itemize_small}
+\item Hertil ønsker vi at sætte speciel meget fokus på interaktionen mellem bruger og system. Dette betyder, at designet vil blive konstruereret på baggrund af velovervejede forudsætninger
+\end{itemize_small}
+
+\item Sikkerhedsmæssige aspekter, i form af et SMS-system som underretter bestyrelsesmedlemmer, hvis medlemmerne ikke er kommet tilbage inden mørkets frembrud, eller har været ude meget længere tid end de angav
+\begin{itemize_small}
+\item Disse tider vil blive reguleret automatisk
+\end{itemize_small}
+
+\item En status på udlejningsmateriel, så medlemmerne og administrationen altid kan se bådenes status (om de er ude, hjemme eller beskadiget). Materiel der er klar til udlejning, skal angives som grønne, og beskadiget materiel, skal angives som røde - og derved ikke gøres tilgængelige for andre medlemmer
+\begin{itemize_small}
+\item Medlemmer skal selv have mulighed for at ændre i bådenes status og beskadigelsestilstand. Hvis et medlem angiver at båden er beskadiget i en sådan grad, bliver et bestyrelsesmedlem notificeret
+\item Medlemmerne har kun mulighed for at leje materiel som ikke er registreret som "udlånt" eller "beskadiget"
+\end{itemize_small}
+
+\item Ved længere ture - hvor en styrmand er påkrævet - påkræves der af registranten, at der tilføjes et medlem med styrmands-rettigheder til turen. Dette kræver at databasen indeholder informationer om medlemmernes rettigheder (som skal hentes fra "medlemssystemet")
+
+\item Ved hjemkomst skal medlemmerne have mulighed for følgende:
+\begin{itemize_small}
+\item Juster kilometerne på deres egne ture
+\item I tilfælde af skader, skal medlemmerne have mulighed for at indregistrer skadeindmeldelsen elektronisk
+\end{itemize_small}
+
+\item Bestyrelsen skal kunne se, hvem der angivet skadeanmeldelserne, ændret bådens status, samt følge op på diverse materiel.
+\begin{itemize_small}
+\item For at øge logfilens pålidelighed, ønsker vi at konstruere et pinkode login-system (fire tal), til at identificere registranten
+\item Et log-system kunne sættes op, så det automatisk kan ses, hvilket medlem der har foretaget registrationen. Med dette system, kunne det være muligt for medlemmer at ændre i alle tur-informationer, samt skadestilstande for materiel (hvis de selv vil reparere skaden eller lign.)
+\end{itemize_small}
+
+\item En integrering af medlemsdatabasen fra "medlemssystemet", således at det kun er nødvendigt at indtaste og ændre medlemsdata ét sted
+
+\end{itemize_small}
+
+
+%Løsningen vil fungere som en viderebyggelse af Aalborg Roklubs eksisterende udlejningssystem (også kaldet protokolsystem). Dette bunder i manglen på en administrativ vinkel i det system, hvor man i dag skal gå manuelt ind i XML-filerne og se hvad der er sket. I det nye system skal det være muligt for bestyrelsen (eller andre administrative organer) at kunne se status og statistik over forskellige ting - her kan blandt andet nævnes hvem der laver flest skader og hvilke både der ikke kommer hjem til tiden. \\
+
+%Hermed fører det over til en logiske sammenkobling i forhold til det sikkerhedsmæssige perspektiv, hvor det er muligt at opstille en kontrol for om nogle af bådene ikke er hjemme efter mørkets frembud (hvilket er et krav i roklubben) - er dette tilfældet, kan det vise sig som et “alarmflag”, hvor styrmanden på den pågældende båd skal bekræfte at alt er under kontrol. Modtager man ikke den bekræftelse, skal et bestyrelsesmedlem alarmeres, som kan sikre sig at der ikke er sket noget med båden eller besætningen.\\
+
+%Af de datalogiske emner vil der blive fokuseret meget på databaser og brugergrænseflader på den måde at der skal laves en databaser over alle båder, deres ruter, anvendelsestidspunkt, skader og så videre. Dette skal stilles op på en god og effektiv måde i en online database (fx ved brug af MySQL), så den kan tilgås overalt, men også så forskellige systemer kan snakke sammen over den samme database. Dette vil blive lavet i C\# mens det nuværende system er i Visual Basic - dette vil dog ikke være noget problem, når der laves en database som begge system kan kommunikere med.

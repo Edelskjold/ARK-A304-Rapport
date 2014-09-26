@@ -1,0 +1,78 @@
+\label{sec:implementering}
+
+% Rune 19-05-2014 11:40
+Gennemgangen af metoder og teori leder op til den endelige implementation af projektets produkt, et program, der skal opfylde de krav, som er stillet i kontekst med projektets udvikling. Følgende afsnit indeholder underafsnit, der redegører for dele af flowet i programmet, XML-parseren, design af brugergrænsefladen, MVVM og SMS-modulet.
+
+% Mads
+% Rune 19-05-2014 12:00
+\subsection{Flowcharts}
+Gruppen har tidligt i udviklingsprocessen udformet et flowchart, for at gøre programmets funktioner overskuelige og sørge for, at disse funktioner blev indkodet i programmet. De følgende diagrammer viser ikke nødvendigvis en præcis repræsentation af det endelige program, men de bør stadig give en ide om, hvordan programmet fungerer, og er opbygget. Flowchartet findes på cd'en i sin fulde størrelse (se bilag \ref{bil:cd} for liste over indhold på cd)
+
+%Ud fra Moscow analysen som er blevet brugt, for at finde ud af hvad der er "nice to have", og "need to have", blev der brainstormet hvad funktionerne præcis skulle kunne.\\
+
+%I dette afsnit vil der blive forklaret uddrag af det komplete flowchart, som vil give en ide, omkring hvordan flow-chartet er blevet brugt i projekt sammenhæng.\\
+
+{\textbf{Start af programmet}}\\
+Under kompileringen af programmet genereres der to seperate eksekverbare filer. Den ene eksekverbare fil starter protokolsystemet og en anden starter administrationssystemet. Valget mellem disse to filer skal lede til hhv. Protokolsystem.xaml og AdminLogin.xaml, hvor AdminLogin.xaml efter succesfuldt login vil lede til AdminSystem.xaml. Illustrationen af "Start-up" i flow-chart form, kan ses på figur \ref{fig:fc-startup}.
+
+\figur{Figurer/flowchart/flowchart-startup.png}{Flowchart for startup af programmet \figuregroup}{fc-startup}{1.0}
+
+{\textbf{Oversigt i administrationssystemet}}\\
+Ved start af administrationssystemet vises der en oversigt, som har til formål at give bestyrelsesmedlemmerne et overblik over de vigtigeste ting, der vedrører den daglige drift af foreningen.\\
+
+% Rune 19-05-2014 12:30
+Dette bliver vist i Overview.xaml, som indlæser informationer fra de forskellige tabeller i databasen. Her bliver der hentet data fra langtursblanketter, skadesanmeldelser og de både, som er på vandet. Dette bliver lagt over i et \textit{dataview}, hvor dataen bliver pænt udskrevet i dets respektive kategori. Hertil er det muligt at filtrere de viste resultater fra \textit{dataviewet}. Filtreringen håndteres gennem checkboxes, der enten inkluderer eller ekskluderer langture, skader eller både ude. Yderligere kan filtreringen også specificeres af brugeren gennem et søgningsfelt, som er illusteret på figur \ref{fig:fc-oversigt}.
+
+\figur{Figurer/flowchart/flowchart-oversigt.png}{Flowchart for oversigt \figuregroup}{fc-oversigt}{1.0}
+
+% Rune 19-05-2014 13:05
+{\textbf{Afslutning af rotur i protokolsystemet}}\\
+Når brugeren ønsker at afslutte en rotur, som vist i bilag \ref{fig:fc-afslut}, bliver der hentet data om hvilke både, der er på vandet, hvorfra de pågældende både bliver vist til brugeren gennem et \textit{listview}. Herfra skal brugeren vælge en båd fra \textit{listview'et}, hvorefter den igangværende tur kan afsluttes. Under afslutningen kan brugeren vælge mellem 3 muligheder: "slet tur", "indtast kilometer manuelt" eller "Afslut tur", der hhv. deaktiverer turen fra databasen, udspecificerer den roede distance eller markerer turen som afsluttet i databasen.\\
+
+Når brugeren vælger at afslutte en tur, skal systemet lagre det antal kilometer, som er roet på turen og tilføje dette til alle besætningsmedlemmernes kilometerstatistik. Efter dette er udført skal brugeren informeres om, at handlingen er blevet udført. Før turen er afsluttet kan brugeren angive den roede distance eller blot vælge en standardtur fra samme vindue, der indeholder en standardværdi for roet distance. Denne standardværdi kan yderligere overskrives af brugeren, så det er muligt at vælge en standardtur og at angive en brugerdefineret distance.\\
+
+\figur{Figurer/flowchart/flowchart-afslut.png}{Flowchart for afslutning af rotur \figuregroup}{fc-afslut}{0.55}
+
+% Mikkel
+% Rune 19-05-2014 13:30
+\subsection{XML-parser}
+\label{sec:xmlparser}
+For at få systemet til at køre er det nødvendigt at lave en XML-parser, så data fra Aalborg Roklubs nuværende system kan importeres og benyttes. Da XML-formatet allerede er blevet beskrevet i afsnit \ref{sec:Databaseteknologi}, vil dette ikke blive uddybet yderligere.\\
+
+XML-parseren er delt op i tre dele: en til medlemmer, en til både og en til ture. Ved parsing af XML-filerne er der taget udgangspunkt i email-korrespondancen, som har hjulpet med angivelsen af struktureringen tilhørende deres XML-fil. Email-korrespondancen kan findes i bilag \ref{bil:email}.\\
+
+Fælles for alle dele af XML-parseren er at de anvender en kombination af XmlSerializer klassen og auto-genererede klasser, som hhv. er indbygget i .Net og genereret ud fra XML-filerne. Denne kombination tillader en nem konvertering fra XML-fil til in-memory objekter. Når XML-filerne er blevet indlæst som objekter, er de nemme at arbejde videre med, og oplysninger, der skal bruges, kan udtrækkes på en objekt orienteret facon.
+
+\subsubsection*{Både}
+
+\CSharp{Kode/LoadBoatsFromXml.cs}{Indlæsning af både fra XML-fil}{loadboatsfromxml}
+
+% Rune 19-05-2014 14:30
+I kode \ref{code:loadboatsfromxml} ses hvordan bådene indlæses fra XML-filen og gemmes i databasen. Linie 5 kalder en metode, som sørger for at downloade den nyeste version af XML-filen fra FTP-serveren. Denne metode vil returnere null, hvis databasen allerede er blevet opdateret i forhold til den nyeste fil - deraf det efterfølgende if-tjek. Hvis returværdien ikke er null bliver XML-filen indlæst på linie 11.\\
+
+Foreach-loopet, der starter på linie 13, tjekker om alle både i databasen også findes i XML-filen, og sørger for at fjerne dem fra databasen, hvis de ikke er i XML-filen. Det næste foreach-loop på linie 21 itererer hen over alle både i XML-filen; findes båden alllerede i databasen (if condition er true), opdaterer den bådens felter med værdier fra XML-filen. Findes båden ikke i databasen (else blok) instantieres en ny båd, værdier kopieres fra den auto-generede klasse og båden tilføjes til databasen.\\
+
+På linie 40 bliver SaveChanges kaldt på den lokale database context, sådan at alle ændringer propagerer til databasen.
+
+\subsubsection*{Medlemmer}
+% Rune 19-05-2014 15:10
+Alle metoder til indlæsning af data fra XML-filer minder meget om hinanden - der er dog én ting, der er værd at nævne i forhold til indlæsning af medlemmer.
+
+\CSharp{Kode/LoadMembersFromXml.cs}{Udsnit af indlæsning af medlemmer fra XML-fil}{loadmembersfromxml}
+
+I kode \ref{code:loadmembersfromxml} ses en lille del af LoadMembersFromXml, hvor telefonnummeret indlæses. Dette gøres ved hjælp af en anonym delegate (Func<string, string>), der tager en string som input, og returnerer en string som output. Denne delegate indeholder derudover et lambda-udtryk, der ved hjælp af et betinget udtryk, afgører om x (input) er null. Hvis x ikke er null, bruges der Regex\footnote{Regular Expression} til at fjerne alt andet end tal fra x. Dette skyldes, at der nogle steder i XML-filen kan være bindestreger eller mellemrum i telefonnumrene. Firkant-parenteser definerer et sæt og caret inde i [\textasciicircum0-9] angiver at alt andet end sættet skal matches, sådan at alt andet end tallene 0-9 fjernes fra strengen. Hvis x derimod er lig med null, returneres der blot en tom streng ved hjælp af string.Empty.
+
+\subsubsection*{Synkronisering}
+% Rune 19-05-2014 15:40
+Eftersom vores løsning ikke er designet til at erstatte Aalborg Roklubs medlemskartotek, så er det nødvendigt at synkronisere oplysningerne i databasen regelmæssigt med de oplysninger, som det nuværende medlemskartotek eksporterer til XML.\\
+
+\CSharp{Kode/XmlSynchronizer.cs}{Opsætning af asynkron task til periodisk synkronisering}{xmlsync}
+
+Kode \ref{code:xmlsync} håndterer den førnævnte problemstilling ved at opdatere databasen en gang i timen.\\
+If-blokken på linie 7 sørger for at tjekke at Task'en ikke bliver startet to gange, da dette vil være redundant og kan introducere flere diskrete bugs.\\
+Selve Task'en er forholdvis simpel; på linie 10 bliver Task'ens krop defineret til at være en asynkron lambda funktion (markeret med async keywordet). Dette lambda-udtryk indeholder en uendelig løkke, som først synkroniserer data fra FTP og derefter venter den på en tom Task, hvis eksekvering bliver udsat med en time.\\
+
+Denne opbygning medfører at den uendelige løkke bliver kører igennem en gang i timen, og ved at bruge await, frem for at sætte tråden til at sove, så bliver tråden ikke optaget, og derfor kan den sættes til at lave andre ting mens Task'en afventer.
+
+\subsubsection*{Solnedgang}
+XML-parseren indeholder yderligere funktionalitet der bliver brugt til at indlæse informationer omkring solnedgang, som bliver downloadet fra en service via HTTP. Denne indlæsning sker en gang i døgnet, og dette opnåes på samme vis som \ref{code:xmlsync}, den venter blot 24 timer i stedet for en time. Et kodeeksempel kan ses på kodestykke \ref{code:GetSunsetFromXml_WithData_ReturnDateTime}

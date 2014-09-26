@@ -1,0 +1,86 @@
+\subsection{Usability testing}
+% Mikkel, 19-02-2014
+% Søren, 02-03-2014
+% Mikkel, 03-03-2014
+\label{sec:Usability}
+
+I dette afsnit vil der foregå en omfattende række tests af to forskellige softwareløsninger, som burde kunne afhjælpe den initierende problemstilling. Formålet er at opnå viden omkring brugervenligheden i de eksisterende produkter, for at finde eventuelle mangler, som gruppen kan løse i forbindelse med produktudarbejdelsen. Systemerne blev identificeret på baggrund af tidligere redegørelse (afsnit \ref{sec:modulbeskrivelse}).\\
+
+Udover testen af de to systemer, vil Aalborg Roklubs systemer også blive testet, for at fastslå fordele og ulemper ved deres nuværende system med henblik på at finde mulige forbedringer.\\
+
+Opbygningen af usability-testen er baseret på "Writing for Interaction"\mbox{}, som beskriver de tre trin i processen - planlægning, udførelse og evaluering. Kort fortalt skal der først laves noget planlægning, hvor der laves en liste over nogle kernefunktioner, som testeren skal udføre - et eksempel på dette, er oprettelsen af et nyt medlem eller udsendelse af regninger. Når testen derefter skal udføres, er det vigtigt at personen er 100\% sikker, på hvad der skal foregå og samtidig have mulighed for at komme med kommentarer efterfølgende. I evalueringen er det vigtigt at få en liste over om nogle funktioner ikke var mulige at udføre - og hvordan de fungerende funktioner kunne udføres. \cite{WritingForInteraction}\\
+
+De tre systemer - ForeningLet, KlubModul samt Aalborg Roklubs systemer - vil blive testet individuelt ud fra fire overordnede funktionskategorier, som hver indeholder mindre funktioner. Disse er udarbejdet ud fra, hvad der forventes som kernefunktionalitet i et sådant system, og er beskrevet nærmere i afsnit \ref{sec:modulbeskrivelse}. Kategorierne er: Medlemsdatabase, Regnskabssystem, Bookingsystem og Design. Testen er udført af gruppen.
+
+\subsubsection{ForeningLet}
+Det er bemærkelsesværdigt at dette kun er en demoside, men da hjemmesiden er lavet ved hjælp af et CMS-system\footnote{Content Management System}, vil der ikke være stor forskel i designet.\\
+
+{\bf Medlemsdatabase}\\
+Det første der undersøges er oprettelse af medlem - dette fungerer rigtig godt og der eksisterer tre måder at gøre det på. Den første metode er at det manuelt gøres i administrationspanelet, men et medlem kan også oprette sig direkte på hjemmesiden. Den sidste mulighed er at importere en Excel-fil, så der hurtigt kan oprettes mange medlemmer.\\
+
+Dernæst undersøges muligheden for at kommunikere med medlemmer (eller grupper af disse). Det kan nemt gøres ved hjælp af enten e-mail eller sms og fungerer derfor også på tilfredsstillende vis.\\
+
+Angående gruppering af medlemmer, er dette også muligt i systemet - det er dog ikke muligt at give disse forskellige rettigheder. Et muligt scenarie hvor dette kunne være et problem, er i forbindelse med undervisning, hvor underviseren enten skal have alle rettigheder til systemet eller have en administrator til at føre protokol.\\
+
+Det er heller ikke muligt at give de forskellige medlemmer rettigheder i forhold til hvilke ting de har tilladelse til i foreningen - herunder eksempelvis hvilke personer der er styrmand og altså må leje både.\\
+
+{\bf Regnskabssystem}\\
+Indledningsvist undersøges mulighederne for at udsende regninger til medlemmer - her er både abonnementer, enkeltregninger, regninger til grupper af medlemmer samt rykkere muligt. Det må derfor siges at opfylde behovene.\\
+
+Kigges der lidt mere på det administrative, indeholder systemet også gode muligheder til at holde regnskab, budgetter og se oversigt over indtægter og udgifter. \\
+
+{\bf Bookingsystem}\\
+I forbindelse med bookingsystemet undersøges flere ting - det første er automatisk booking af både til skolebrug, som i ForeningLets system kan gøres både på hjemmesiden og i administrationspanelet. Dernæst kigges der på oprettelsen af nye både, som nemt gøres i administrationspanelet, hvorefter de kan bookes på både hjemmesiden og manuelt i administrationspanelet - desuden er der også noget grafisk, så man kan få et nemt overblik over bådenes status. Dette giver et overblik over hvilke både der er udlejet. En mangel her, er at det ikke er muligt at sende en automatisk sms ud ved udeblivelse og ligeledes, at man ikke kan se om en båd er skadet, og dermed ikke kan lejes ud.\\
+
+{\bf Design}\\
+I design-delen fokuseres der på om hjemmesiden er mobilvenlig og om den generelt giver et godt visuelt overblik. Admin-panelet er ikke mobilvenligt, men det er selve hjemmesiden derimod. Dette kan godt være et problem, da nogle måske foretrækker at klare hurtige administrative opgaver på en smartphone, fremfor at skulle have gang i computeren.\\
+
+Det visuelle overblik er generelt rigtig fint, hvor det er med til at give gode grafiske overblik uden at blive for meget og derved uoverskueligt.
+
+\subsubsection{KlubModul}
+Klubmodul er, ligesom ForeningLet, henvendt til et bredt udsnit af foreninger og altså ikke specifik til sejl- og roklubber. Websiden er ligesom ved ForeningLet lavet i et CMS-system. De samme kriterier vil blive anvendt til testen af dette system.\\
+
+{\bf Medlemsdatabase}\\
+Oprettelse af medlem kan kun gøres af brugeren selv igennem en oprettelsesformular på hjemmesiden - det er en stor ulempe, at en administrator ikke kan oprette brugere til folk gennem administrationspanelet. Derudover fungerer medlemsdatabasen fint, hvor der ligesom ForeningLet kan sendes e-mails og sms'er til medlemmer og grupper af medlemmer. Netop i forbindelse med grupper af medlemmer, indeholder dette system samme mangel som hos ForeningLet, hvor der ikke kan ændres i adgang til administratorpanelet.\\
+
+{\bf Regnskabssystem}\\
+Regnskabssystemet har samme funktionalitet som ForeningLets system, som kan siges at være tilfredsstillende. En smart feature er dog det indbyggede webshop-system, hvor salget af produkter føres direkte ind i regnskabet automatisk, så der ikke skal udføres dobbeltarbejde.\\
+
+{\bf Bookingsystem}\\
+I forbindelse med bookingsystemet undersøges der blandt andet, om hvorvidt systemet har mulighed for automatisk at booke både til skolebrug. Dette er i KlubModul muligt og er meget let at gøre via hjemmesiden. Bookingsystemet er primært centreret omkring en kalenderopbygning, hvor der gives et grafisk overblik, men til gengæld ikke er så detaljeret i forbindelse med udlejning af både, som det er i ForeningLet - her kan eksempler som sejlrute, reel hjemkomst og anmeldelse af skader nævnes. Dette er altså ikke en integreret del af produktet, og derfor skal der suppleres med enten andre systemer eller med papir. Dette forringer brugervenligheden væsentligt og laver meget dobbeltarbejde.\\
+
+{\bf Design}\\
+Designet her er gjort meget venligt for alle typer skærme. Dette system ville dog ikke egne sig til en touch-skærm, da knapperne ville være mindre, og derved sværere at klikke på. Samtidig er der brugt relativt store skriftstørrelser, som gør det nemt at se og læse på mindre skærme. Det visuelle overblik på hjemmeside er middelmådigt, hvor der kunne bruges mere grafik visse steder.
+
+\subsubsection{Aalborg Roklub}
+\label{subsec:usability_ark}
+Aalborg Roklub har deres eget system til administration og registering af ture. Det er dog 2 seperate systemer og er derfor ikke fuldstændigt integreret.\\
+
+{\bf Medlemsdatabase}\\
+Systemet til medlemsadministration gør det relativt enkelt at oprette et nyt medlem. Herudover er der mulighed for at justere hvilke rettigheder de enkelte medlemmer har - systemet er dermed specialiseret til Aalborg Roklub. Søgning i medlemsdata er også muligt, ligesom medlemsdatabasen bliver repræsenteret i en tabel, hvilket er med til at give et hurtigt overblik. Aalborg Roklubs system indeholder dog ingen mulighed for kommunikation med medlemmerne.\\
+
+Systemet indeholder også mulighed for at registrere hvilke både, der har sejlet på hvilke ture og hvilke personer der har lånt den. Derudover bliver kilometerantal også registreret, som Aalborg Roklub bruger internt til bl.a. konkurrencer.\\
+
+{\bf Regnskabssystem}\\
+Aalborg Roklubs medlemssystem fungerer også som regnskabssystem mht. til kontigentindbetalinger, men systemet er ikke et decideret regnskabssystem, der kan vise den totale balance. Det er dog let at få overblik over hvilke personer, der har betalt og hvilke personer der ikke har - derudover er det også simpelt at ændre kontigentgruppe, eksempelvis fra studerende til senior.\\
+
+Til indlæsning af kontigentbetalinger, benyttes en speciel løsning hos Danske Bank, hvor Aalborg roklub genererer en fil, som deres regnskabsprogram kan indlæse. Dette er en ekstra service, som bliver udbudt af Dansk Bank, som bliver afregnet pr. fil genereret.\\
+
+{\bf Bookingsystem}\\
+Ved bookingsystemet er der mulighed for at registrere ture og se hvilke både der er udlånt i øjeblikket - dette sker vha. en touch-skærm, som står i klubhuset. En tur registreres gennem meget få trin, hvilket kræver at man vælger båden, navnet på alle der skal med og derefter er turen registreret.\\
+
+Når en tur er færdig, vælges "Afslut rotur" og dernæst vælges båden og antallet af kilometer, man har sejlet. Det er her muligt at vælge et antal af prædefinerede ruter med antallet af km eller at indtaste det manuelt.\\
+
+Systemet fungerer kun på computeren, det kører på og systemet kan derfor ikke tilgås fra internettet.\\
+
+{\bf Design}\\
+Systemet til Aalborg Roklub har generelt meget store knapper, som er gode for en touch-skærm. Systemet er udelukkende designet til en bestemt skærmstørrelse og det er derfor ikke mobilvenligt - det kan dog slet ikke køre på mobilenheder.\\
+
+Systemet er generelt meget let at bruge og alle i roklubben kan finde ud af det. Det grafiske på systemet er dog ikke særligt pænt og det er tydeligt, at der ikke er blevet lagt store krafter i, at få det til at se grafisk godt ud.
+
+
+%Skrevet af Rune d. 03-03-14 Kl. 12:45
+Selvom de fremstillede problemstillinger både bevirker medlemskartoteket og protokolsystemet, så ekskluderes førstenævnte, eftersom protokolsystemet vurderes værende det mest interessante, da det omfatter størst potentiale for forbedring i relation med Aalborg Roklubs ønsker.
+
+%\textbf{Opsummering} % Ikke relevant hvis der opsummeres på begge afsnit i bunden af trunk
+%Efter disse tests, hvor det kan konkluderes at selve booking- og udlejningssystem er mangelfuld, vil der også blive udført trunktesting på disse systemer i afsnit \ref{sec:trunktesting}\mafix{Dette skal redigeres.}

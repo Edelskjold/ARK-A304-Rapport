@@ -1,0 +1,123 @@
+\label{sec:kravspecifikation}
+% Skrevet af Mikkel, 11-03-2014
+
+% Rettet af Rune, 10-04-2014 10:00
+Før et produkt påbegyndes, er det vigtigt at få udarbejdet hvilke krav der stilles til produktet. Dette sikrer både at alle de involverede arbejder hen mod samme resultat, men også at alle har gjort sig grundige overvejelser, så der ikke tilføjes funktioner, der ikke kan udnyttes alligevel. Kravene er delt op i to kategorier: Funktionelle og non-funktionelle krav. Kategoriernes forskellighed afspejles ved, om de tilhørende krav tilhører en system-baseret løsning. Her er det de non-funktionelle krav, der ikke er system-baseret - disse er en abstraktion af de ønsker, der er udarbejdet gennem problembeskrivelsen, hvortil de system-baserede krav og moduler gerne burde løse eller forbedre de non-funktionelle krav.\\
+
+% Rettet af Rune, 10-04-2014 09:20
+En model der kan bruges til at lave en kravspecifikation er en MoSCoW-analyse. Modellen er delt ind i fire punkter: "Must have", "Should have", "Could have" og "Won't have" \cite{moscow_book}. Disse vil blive gennemgået, hvorefter kravene til produktet i dette projekt stilles op og forklares. Følgende krav er udarbejdet ud fra den første iteration med Aalborg Roklub (Se afsnit \ref{sec:imple_iterationer}), men også at løbende iterationer bevirker kravene og deres prioritet.\\
+
+\textbf{Must have}\\
+Krav opstillet i "must have"\mbox{}-kategorien er de vigtigste krav til produktet - disse skal være fuldt ud opfyldt, for at produktet kan erklæres som værende en succes.\\
+
+\textbf{Should have}\\
+Denne kategori indeholder krav, som næsten er på niveau med krav i kategorien "must have"\mbox{} - dog kan disse til nøds undlades, hvis det på ingen måde er muligt, pga. tidsmangel eller tekniske problemer, at implementere dem.\\
+
+\textbf{Could have}\\
+Hvis et krav er i kategorien "could have"\mbox{}, er det et krav som så vidt muligt skal implementeres - hvis tiden og ressourcerne tillader det. Det er altså ikke nødvendigt, men klart at foretrække at få opfyldt disse krav.\\
+
+\textbf{Won't have}\\
+Det er vigtigt at denne kategori forstås rigtigt - umiddelbart ville det falde naturligt at tænke at disse krav, er noget man ikke vil implementere. Dette er ikke tilfældet, da kravene i denne kategori er valgt fra i denne udgave, men ville være gode at få implementeret senere i en eventuel opgradering af produktet. \\
+
+Med denne viden om analysen, kan en MoSCoW-model for dette projekts løsning blevet konstrueret. Denne ses på tabel \ref{tab:moscow}
+
+\subsubsection{Funktionelle krav}
+
+\textbf{MoSCoW-model}\\
+\begin{table}[H]
+    \begin{tabularx}{\textwidth}{l|l|l|X}
+    \textbf{Must have} & \textbf{Should have} & \textbf{Could have} & \textbf{Won't have}\\ \hline \hline
+    
+    Udlejningssystem & Langtursanmodning & SMS advisering & Medlemskartotek\\ \hline
+    Administrationspanel & Justering af distance  & Statistik til medlemmer   &   Nye blanketter\\ \hline
+    Skadessystem & ~ & Statistik til admins & ~\\
+    \end{tabularx}
+    \caption{\textit{MoSCoW-model for produktet. \tabelgroup}}
+    \label{tab:moscow}
+\end{table}
+
+Herunder vil de individuelle moduler og argumentationen for deres vigtighed blive præsenteret.\\
+
+%Must Have
+\textbf{Udlejningssystem}\\
+Med udlejningssystem refereres der til den grundlæggende funktionalitet, som vil tillade brugere at registrere en tur med en bestemt båd og en bestemt besætning, hvorefter denne registrering vil blive gemt. Denne funktionalitet bliver udvidet i forbindelse med andre krav, som vil blive beskrevet separat, da udlejningssystemet er uafhængigt af disse funktioner for at fungere.
+Udlejningssystemet er et must have, for at løsningen kan betegnes som en succes, da det er hele grundlaget for det program der skal udvikles, og ingen af de andre funktioner er relevante, hvis dette ikke er implementeret.\\
+
+\textbf{Administrationspanel}\\
+Som påpeget under kravet til online tilgængelig, er det meningen at produktet skal hjælpe bestyrelsen med at varetage forskellige administrative opgaver. Derfor er det naturligt at disse opgaver samles i ét administrationspanel, som vil give bestyrelsen adgang til at udføre de forskellige opgaver, de skal varetage. Dette vil også muliggøre, at kravet til online tilgængelighed kan løses ved at gøre dette administrationspanel tilgængeligt fra internettet. Administrationspanelet skal desuden kunne lette bestyrelsens opgaver, så derfor skal det give en klar og overskuelig oversigt over, hvad der skal gøres, og det skal give adgang til alle oplysninger om både og ture - både påbegyndte og afsluttede.\\
+
+\textbf{Skadessystem}\\
+Skadessystemet er et forholdsvist indviklet system, som er tæt integreret med udlejningssystemet. Skadessystemet skal i dets grundlæggende form gøre det muligt for brugere at anmelde skader på både, hvorefter skadessystemet, afhængigt af skadens karakter, skal gøre den pågældende båd utilgængelig for medlemmerne. Skadessystemet skal ligeledes holde styr på eventuelle udviklinger i forbindelse med skaden, og hvorvidt denne er blevet udbedret og båden igen er tilgængelig.\\
+
+For at gøre dette mest hensigtsmæssigt, giver det mening, at skadessystemet leverer en prædefineret liste over skader, som brugeren har mulighed for at vælge, når denne vil lave en skadesanmeldelse. Dette vil gøre det muligt, på forhånd, at tage en beslutning om hvorvidt en bestemt skade medfører, at en båd skal tages ud af funktion. Dermed fjernes brugerens ansvar for at vurdere skaden, hvilket vil gøre det nemmere og hurtigere for brugeren at anmelde en skade.\\
+
+%Should Have
+\textbf{Langtursanmodning}\\
+I øjeblikket foregår langtursanmodninger ved at brugeren, inden udlejning, udfylder en skriftlig blanket, som derefter afleveres til godkendelse af et bestyrelsesmedlem. Dette er en langsommelig og besværlig proces, da dette kræver fysisk tilstedeværelse for både bruger og et bestyrelsesmedlem. Ligeledes skal bestyrelsesmedlemmet manuelt holde styr på alle afventende og godkendte anmodninger. Dette krav retter sig derfor mod en digitalisering af langtursanmodninger, som er to-delt. Første del af systemet skal gøre det muligt for brugere at indsende langtursanmodninger via protokolsystemet. Anden del af systemet skal gøre det muligt for bestyrelsen at evaluere og eventuelt godkende langtursanmodninger og på samme tid holde styr på alle anmodninger, sådan at ansvaret for dette fjernes fra bestyrelsen.\\
+
+\textbf{Justering af distance}\\
+Justering af distance er en funktionalitet, der direkte udvider udlejningssystemet. Hensigten med denne funktionalitet er, at det i en periode efter afslutningen af en tur skal være muligt for besætningen at justere den registrerede distance. Dette er et krav, der bunder i at medlemmerne af Aalborg Roklub går meget op i at den registrerede distance er korrekt og med deres nuværende system, vil en eventuel fejlregistrering medføre at bestyrelsen skal involveres for at rette dette.
+En implementation af denne funktionalitet vil derfor være tidsbesparende for bestyrelsen, og det vil ligeledes gøre medlemmerne mindre afhængige af bestyrelsen.\\
+
+%{\bf{Login-system}}\\
+%Login-system er ikke noget som anses for at være yderst nødvendigt for brugen af programmet. Dette kommer sig af, at klubbens bestyrelse og medlemmer stoler på hinanden og ikke gør ting i andres navne. Det som Login-systemet skulle kunne forhindre, var evt. ændring i andre medlemmers data og statistikker. Dette ville kunne gøres ved hjælp af, en pinkode bestående af 4 tal som indtastes ved brug af systemet. Man kunne ligeledes tænkes at det ville kunne gøre brugen af systemet lettere, da systemet ved hvem der er logget ind på computeren, og derved kunne vise hans statistikker, uden at personen skal ind og vælge sig selv som person.
+%\\
+
+%Could Have
+{\bf{SMS-advisering}}\\
+SMS-advisering er en funktionalitet, som gruppen har valgt at prioritere i mindre grad. Dette er en luksus-feature, som kan være nyttig i visse tilfælde.
+SMS-advisering er tiltænkt som et supplement, der kan lette bestyrelsens opgave med at holde øje med, at alle både er kommet hjem inden mørkets frembrud.
+SMS-adviseringen skal ligeledes fungere i forbindelse med at medlemmer overskrider deres hjemkomsttid med en bestemt margin. Skulle dette ske, skal et besætningsmedlem på turen kontaktes og bedes om en bekræftelse på at alt er godt. Hvis denne bekræftelse modtages, sker der ikke mere, men hvis denne bekræftelse ikke modtages inden for et bestemt tidsrum, skal bestyrelsen adviseres om situationen, så denne kan tage affære. Grunden til at gruppen har valgt at nedprioritere dette, skyldes at Aalborg Roklub aldrig har haft en ulykke i den tid, de har eksisteret og derfor kan denne funktion virke lettere overflødig, men stadig vigtig hvis der skulle ske noget.\\
+
+\textbf{Statistik til medlemmer}\\
+Aalborg roklub går meget op i statistikker, i forhold til hvem der har roet mest, og derfor er det ideelt at have en oversigt for medlemmer. Hertil vil det være naturligt at der udvides i forhold til deres nuværende system og dermed måle og gemme på flere parametre såsom distance, hastighed, tid, gennemsnit og så videre. \\
+
+\textbf{Statistik til administrationen}\\
+I forlængelse af udvidelsen af statistikker for medlemmer, så er der også visse statistikker, som kunne være interessante for bestyrelsen. Dette vil være ting som antal både ude og inde, aktive medlemmer, åbne skadesanmeldelser, afventende og godkendte langtursanmodninger med mere. Det vil også være relevant for bestyrelsen, at denne funktionalitet giver statistik på forskellige både i forhold til antal ture og medlemmer og ligeledes i forhold til medlemmernes aktivitetsniveau.\\
+
+%Won´t Have
+\textbf{Medlemskartotek}\\
+Medlemskartoteket er en funktionalitet, som kan implementeres i en senere version, men som ikke er en nødvendighed nu. Grunden til dette er, at deres nuværende medlemskartotek er fuldt funktionelt og lever op til de forventninger klubben har.
+Grunden til man ville implementere dette i en senere version, ville være for at have det hele samlet og derved give et bedre overblik over medlemmerne samt kontingent.\\
+
+\textbf{Nye blanketter}\\
+Nye blanketter er noget som kunne være smart, hvis roklubben på et tidspunkt ønsker en ny slags blanketter. Her ville systemet være udformet således, at man kunne oprette nye blanketter ligesom langtursblanketten. Dette er dog ikke særligt nødvendigt, da klubben sjældent opretter nye typer. Derudover ville de generede blanketter være meget generelle, da det ellers ville være et meget stort projekt at kode.\\
+
+For at kravspecifikation kan realiseres, er der behov for at indsamle information om emnet. Denne nødvendige teori vil blive gennemgået i teori-afsnittet (afsnit \ref{sec:teori}). \\
+Derudover er der brug for en systematisk specificering af handlingsprocessen, for at være 100\% sikker på hvordan programmet skal køre. 
+
+\subsubsection{Non-funktionelle krav}
+% Rettet af Rune, 10-04-2014 09:50
+Ud fra beskrivelsen af MoSCoW-modellen bliver det hurtigt tydeligt, at MoSCoW-modellen bedst egner sig til at beskrive funktionelle krav. Det vil sige krav, der direkte kan omsættes til konkret funktionalet i løsningen. Dette skyldes at non-funktionelle krav, oftest er gældende for hele løsningen, og dermed skal tænkes ind i alt som laves, og det derfor ikke kan tilføjes, hvis der bliver tid til det. De non-funktionelle krav vil i stedet for en MoSCoW-model, bliver inddelt i en prioriteret rækkefølge, der afgører, hvor stor en prioritet det gældende krav har for projektet. Dette betyder ikke nødvendigvis at krav i højere prioritet bliver færdige først, men at det er værd at bruge længere tid på disse. De non-funktionelle krav er prioriteret således:
+
+\begin{enumerate_small}
+    \item Brugervenligt design
+    \item Tryghed
+    \item Nem søgning
+    \item Online tilgængelighed
+    \item Sikkerhed.
+\end{enumerate_small}
+
+\textbf{Brugervenligt design}\\
+Brugervenligt design er noget, som gruppen anser for at være noget af det vigtigste for systemet. Dette skyldes, at systemets påtænkte brugere befinder sig i en ældre aldersgruppe, og det vil derfor ikke være urimeligt, at gå ud fra at deres evne til at navigere i et IT-system, kan variere meget kraftigt. Derfor er det vigtigt at brugergrænsefladen er let at finde rundt i og er simpel.
+Ligeledes er det tiltænkt at løsningen skal fungere via touch, og derfor skal dette medregnes når brugergrænsefladen designes, da et touch-baseret interface ikke tillader den samme grad af præcision og funktionalitet som et traditionelt mus og tastatur.\\\\
+
+% Rune, 10-04-2014 10:50
+\textbf{Tryghed}\\
+%I forlængelse af problembeskrivelsen (afsnit \ref{sec:problemafgraensning}) bevirker tryghed en større positiv indflydelse i Aalborg Roklub, som har vist stor interesse i den omtalte tryghed - ligeledes kan flere af programmets funktioner forventes at kunne afhjælpe her. Her tænkes blandt andet på sms-systemet, som holder øje med om folk er tilbage inden mørkets frembrud. \\
+
+%Mads 20. Maj kl 00.20
+I forlængelse af problembeskrivelsen i afsnit \ref{sec:problemafgraensning}, er det gjort klart at tryghed har en større positiv indflydelse i Aalborg Roklub. Aalborg roklub har vist stor interesse i den omtalte tryghed, hvilket flere at programmets funktioner forventes at kunne afhjælpe. Her i blandt sms-systemet, som holder øje med om folk er tilbage inden mørkets frembrud.\\
+
+\textbf{Nem søgning}\\
+Nem søgning er noget som gruppen gerne vil sætte fokus på, da dette er noget som kan forbedres en del. Nem søgning kommer ind i billedet i forbindelse med medlemmernes anvendelse af protokolsystemet. Under anvendelse af dette skal medlemmerne vælge blandt utallige både og over 220 brugere. I den nuværende implementation foregår dette ved at brugeren bliver præsenteret for en liste, som denne kan navigere ved at bruge to knapper til at bevæge listen op eller ned, som vist på figur \ref{fig:old_member_select}
+
+\figur{Figurer/old_select_member.png}{Valg af medlemmer i gammelt protokolsystem \screenshotgroup}{old_member_select}{0.7}
+
+Hertil vil både en søgefunktion, og mulighed for at scrolle, gøre det betydeligt nemmere for medlemmerne at finde både og medlemmer.\\
+
+\textbf{Online tilgængelighed}\\
+Det er et krav, at det er muligt at tilgå løsningens administrative funktionalitet alle steder, hvor der er forbindelse til internettet. Dette krav skyldes et ønske fra Aalborg Roklubs bestyrelse, om at være i stand til at varetage administrative opgaver fra deres hjemmeadresse. Da det ikke er hensigtsmæssigt, at et bestyrelsesmedlem skal tage computeren, som kører programmet, med hjem, er den naturlige løsning at programmets funktionalitet gøres tilgængelig online.\\
+
+\textbf{Sikkerhed}\\
+Sikkerhed bliver et uundgåeligt krav, når noget gøres online tilgængeligt. Dette skyldes, at det ikke længere er muligt at begrænse adgangen til systemet. I forhold til sikkerhed er det et krav, at uautoriserede brugere ikke har adgang til systemet. Hvordan dette skal håndteres, afhænger af løsningens udformning, men det er et vigtigt aspekt.

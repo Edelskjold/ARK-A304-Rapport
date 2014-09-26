@@ -1,0 +1,34 @@
+\subsection*{View}
+\label{sec:imple_view}
+Til oprettelse af brugerfladen er WPF\footnote{Windows Presentation Foundation} blevet benyttet. Nedenfor er der nogle eksempler på hvordan WPF tillader kodegenbrug og hvordan Viewet kommunikerer med ViewModel.
+
+\subsubsection*{Data binding}
+Data binding er en metode der giver brugerfladen mulighed for at vise og interagere med data. Data binding giver eksempelvis mulighed for at opdaterere ens viewmodel alt efter hvilken data der bliver indtastet, køre en kommando eller repræsentere data. Data binding gør det dermed muligt at kunne lave viewet for systemet seperat fra resten af systemet, idet det giver en klar adskillelse af logik og design. Det er dermed også muligt at ændre på designet uden at skulle ændre på den bagvedliggende kode.\\
+
+Data binding bliver brugt rigtig mange steder i applikationen, et eksempel på databinding kan ses i kode \ref{code:ExampleDataBind}.
+
+\XAML{Kode/View/BindingTextbox.xaml}{Eksempel på databinding på en tekstboks}{ExampleDataBind}
+
+I kodeeksempel \ref{code:ExampleDataBind} ses det at der bindes til en property text, det bliver derudover også speciferet explicit at mode er twoway (når teksten bliver opdateret opdateres den tilhørende property også). Derudover er UpdateSourceTrigger sat til \textit{PropertyChanged}, hvilket gør at propertien opdateres hver gang at teksten ændres på tekstboksen. Som standard vil den først opdateres når der trykkes på et andet view. Koden her er fra \textit{OnScreenKeyboard.xaml}, hvor alle andre properties er blevet fjernet for at forenkle koden.
+
+\subsubsection*{Ressourcer}
+En resource i WPF er et objekt som kan blive brugt flere steder i WPF-applikationen, dette kan eksempelvis være en style eller en template. Styles og templates gør det muligt at sætte give flere views de samme ændringer såsom skriftstørrelse på tekstbokse, tekstfarve, baggrundsfarve, størrelse osv. på alle de controllere der har den specifikke style. Det er også muligt at lave en style der gælder på alle views af en specifik type. For at benytte en style benyttes binding eksempelvis vha. StaticResource.
+
+\XAML{Kode/View/StyleTextbox.xaml}{Eksempel på en style til tekstbokse}{ExampleStyleResources}
+
+I kodeeksempel \ref{code:ExampleStyleResources} ses det at \textit{FontSize} bliver sat til 18, dette vil dermed gælde på alle tekstbokse der har sat style til denne specifikke style. Et eksempel på hvor denne style bliver benyttet er under \textit{CreateDamageForm.xaml}, som ses i kode \ref{code:ExampleStyleUsage}. Tekstboksen vil dermed få sat sin skriftstørrelse til 18.
+
+\XAML{Kode/View/ExampleStyleUsage.xaml}{Eksempel på brug af en style}{ExampleStyleUsage}
+
+\subsubsection*{Triggers}
+En trigger gør det muligt at specificere en betinget værdi på det tilhørende View, dette kunne eksempelvis være at tastaturknappen på protokolsystemet skifter navn når tastaturet bliver vist og skjult som ses i kode \ref{code:ExampleTriggersKeyboard}.\\
+
+\XAML{Kode/View/ExampleTriggersKeyboard.xaml}{Eksempel på en trigger der bliver brugt til knappen der viser og skjuler tastaturet}{ExampleTriggersKeyboard}
+
+Der findes flere forskellige typer af triggers herunder DataTrigger, EventTrigger, Trigger, MultiDataTrigger og MultiTrigger. DataTrigger gør det muligt at benytte binding til at specifere hvilken værdi, der skal sammenlignes, hvorimod en Trigger kun kan sammenligne en værdi fra det tilhørende view, dette kunne dog eksempelvis bruges til når man trykker på en checkbox vil baggrundsfarven ændre sig.\\
+
+MultiDataTrigger og MultiTrigger gør det muligt at specifere flere betingelser for henholdsvis DataTrigger og Trigger. Dette er praktisk hvis der er flere forskellige betingelser der skal opfyldes før at der bliver lavet en ændring på Viewet.\\
+
+EventTrigger gør det muligt at ændre en værdi når et event er blevet kaldt. EventTriggers bliver eksempelvis brugt til at lave animationer, som så kan vises eksempelvis når man bevæger musen over Viewet.\\
+
+Bemærk EventTriggers skal ikke forveksles med Interaction EventTrigger der i stedet gør det muligt at kalde en kommando på ViewModel når det pågældende event bliver kørt. Interaction EventTriggers bliver brugt få steder i programmet herunder ved nogle listviews til at kalde en kommando når SelectedItem ændrer sig, dog kunne disse udskiftes med TwoWay binding, hvilket blev nedprioriteret pga. tidspres.

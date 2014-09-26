@@ -1,0 +1,14 @@
+<TextBlock Grid.Column="3" VerticalAlignment="Center" Margin="11,0,0,0" Panel.ZIndex="1">
+    <TextBlock.Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource ResourceKey=ButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ProtocolSystem.EnableSearch}" Value="True">
+                    <Setter Property="Text" Value="SKJUL&#10;TASTATUR" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=ProtocolSystem.EnableSearch}" Value="False">
+                    <Setter Property="Text" Value="VIS&#10;TASTATUR" />
+                </DataTrigger>
+        	</Style.Triggers>
+        </Style>
+    </TextBlock.Style>
+</TextBlock>

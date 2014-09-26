@@ -1,0 +1,53 @@
+%Skrevet af Mads E. 
+%Rettet af Jimmi N. d. 02-03-2014
+\subsection{Aalborg Roklubs IT-system}
+\label{subsec:itSystem}
+%Rettet af Rune d. 03-03-14 kl. 12:10
+%Rettet af Søren d. 11-03-14
+% Rune 20-05-2014 13:30
+Da det, som tidligere nævnt i afsnit \ref{sec:aalborg_robklub_organisation}, er vigtigt hvordan medlemmerne interagerer med deres nuværende IT-systemer, blev der lagt meget vægt på dette i interviewet. Deres systemer kalder Aalborg Roklub for protokolsystemet og medlemskartoteket. Dette afsnit vil redegøre for hvordan deres nuværende system fungerer for derved at kunne belyse eventuelle problematikker, mangler eller fejl, som er forbundet med systemerne. Referatet fra interviewet kan læses på bilag \ref{bil:interview}\\
+
+{\bf{Medlemskartoteker}}\\
+Medlemskartoteket anvendes af Aalborg Roklubs bestyrelse. Som en hjælp til at holde styr på medlemmernes oplysninger, blev systemet for 6 år siden konstrueret af klubbens næstformand, Jens Brandt. Foruden at blot indeholde medlemmernes regulære oplysninger, så indeholder medlemskartoteket også en række udvidede medlemsoplysninger såsom kontingent, uddannelsesniveauer og medlemsrettigheder (se fig \ref{fig:medlemskartotek}).
+\figur{Figurer/medlemskartoket.jpg}{Aalborg Roklubs medlemskartotek \screenshotgroup}{medlemskartotek}{1.0}
+Systemet hjælper Aalborg Roklubs bestyrelse med at bevare overblikket. Systemets anses for en uundværlig og essentiel del af klubbens daglige drift. Herigennem indregistreres nye medlemmer og i så fald, at det er et behov, så ændres de gamle medlemsoplysninger. På trods af at systemet er velfungerende, og at det ligeledes opfylder en række ønsker og behov for Aalborg Roklubs bestyrelsesmedlemmer, er der dog stadigvæk en række mangler. Igennem interviewet blev der lagt særlig vægt på følgende problemstillinger med medlemskartoteket:
+\begin{itemize}
+\item Formanden, Karsten Holt, ønskede en funktion, så han kunne tilknytte kompetence-kommentarer til de enkelte medlemmer. Denne funktion var ikke blevet færdigkonstrueret, og var derfor ikke funktionel
+\item Uddannelsesniveauet, som er registreret i medlemskartoteket, bliver ikke anvendt konstruktivt i protokolsystemet
+\item Der bliver dagligt taget backup af medlemskartoteket igennem en FTP-forbindelse. Der bliver dog ikke kontrolleret, om hvorvidt backup-udførslen skete succesfuldt
+\item Under indregistrering af nye medlemmer sker der en periodisk fejl, hvorved alle oplysningerne om den enkelte medlem ikke bliver gemt korrekt
+\end{itemize}
+
+Ovenstående er blot et uddrag af Aalborg Roklubs formand, Karsten Holt, og næstformanden, Jens Brandt. Det kan dog til stadighed anses for at være relevante problemstillinger, som kunne være interessante at arbejde videre med. \\
+
+%Aalborg Roklub anvender dog også et protokolsystemet til klubbens medlemmer, hvilket der vil blive redegjort for i næste afsnit. \\
+
+{\bf{Protokol System}}\\
+Når medlemmerne af Aalborg Roklub ønsker at leje en båd, enten til en kort tur, eller til en langtursudflugt, skal dette registreres i klubbens såkaldte protokolsystem. Protokolsystemet består af en 15" touch-skærm, som er placeret lettilgængeligt og centralt i klubhuset. Hertil kan medlemmerne uanset tidspunkt komme og indregistrere sig på de ledige både. Aalborg Roklub ønsker ikke, at dette system skal være tilgængeligt online for klubbens medlemmer.
+
+\figur{Figurer/Modulbeskrivelse/materieldatabaseARK.png}{Aalborg Roklubs båddatabase. Hver felt er en båd. De røde både er udlånt/utilgængelige. I bunden er der det muligt at filtrere indholdet \screenshotgroup}{materieldatabaseARK}{0.8}
+
+Systemet er blevet udarbejdet af et tidligere medlem, som tilbød klubben at designe og programmere et protokolsystem. Brugergrænsefladen er programmeret i Windows Forms, og det bagvedliggende programmeringssprog er C\# (se figur \ref{fig:materieldatabaseARK}). Medlemmerne bruger programmet flittigt både til at indregistrere sig selv på en ledig båd ved udflugter, og i særdeleshed også når medlemmet er kommet hjem - her skal medlemmet nemlig registrere antal sejlede kilometer, hvilket medlemmerne går rigtig meget op i. \\
+Programmet fungerede, men der var en række problemstillinger, som Aalborg Roklub ikke havde haft den nødsagne tid til at få ordnet - heriblandt:
+\begin{itemize}
+\item Hvis medlemmerne har beskadiget den anvendte båd under sejlturen, så skal det på nuværende tidspunkt rapporteres på et stykke papir. Denne skadeanmeldelse blev ikke altid foretaget. Aalborg Roklub ønskede derfor at medlemmerne kunne rapportere elektronisk for derved at begrænse udlejningen af den beskadigede båd.
+\item Når medlemmerne ønsker at sejle på en langtur, skal denne ansøgning ligeledes udfyldes på et stykke papir. Disse blanketter havde roklubben meget svært ved at finde, hvilket afspejler deres behov for at få en regelmæssig procedure på plads. Hertil ønsker bestyrelsen ligeledes at dette kunne tilgængeliggøres elektronisk. Medlemmerne skal kunne indsende langtursblanketterne igennem protokolsystemet, og bestyrelsesmedlemmerne skal kunne tilgå blanketterne igennem et administrationspanel.
+\item Det er ikke muligt for de enkelte medlemmer at justere på kilometertallet efter afsluttet rotur. Dette gør, at hvis medlemmet fejlagtigt angiver den forkerte distance, er der ikke muligt at rette det. Kilometertallets korrekthed er vigtigt for medlemmerne i Aalborg Roklub.
+\item Beskadigede både kan stadig vælges af medlemmerne på protokolsystemet. Dette er både en belastning for medlemmerne og bestyrelsen, som på nuværende tidspunkt klistrer sedler op på de beskadigede både. Medlemmerne kan angiveligvis komme til at registrere sig selv på en båd, som ikke er sejlklar, hvorefter medlemmet skal udmelde sig båden, for derefter at registrere sig på en ny båd.
+\end{itemize}
+
+Aalborg Roklub fortalte gruppen en lang række aktuelle problemstillinger forbundet med protokolsystemet.
+
+\subsubsection*{Opsummering}
+\label{subsec:itSystem_opsummering}
+
+\begin{itemize_small}
+    \item Aalborg Roklub har et solidt IT-fundament
+    \item De lider dog under problemer ift. at systemerne ikke snakker sammen
+    \item Aalborg Roklub ønsker højere tryghed blandt medlemmerne
+    \item Mangler digitalisering af diverse blanketter.
+\end{itemize_small}
+
+%På baggrund af de aktuelle problemstillinger, som er blevet fremstillet i ovenstående afsnit, er det tydeligt at Aalborg Roklub har et solidt IT-fundament. De lider dog under en lang række problemstillinger og forbedringsforslag - både for medlemskartoteket såvel som for protokolsystemet. Medlemskartoteket ville have gavn af en ny databasestruktur, således at medlemmernes uddannelse, som er indtastet i medlemskartoteket, der ville kunne anvendes i protokolsystemet til at opsætte en række begrænsninger for medlemmerne uden uddannelse. Ydermere er det væsentligt at bemærke Aalborg Roklubs ønske om øget sikkerhed var i højsæde. Flere af deres bogføringer, såsom tidligere nævnte skadeindmeldelse (se blanket i bilag \ref{bil:ark_skade}) og langtursansøgning (se blanket i bilag \ref{bil:ark_langtur}), kunne sagtens digitaliseres, så blanketterne ville være nemme at finde på et senere tidspunkt. Ved uheld, hvor der skal udsendes koordinater til Søværnets Operative Kommando, vil det være vigtigt at langturs-destinationerne kan forefindes hurtigt, letsommeligt og uafhængig af fysisk placering. En digitalisering af skadeblanketterne vil ligeledes kunne afgrænse fremadrettet udlejning af den pågældende båd. \\
+
+Afsnit \ref{subsec:usability_ark} vil yderligere indeholde en usability-test af Aalborg Roklubs nuværende system.

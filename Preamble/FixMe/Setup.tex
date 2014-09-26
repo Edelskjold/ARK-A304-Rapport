@@ -1,0 +1,22 @@
+% FixMe
+\ifdefined\draft
+    \usepackage[draft,danish]{fixme}    % Fixme draft
+\else
+    \usepackage[final,danish]{fixme}    % Fixme final
+\fi
+
+% FixMe
+% http://mirrors.dotsrc.org/ctan/macros/latex/contrib/fixme/fixme.pdf
+\newcommand{\fix}[2]{\fxfatal{\textcolor{red}{#1} /#2}}
+\newcommand{\note}[2]{\fxnote{#1 /#2}}
+\newcommand{\anfix}[3]{
+    \begin{anfxfatal}{\textcolor{red}{#2} /#3} 
+        \textcolor{red}{#1} /#3
+    \end{anfxfatal}
+}
+
+\renewcommand\fxdanishfatalname{Fejl}
+\renewcommand\fxdanishnotename{Note}
+\renewcommand{\fixme}[1]{\fix{Benyt ikke fixme}}
+%Slet fixme
+%\let\fixme\relax

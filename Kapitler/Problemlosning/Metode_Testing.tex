@@ -1,0 +1,9 @@
+% Mikkel, 11-05-2014
+
+\subsection{Testing}
+\label{sec:metode_testing}
+I forbindelse med programmeringen er det nødvendigt at udføre tests på programmet, for at tjekke om dette opfører sig som forventet og der ikke opstår uforudsigelige bugs. En af måderne at gøre dette på, er at udføre unit-tests på programmet - en såkaldt White Box test. Kendetegnet ved White Box testing, er at man benytter sig af selve kildekoden i programmet, hvor Black Box-testing vil testkøre programmet udfra nogle krav, uden at dykke ned i kildekoden. At benytte sig af White Box-testing sikrer en pålidelig kode, da man tester direkte på denne.\\
+
+Disse unittests kan deles op i tre små bider i koden - Arrange, Act og Assert. I den første del, Arrange, gøres der klar til at teste. Det vil sige at de relevante objekter instantieres og det forventede resultat, oftest refereret til som \textit{expected}, defineres. Herefter, i Act-delen, udføres den operation man gerne vil teste. Her vil man typisk gemme metodens returværdi i en \textit{actual}-variabel. Afslutningsvis, i Assert, testes der for at se om disse variabler, \textit{expected} og \textit{actual}, er ens. Det er desuden vigtigt at bemærke der kun må være én assert i hvert test-case, hvilket medfører at betinget logik er "forbudt"\mbox{}.\\
+
+I dette program er det oftest kun nødvendigt at anvende funktionen \textit{Assert.AreEqual(expected, actual)}, som sammenligner de to variable. Hvordan disse tests er implementeret, findes i afsnit \ref{sec:imple_test}

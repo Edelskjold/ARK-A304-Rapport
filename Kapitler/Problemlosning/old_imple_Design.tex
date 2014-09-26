@@ -1,0 +1,101 @@
+% Mads
+\subsection{Design}
+\label{sec:imple_design}
+
+\textbf{Protokol system}\\
+Protokolsystemet er opbygget med brugeren i fokus. Dette vil sige at der er blevet taget stilling til hvordan opsætningen af designet i programmet er, og hver eneste knap/liste har en funktion som er nødvendig for at gennemfører det aktuelle handling man er igang med. Dette betyder ligeledes at brugeren lettere kan finde ud af at bruge funktionerne i programmet, og derved opnår man en højere tilfredshedsprocent.\\
+
+% Rettet Rune 17-05-2014 15:15
+\textbf{Farver}\\
+Der er nøje udvalgt hvilke farver der bliver brugt i protokolsystemet, for at skabe den bedst mulige genkendelse til funktionen. Dette har gruppen gjort ved at bruge grøn farve til knapper som godkender ting, som mennesket associere med accept eller godkendelse. Farven grøn har ligeledes en beroligende effekt på forbrugeren, og er med til at styrke deres selvtillid. Med dette menes der at forbrugeren kan blive rutineret i at bruge programmet hurtigt, da farverne korrespondere med funktionen af den givende knap. Derved ville forbrugeren heller ikke skulle tage stilling til hvilken knap, som han skal klikke på for at godkende en parameter.\\
+Gruppen har som modsætning valgt at bruge farven rød, til at annullere eller stoppe handlinger. Farven rød anses som at være en signal farve, hvilket mennesket opfanget som noget som noget der er stoppende eller alarmerende. Derfor har gruppen valgt at bruge denne farve i programmet til f.eks. "afslut rotur" hvilket brugeren skal gøre, når det ønskes at afslutte en rotur, hvilket farven også illusterer.\\
+I programmet bruges farven hvid som baggrund. dette er valgt ud fra, at programmet skal være lyst og imødekommende for forbrugerne. Farven hvid symboliserer tomhed og renhed, hvilket er det som en baggrundsfarve gerne skulle gøre. Baggrundsfarven må ikke optage pladsen på en sådan måde, at det er forstyrrende for forbrugeren og derved passer farven hvid godt ind i programmet da den ikke irriterer brugeren på nogen måde.\\
+Der er ligeledes valgt at gøre inaktive funktioner grå eller mørke for at illustere, at man ikke kan vælge eller bruge denne funktion. Dette giver brugeren et hurtigt overblik over, hvad han kan trykke på, uden at han skal forsøge med at trykke på det først. Et eksempel på hvordan dette er inkorporeret i vores program kan ses på figur \ref{fig:fade}.
+
+\figur{Figurer/impl/fade.png}{Illustration af inaktive funktioner fra protokolsystemet \figuregroup}{fade}{1.0}
+
+Derved skal brugeren af systemet klikke på en af de elementer som er i den liste, som ikke er nedtonet med grå farve. 
+Der benyttes ligeledes farven blå og lilla, som har en beroligende effekt på forbrugeren, disse farver bliver bla. brugt til menu knapperne i venstre side af programmet. Disse farver er blevet valgt, for ikke at skabe et hektisk miljø, hvor farverne konkurrere imod hinanden. Farverne som er valgt er alle matte udgaver af farven, hvilket gør at det ikke virker som signal farver. \cite{psykologi-symbolik}\\
+
+\textbf{Farvepalet}\\
+Gruppen bruger et bredt spektrum af farver, som er illusteret via en farvepalet på figur \ref{fig:palet}
+
+\figur{Figurer/impl/palet.png}{Illustration af farvepalet \figuregroup}{palet}{0.5}
+
+% Rettet Rune 17-05-2014 15:20
+Denne farvepalet er konstrueret ud fra farver som virker beroligende og samtidig har hver deres funktion. Farverne er alle sammen i en nedtonnet mat udgave, hvilket er gjort med henblik på at der skal kunne udformes gradient\footnote{F.eks. en knap, som har flere farve nuancer i sig, som gør at den går fra mørk til lys} effekt på farverne. Derved ville man kunne tage farvepaletten som en retvisning, hvorimod farvens valør\footnote{Farvens nuance mellem hvid og sort} er varierende i forhold til at det er en gradient. For at beskrive hvordan vi konkret har brugt farvene i menuen og gennem programmet, er de opdelt og beskrevet nedenfor.\\
+
+{\bf Blå}\\
+Blå illustere forhøjet koncentration og skaber en rolig fornemmelse. Farven blå forbindes ofte med information heraf spørgsmåltegn, derfor vælger vi at bruge denne til informationer som f.eks i menuen (Både på vandet, Kilometer statistik, Medlems informationer).\\
+
+{\bf Grøn}\\
+Grøn har en beroligende effekt, samt er grøn håbets\mafix{Måske skulle vi abstrahere fra at udtale os om farvers associeringer med begreber som håb, kærlighed, lidelse osv? Lade det blive ved at grøn forbindes med accept, og så stoppe os selv der. Eller bare ditche afsnittet.} farve. Grøn associeres ofte med godkendelse eller bekræftelse, derfor har vi valgt at bruge den til at "start rotur" i menuen. Farven grøn bruges ligeledes i tilfælde, hvor der skal tilføjes elementer til en liste, eller hvis der skal bekræftes noget.\\
+
+{\bf Rød}\\
+Rød er en varm farve, som kan fungere som en kærlighedsfarve, men også som en aggresiv signal farve. Signal farver er noget som mennesket i sin bevidsthed ligger mærke til, som menneskets øje ligeledes ser bedre end andre primær farver. Rød bliver derfor brugt i vores system til at annullere, afslutte eller fjerne elementer. I menuen bruges rød til "afslut rotur" hvilket betyder at den bliver associeret med afslut, hvilket den gerne skulle.\\
+
+{\bf Lilla}\\
+Lilla er en farve som symbolisere lidelse og forvirring. Derfor bruges den til ting som skal ændres, da dette anses som en fejl (lidelse) som kan skabe forvirring, hvis det ikke bliver rettet. Den Lilla farve bruges til at ændre elementer f.eks. distance i protokolsystemet.\\ 
+
+{\bf Orange}\\
+Orange giver en fornemmelse af velværd samt en glad fornemmelse. Derfor har vi valgt denne til langturer samt skader. Grunden til vi har valgt at bruge orange i dette tilfælde, er at skader ikke er det mest opmuntrene, men at det stadig viser at der er medlemmer i klubben som bruger tingene. Dette betyder at der er gang i foreningen og medlemmerne bruger matrialerne. Uheldigvis sker der uheld en gang imellem og derfor bruger vi orange for at huske forbrugeren på at det nødvendigvis er hans skyld. \cite{design_farver}\\
+                                    
+
+\textbf{Skrifttype}\\
+Der er i programmet brugt calibri som font hvilket er en sans-serif\footnote{Skrifttype uden fødder} skriftype, hvilket gør at den virker mere moderne. Skrifttypen er ligeledes lille af sin art, men stadig tydelig hvilket gør at man kan tillade sig at have en mindre skriftstørrelse, uden at det gør det besværligt at læse. Calibri er derfor blevet valgt, da den er tydelig, samt at den kan formateres til en lille skærmopløsning, hvilket er et behov for Aalborg roklub, som benytter sig af en touch-skærm. Udover dette er calibri meget læsevenlig, hvilket er en fordel når det er et system, som skal benyttes hurtigt, uden at bruge merkant tid på at læse indholdet.\\
+
+\textbf{Ikoner}\\
+I programmet bruges der ikoner for at brugeren hurtigt kan identificere emnet. Mennesket husker bedre billeder og deres sammenhæng med tekst, end bare almindelig tekst uden billeder \cite{design_hukommelsen}.\\
+
+Derfor er der er i programmet brugt ikoner som refferere til teksten, som f.eks. "Vis Tastetur", hvor der er et billede af et tastetur. Eksemplet kan ses på figur \ref{fig:f-protokol}. Disse ikoner er vigtige for programmets genkendelighed, men også for udseende på programmet.\\
+
+\textbf{Opsætning af protokolsystemetet}\\
+\label{sec:op_af_protokolsystem}
+Programmet er blevet struktureret efter undersøgelsen om om F-pattern som beskrevet i \ref{sec:teoribrugerdesign}. På baggrund af undersølgelse fandt man ud af at F-pattern er et brugtbart mønsker som gruppe ønsker at konstruere programmet efter. Dette blev gjort som vist på figur \ref{fig:f-protokol}.
+
+\figur{Figurer/impl/f-protokol.png}{F-Pattern lagt ovenpå protokolsystemets brugergrænseflade \figuregroup}{f-protokol}{1.0}\mafix{Kunne opdateres med et billede hvor alle medlemmer ikke har medaljer.}
+
+Som det kan ses på \ref{fig:f-protokol} har programmet en overskrift i toppen af programmet. Dette indikere hvor henne man er på siden, og er det som man ser først jf. F-pattern. Herefter bevæger øjene sig lidt nedaf hvilket vil sige at man kommer ned til indholdet af siden, som man hurtigt kan indentificere sig med, da man allerede har set en overskrift for hvad det omhandler. Derefter orientere brugeren sig i den diagonale retning, hvilket vil sige at forbrugeren ser vores menu, hvilket giver dem anledning til at navigere videre i programmet. Dette giver en god mening, da Aalborg roklub går meget op i statistikker, som er hovedsiden, derfor mener gruppen ikke at menuen er det som først skal anskues, da der allerede er taget stilling til hvad brugeren skal se først.\\
+
+
+\textbf{Administrationssystem}\\
+Administrationssystemet er opbygget med henblik på at personen som skal bruge det, har en kendskab til IT, og derfor forstår hvordan man navigerer på dette. Derfor er der funktioner i administrationssystemet, som er absolut nødvendig for at håndtere den store datamængde. Programmet er opbygget meget i forhold til steps, som ville blive forklaret i det kommende afsnit.\\
+
+
+\textbf{Farver}\\
+Farvevalget til administrations systemet er udvalgt, ud fra de farver som er blevet brugt i protokolsystemet for at skabe en genkendelighed mellem de 2 programmer. Udvalget af farver kan ses på farvepaletten illusteret på figur \ref{fig:f-administration}\\
+
+\figur{Figurer/impl/administrationspalet.png}{Farvepalet til administrations systemet \figuregroup}{f-administration}{0.4}
+
+Der er blevet tilføjet et par farver som vil i givende afsnit ville blive forklaret, og beskrevet hvorfor disse farver er blevet brugt.\\
+
+{\bf Brun}\\
+Den mørke brune farve, som er blevet valgt til programmet, er blevet valgt fordi mennekser opfanger den som en rolig farve, som giver en fornemmelse af tryghed. Farven brun bruges til knapper som ikke er nødvendige at benytte sig af, men som er en ekstra funktion som kan være nyttig i den givende situration. Dette kunne f.eks. være knappen til tasteturet som vist på figur. \ref{fig:f-administration}\\
+
+{\bf Hvid mod blå \& blå mod sort}\\
+I programmet bliver der ligeledes benyttet hvid med et strejf af blå, hvilket giver den en form for afbræk fra den hvide konstrast farve. Den knækkede hvid bliver brugt til menuen i venstre side af administrationssystem, for at give den en form for adskillelse fra indholdet i midten. Den blå mod sorte farve, bruges til footeren \footnote{Bjælken i bunden af programmet} som giver en god kontrast mellem teksten og baggrunden. Farven er valgt på grund af, at det ikke skal være en skrigende farve, men en beroligende farve, som blå er. Det er ikke en nødvendighed for programmet at man ser eller bruger footeren, hvilket betyder at den ikke skal være irriterende, og derfor har vi nedtonet valøren således at det er den mørke udgave af blå.\\
+
+% Rettet Rune 17-05-2014 15:35
+\textbf{Ikoner}\\
+Ikoner bruges på samme måde i administrations systemet som i protokol systemet.
+I administrations systemet bruges der flere ikoner, da der er mere plads da programmet er ment til at være på en støre skærmopløsning. Derfor bruges der ved overskrifter ikoner, som afspejler teksten, dette kan ses på figur. \ref{fig:f-administration}\\
+Her bruges et hus til teksten "Oversigt", da den fungere som en form for forside, hvilket også kategoriseres som en "hjemme-skærm".\\
+
+\textbf{Opsætning af administrationssystemet}\\
+Der er ligeledes blevet foretaget samme overvejelser i administrationssystemet som i protokolsystemet. F-pattern er ligeledes blevet lagt oven på systemet som kan ses på figur \ref{fig:f-admin}
+
+\figur{Figurer/impl/f-administration.png}{F-Pattern lagt ovenpå administrationssystemets brugergrænseflade \figuregroup}{f-admin}{1.0}
+
+I administrations systemet er opbygningen lidt anderledes end protokolsystemet. Ved første øjekast, vil man se menuen i den horizontale retning. Dette er grundet at menuen er vigtigt for administrations systemets navigation og hurtigt leder videre til funktionerne i panelet. Derefter ser man indholdet af siden, som er en hurtigt oversigt, hvor administratoren kan se de vigtigeste informationer omkring klubben. Herefter går blikket i den diagonale retning, hvor brugeren ser et søgefelt, samt et filter. Dette er essentielt for programmet at brugeren benytter disse filter, for at kunne håndtere den store mængde date, som systemet indeholder. Systemet er derfor nærmest opdelt i step, hvilket vil sige at man først vælger et menupunkt (i toppen), derefter bruger man filteret for at sortere hvilken data man leder efter. Derefter får man det ønskede indhold, hvor givende funktioner er, som passer til indholdet.
+
+\subsubsection*{Opsummering}
+
+\begin{itemize_small}
+    \item Designet øger brugervenligheden vha. ikoner og bestemte farver
+    \item Farverne symboliserer handlingen den pågældende knap udfører
+\end{itemize_small}
+
+%Derved kan man bemærke sig at gruppen har gjort overvejelser omkring hvordan designet skal se ud, og hvilke betydninger disse designparametre har for forbrugeren.\\ Der er ligeledes lagt vægt på at designet skal være med til at øge brugervenligheden, hvilket er gjort med iconer og bestemt farvevalgt, hvilket er med til at øge genkendeligheden.\\
+%Gruppen har ligeledes brugt teori som beskrevet i afsnit \ref{sec:teoribrugerdesign} som har været med til at forstå, hvordan bruger opfatter programmet, og navigere i dette.
+
+

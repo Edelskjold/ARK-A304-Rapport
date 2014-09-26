@@ -1,0 +1,40 @@
+% Rune, 07-04-2014 11:50
+% Hver iteration: Kig på det funktionelle og de non-funktionelle: Hvad skal ændres?
+
+\section{Iterationer}
+\label{sec:imple_iterationer}
+Dette underafsnit indeholder de iterationer, som programmet har været igennem. Alle iterationer er udført for at opfylde de krav, der er stillet i afsnit \ref{sec:metode_samarbejde} - der vil løbende bliver brugt referencer fra figur \ref{fig:arbejdsproces} i dette afsnit. Det skal dog gøres klart, at det kun er enkelte udsnit af iterationernes indhold, udbytte og bearbejdning, der er dokumenteret i dette afsnit.
+
+\subsubsection{Indledende interview}
+Indledningsvis blev der afholdt et interview med Aalborg Roklub for at få klarlagt hvilken type program de ønskede. Dette interview hjalp også gruppen med at få en grundlæggende viden om rosporten, så der nemmere kunne tænkes i løsninger. Dette svarer til "Kravspecifikation"\mbox{}-skridtet. Referatet fra dette interview kan ses i bilag \ref{bil:interview}
+
+\subsubsection{1. iteration}
+Denne iteration falder ind under skridtet "Design \& kodning". Referat findes på bilag \ref{bil:iteration1}\\
+
+{\bf Fremvisning}\\
+Første iteration blev gennemført med Aalborg Roklub d. 18. marts. Eftersom det var første iteration, så var der ikke noget konkret produkt at fremvise til bestyrelsen. De generelle tanker til funktionaliteter og layout til programmet er i stedet blevet fremvist, for at kunne skabe en ide om, hvordan programmet skulle designes.
+
+\figur{Figurer/Problemlosning/layout_protokolsystem.jpg}{Første fremviste udkast af layout til protokolsystem. \figuregroup}{layout_protokol}{0.85}
+
+{\bf Respons}\\
+På figur \ref{fig:layout_protokol} var det generelle layout, med henhold til navigation, tilfredsstillende. Dog gav Aalborg Roklub udtryk for, at et login til medlemmerne ikke var nødvendigt, og at det forventedes at skabe mere forvirring end gavn for foreningens medlemmer. Det er herefter blevet fastslået i projekt-gruppen, at der ikke vil blive lavet et login til medlemmerne, og at placeringen for login i layoutet vil blive udskiftet med et administrations-login.
+
+\subsubsection{2. iteration}
+Denne iteration falder ind under skridtet "Design \& kodning" og er udført 1. maj. Referat findes på bilag \ref{bil:iteration2}\\
+
+{\bf Fremvisning}\\
+Størstedelen af brugergrænsefladen var færdig ved denne iteration, ligesom en pæn del af funktionerne, hvilket gjorde det muligt at fremvise et relativt kørende system til Aalborg Roklub. Dette var en stor fordel, da der kunne gives feedback på noget konkret. Et endnu mere færdigt program kunne dog også have været en fordel, i forhold til at finde bugs i systemet i forbindelse med praktisk brug af det. Da dette ikke er muligt, er det nødvendigt at teste på andre måder - eksempelvis unit-testing.\\
+
+\textbf{Misforståelser}\\
+I denne iteration blev der rettet op på flere misforståelser - eksempelvis at en styrmand ikke tælles med i hvor mange personer der kan være i en båd og at en langtursblanket ikke nødvendigvis skal være bundet til en båd. Samtidig blev der også opklaret forviringer, som f.eks. opstod da der fandtes en ukendt bådtype i XML-filerne. Denne viste sig at være en type, der dækker over udgåede både.\\
+
+{\bf Respons}\\
+I forhold til den respons der blev modtaget, vurderedes følgene punkter som meget vigtige:
+
+\begin{itemize_small}
+    \item Det er ikke muligt at tilføje gæster til turen
+    \item Statistik skal inddeles i mere spændende kategorier
+    \item Alle medlemmer skal kunne godkende skadesblanketter
+\end{itemize_small}
+
+Derudover gik en del af responsen på overflødige ting - eksempelvis ville Aalborg Roklub i nogle tilfælde hellere have længere lister end muligheden for at filtrere. Alt dette giver en rigtig god mulighed for at få rettet op på fejlene, og få udviklet et så godt program som muligt.

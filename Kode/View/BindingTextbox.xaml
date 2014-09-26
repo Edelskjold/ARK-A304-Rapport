@@ -1,0 +1,2 @@
+<TextBox Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+</TextBox>

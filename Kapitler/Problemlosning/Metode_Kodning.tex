@@ -1,0 +1,43 @@
+%Jonas, 06-04-2014
+%Rune, 07-04-2014 11:50
+\subsection{Kodestandard}
+Et krav til dette projekt er at løsningen udarbejdes i C\#. Gruppen har desuden valgt at lave et program med en grafisk brugergrænseflade for at løse den valgte problemstilling. Dette betyder at programmet kommer til at benytte sig af .Net. For at lave brugergrænsefladen har gruppen valgt, at benytte sig af WPF\footnote{Windows Presentation Foundation}. Dette betyder, at programmet udelukkende er i stand til at køre på Windows, da WPF ikke er implementeret i andre styresystemer.\\
+
+I forbindelse med programudviklingen er det nødvendigt at tage højde for, at hele gruppen deltager i processen, og at der derfor er flere forskellige personer inde over programudviklingen. Det vil være naturligt at forvente, at gruppens medlemmer har forskellige præferencer og kodestandarder, når det kommer til at udvikle et C\#-program. Derfor er det vigtigt, at gruppen bliver enige om et fælles sæt af retninslinier, for hvordan koden skal bygges op, da en mangel på dette vil medføre, at kodestilen varierer meget kraftigt. En ensartet kodestil igennem hele programmet vil gøre det markant nemmere for andre end den oprindelige forfatter at ændre, refaktorere og vedligeholde den skrevne kode. Det vil ligeledes højne kodedelingen, da en ensartet kodestil vil betyde, at andre gruppemedlemmer hurtigere kan få et overblik over hvad der sker. Yderligere vil en ensartet kodestil gøre det nemmere for gruppens medlemmer at holde et overblik over kodebasen, så gruppen har et retvisende indtryk af hvad status på programudviklingen er.
+For at opsætte og sikre at den fælles kodestandard bliver overholdt, har gruppen derfor valgt at bruge værktøjet StyleCop (forklares yderligere senene i afsnittet).
+
+\subsection{MVVM: Model-View-ViewModel}
+\label{sec:MVVM}
+
+Model-View-ViewModel, herefter udelukkende referet til som MVVM, er et designmønster, som oprindeligt blev præsenteret og udviklet, og er under stadig udvikling, af Microsoft, i forbindelse med udviklingen af WPF. MVVM er løst baseret på MVC\footnote{Model-View-Controller} og PM\footnote{Presentation model}\cite{mvvm_msdn}. MVVM er et designmønster med fokus på en fuldstænding opdeling af design og bagvedliggende logik. Dette opnåes vha. data binding. Valget af MVVM, som det designmønster der vil blive benyttet, blev foretaget på baggrund af, at det er en praktisk måde at opdele en grafisk brugergrænseflade og funktionalitet, og dets sideløbende udvikling med WPF gør det nemt at implementere designmønstret i WPF. Efterfølgende vil være en kort beskrivelse af MVVM, da alle tanker og idéer bag er for mangfoldige til at inkludere i denne rapport.
+
+\subsubsection{Model}
+Modellen i MVVM beskriver den bagvedliggende datastruktur og adgangen til denne. Dette gælder både for klasser, forskellige collections og for adgangen til forskellige former for lager som fx databaser. Modellen beskriver hvilken rolle de forskellige data har i forhold til programmet, og den sørger ligeledes for simpel adgang til at læse og manipulere disse data, så andre dele af programmet er i stand til at benytte sig af den funktionalitet uden at implementation skal testes overalt.
+
+\subsubsection{View}
+View i MVVM er den del, der beskriver alt hvad der relaterer sig til programmets GUI\footnote{Graphical User Interface} - dvs. knapper, lister og andre UI-elementer. I forhold til MVVM bliver hvert enkelt "side" i et program betragtet som et separat View. Det spiller en rolle i forhold til opdeling i filer og klassehierarki - dette vil blive forklaret yderligere under ViewModel. Det der er anderledes ved MVVM i forhold til andre desigmønstre, er at et View ikke bør indeholde nogen logik eller data overhovedet. Et View skal udelukkende beskrive hvordan funktionalitet skal vises, hvorefter det via data binding binder sig til data og funktionalitet i en ViewModel, hvilket ofte medfører at der er et 1:1 forhold mellem Views og ViewModels. Dette bevirker, at det er komplikationsfrit at ændre på View-layout i midten af designprocessen, da databindingerne til den tilsvarende ViewModel stadig vil være de samme.
+
+\subsubsection{ViewModel}
+En ViewModel er en abstraktion af et View. Ligesom et View ikke indeholder nogen funktionalitet, men overlader dette til dens korresponderende ViewModel, så indeholder en ViewModel på samme måde ikke nogen beskrivelse på hvordan funktionalitet skal vises. Den indeholder udelukkende det data, som skal udfylde dets korresponderende View, og den logik, som gør GUI'et interaktivt. Det betyder at den primære opgave for en ViewModel er, at være et bindeled mellem programmets View og Model. En ViewModel skal sørge for at bringe data på en form, som kan bindes til og præsenteres i et View, og den skal sørge for at videregive kommandoer til en Model, når brugeren trykker på en knap.\\
+
+Forholdet mellem Model, View og ViewModel kan ses illustreret i figur \ref{fig:mvvm}
+
+\figur{Figurer/mvvm.png}{Illustration af Model-View-ViewModel \cite{mvvm}}{mvvm}{1.0}
+
+\subsubsection*{Opsummering}
+
+\begin{itemize_small}
+    \item GUI'en indeholder ingen logik
+    \item Globale stile og forbindelser mellem ViewModels resulterer i gode muligheder for kodegenbrug.
+    \item View ved ikke at Model eksisterer, så funktionaliteten kan ændres uden at ændre i Views
+    \item På grund af den løse kobling mellem disse dele, er det nemmere at teste i små bidder
+\end{itemize_small}
+
+%Denne opdeling af programmet som MVVM beskriver, betyder at GUI'en ingen logik indeholder, og dermed ikke indeholder noget der skal testes udover GUI'en selv. Ligeledes er et View ikke klar over at Modellen eksisterer, hvilket gør det muligt at ændre i funktionalitet uden at begynde at ændre i Views.\\
+%I MVVM mønstet er programmets ViewModel og Model ligeledes ikke klar over at View'et eksisterer, og Modellen er ikke klar over at ViewModellen eksisterer. Som nævnt så er det nemmere at teste små bidder af programmet, hvilket medfører at denne løse kobling af programmets forskellige dele gør det nemmere at teste.
+
+%Jonas, 06-04-2014
+\subsection*{StyleCop}
+StyleCop\cite{StyleCop} er et værktøj til statisk kodeanalyse. StyleCop analyserer C\#-kode med det formål at håndhæve forskellige regler for kodestil, for på den måde at sørge for, at hele kodebasen har en konsistent kodestil. Fordelen ved at anvende StyleCop, frem for at gruppen selv opskriver nogle retninglinier, er at StyleCop er i stand til automatisk at tjekke kodebasen i gennem for overtrædelser. Ligeledes kommer StyleCop også med et prædefineret sæt af retningslinier, men med muligheder for at ændre, tilføje og fjerne efter behov, så gruppen ikke behøver selv at bruge tid på at skrive retningslinier ned.\\
+
+I forbindelse med uarbejdelsen af løsningen er der forskellige fokuspunkter, som er centrale for at opnå et program af høj kvalitet. Kriterierne for et godt program kan kort siges at være, at det er let at bruge, at det fungerer upåklageligt og at det er let at udbygge. Det første punkt kan håndteres ved fornuftig brug af designteori til interaktive applikationer, men de andre to, specielt programmets udvidelighed, er nødt til at blive håndteret vha. fornuftig programdesign, da dårligt design vil medføre at eventuelle ændringer kræver at hele programmet skrives om. Hvilke metoder, praksis og konventioner, som vil blive benyttet, vil blive gennemgået i de efterfølgende afsnit.

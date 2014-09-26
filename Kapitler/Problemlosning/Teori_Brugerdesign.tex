@@ -1,0 +1,74 @@
+\subsection{Brugergrænsefladeteori}
+\label{sec:teoribrugerdesign}
+
+%Rune d. 25-03-14 kl. 10:30
+Brugergrænsefladen til det ønskede program er højt prioriteret (se afsnit \ref{sec:kravspecifikation}). Følgende afsnit berører de aspekter, der er relevante for brugergrænsefladen og den tilhørende proces af konstruktionen af denne. Under teknologianalysen (se afsnit \ref{sec:teknologianalyse}) er der ligeledes bearbejdet eksisterende brugergrænseflader, og det er derfor ideelt for projektets produkt, hvis de samme analysemetoder kan benyttes til at belyse eventuelle mangler eller kritikpunkter i brugergrænsefladen. Dette afsnit vil derfor ydermere, så vidt det er muligt, sammenknytte det forhold, der er mellem skabelsen og analyseringen af brugergrænseflader, og herved danne en ideel brugergrænseflade, som projektets gruppe kan stræbe efter.\\
+
+%Rettet af Rune d. 25-03-14 kl. 21:10
+I problemanalysen blev eksisterende brugergrænseflader bearbejdet gennem trunk- og usabilitytesting. De anvendte analysemetoder hertil kan benyttes til at udvikle en brugergrænseflade gennem en iterativ udviklingsmetode, hvori førnævnte analysemetoder benyttes til at vurdere brugergrænsefladen. Der eksisterer flere metoder til fremstilling af brugergrænseflader, og projektet er styret efter et af de iterative udviklingsmetoder, der indebærer usability-testing. Jiel Spolsky beskriver i "User Interface Design for Programmers" seks gode trin \cite{Joel_ui_design} :
+
+%Er ændret til normal størrelse, og der er sat punktum, så det ikke forstyrrer læseren. 
+%Rune 26-03-14 kl. 14:30.
+\begin{enumerate}
+	\item Konstruér fiktive personer af dem der vil benytte brugergrænsefladen
+	\item Find ud af hvilke aktiviteter eller funktioner der er vigtige
+	\item Find ud af brugernes forventede metode til at udføre en aktivitet eller funktion
+	\item Skitsér de første udkast til brugergrænsefladen
+	\item Gentag forrige procedure indtil de konstruerede fiktive personer forventes at kunne benytte brugergrænsefladen uden store problemer
+	\item Observér benyttelsen af brugergrænsefladen hos de personer, som programmet er designet for. Opdatér, reparér og gentag disse trin indtil brugerne er tilfredse
+\end{enumerate}
+
+%Rettet af Rune 25-03-14 21:15
+Den konkrete konstruering af brugergrænsefladen tager udgangpunkt i de fremgangsmåder, som er beskrevet og gennemgået i "Writing for Interaction"\cite{DesignUI}. Mange af fremgangsmåderne er understøttet af testforsøg, som også udleder generelle og psykologiske tendenser ved brug af en brugergrænseflade.\\
+%Det skal klargøres, at det er vigtigere, hvis brugergrænsefladen generelt er nemmere at bruge af nye bestyrelsesmedlemmer, end hvis den er nemmere at bruge af den nuværende bestyrelse i Aalborg Roklub, der i forvejen er vant til det nuværende system. Med dette klargjort, så betyder det selvfølgelig ikke, at en generel god brugergrænseflade nedsætter produktiviteten hos den nuværende bestyrelse.\\
+
+%Rettet af Rune 25-03-14 21:20
+\textbf{Eye-tracking}\\
+Eye-tracking er et interessant værktøj, som kan bruges til at klargøre, hvor en bruger retter sit fokus, når denne ser et nyt system eller en ukendt hjemmeside. Hvis der indsamles tilstrækkelig data, kan der ses en tydelig sammenhæng mellem farve- og opsætningsvalg. Denne viden kan være brugbar i udarbejdningsprocessen, hvor det er vigtigt, at funktionerne er tilgængelige og intuitivt placeret. 
+Der findes flere forskellige test og redegørelser på menneskelige interaktion med systemer - det skal derfor nævnes, at nedenstående blot vil redegøre for enkelte af de undersøgelser foretaget af analysefirmaet KISSmetrics\cite{eye_tracking_studios}.\\
+
+%Rettet af Rune 25-03-14 21:30
+\textbf{F-Shaped Pattern}\\
+Nielsen Norman Group har foretaget en undersøgelse, hvor de lod 232 brugere kigge på et større antal af hjemmesider. Nielsen Norman Group har kunnet fremvise en klar sammenhæng mellem øjnebevægelsesmønstret - uanset sidens indhold og formål. Bevægelsesmønstret blev kaldt "det dominante læs-mønster"\mbox{} og kan ses på figur \ref{fig:fpattern} som et F-formet mønster. De områder, hvor brugeren kiggede mest, er angivet med rødt. \cite{eye_tracking_studios}
+
+\figur{Figurer/Problemlosning/9-f-pattern.jpg}{F-lignende mønster \cite{eye_tracking_studios}}{fpattern}{1.0}
+
+%Rettet af Rune 26-03-14 kl. 14:50
+%Samme som sidste enumerate: Det er store sætninger, så jeg har sat det til normal, og jeg har givet hvert punkt et punktum.
+På baggrund af undersøgelsen kunne der tilmed erfares:
+
+\begin{enumerate}
+    \item Brugere læser i første omgang i en vandret bevægelse på toppen af midter-området. Dette former toppen af F’et
+    \item Herefter bevæger øjnene sig hurtigt et par centimeter ned i indholdet. Dette former den nedre del af F’et
+    \item Sidst orienterer brugerne sig i en diagonal retning. Denne bevægelse er i modsætning til de øvrige to, langsom og grundig. Dette former F’ets diagonal
+\end{enumerate}
+
+Denne undersøgelse kan sammenholdes med en anden undersøgelse foretaget af samme markedsanalysefirma. På figur \ref{fig:pixeledge} ses det at brugerne i gennemsnit bruger dobbelt så lang tid på at kigge på venstre side, som de gør på højre side. Sammenlagt bliver venstresiden kigget på 70\% af tiden, mens kun 30\% af tiden kigger brugeren på højre halvdel af skærmen. \cite{f_shaped_pattern}
+ 
+\figur{Figurer/Problemlosning/10-pixels-from-left-edge.jpg}{Pixels fra venstre side \cite{f_shaped_pattern}}{pixeledge}{1.0}
+
+%Rettet af Rune 26-03-14 kl. 22:00
+\subsubsection*{Opsummering}
+
+\begin{itemize_small}
+    \item Den konventionelle opbygningsstil, med navigationsmuligheder placeret i øverste venstre side, anses som værende den ideelle løsning
+    \item Vigtigste indhold skal placeres øverst i midten
+    \item Funktioner, der af direkte kontrol af indholdet, vil befinde sig nedenunder
+    \item Mindre relevant indhold placeres til højre, da brugere har en tendens til at fokusere øverst og til venstre \cite{horizontal_attention_leans_left}
+\end{itemize_small}
+
+%Den konventionelle opbygningsstil med navigationsmuligheder placeret i øverste venstre side kan anses værende den ideele løsning. Det vigtigste indhold bør ligeledes placeres øverst i midten af skærmen, givet at der ikke ligger for mange funktioner under indholdet, idet at det for brugeren ikke ville være intuitivt at søge efter funktioner nederst på brugergrænsefladen. Dog skal det opvejes, at funktioner, der tilegner sig direkte kontrol af indholdet, kan forventes at befinde sig under indholdet.\\
+%Mindre relevant indhold bør placeres i højre-siden hvor brugeren fokuserer i mindre grad.\\ Resultaterne er i høj grad påvirket ud fra menneskets tilpasningsevne, hvor det ligger naturligt for os at kigge efter navigationsmulighederne øverst eller til venstre side. \cite{horizontal_attention_leans_left}\\
+
+% Rune 27-03-14 kl. 09:45
+% Rettet af Mikkel, 29-04-2014
+
+Den ideelle metode for testing af brugergrænsefladen ville bestå af bl.a. en observering af brugerens fokus, og om dette følger det forventede F-formede mønster. Det er en tidskrævende proces, da det kræver gentagne forsøg, før de samlede resultater kan vurderes - og det kræver et apparat til at følge øjets fokus. Der kan til gengæld, med fordel for projektets tilgængelige ressourcer, udføres forsøg lignende usability- og trunktesting. Det forventes at første udkast af brugergrænsefladen ikke vil være tilfredsstillende, og her vil det være muligt at forbedre designet gennem flere iterationer.\\
+
+Udfra den netop beskrevne teori, og tests, er det nu muligt at udvikle en god brugergrænseflade, som gør brug af de informationer som gives i dette afsnit. Dette vil dække punktet "Brugervenligt design" i kravspecifikationen (afsnit \ref{sec:kravspecifikation}).
+
+%Den konventionelle opbygningsstil med navigationen i venstre side kan derfor anses som værende velfungerende. Det vigtigste indhold bør placeres øverst i midten af skærmen, idet at det er hér brugeren fokuserer længest tid. Mindre relevant indhold bør placeret i højre-siden hvor brugeren fokuserer i mindre grad. Resultaterne er i høj grad påvirket ud fra menneskets tilpasningsevne, hvor det ligger så naturligt for os at kigge efter menu-valgmulighederne øverst eller til venstre – blot fordi der har været en generel konsensus om dette designvalg lige siden systemernes fødsel. \cite{horizontal_attention_leans_left}
+
+
+
+

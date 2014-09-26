@@ -1,0 +1,252 @@
+% Jimmi 19-05-2014 21:00
+\subsection{Modulbeskrivelse}
+\label{sec:modulbeskrivelse} % Martin og Rune
+% Rettelser og korrektur (jf. mødet 28-02-14) af Mikkel
+% Dokumentation for valg tilføjet Mads 12-03-14
+% Rune 20-05-2014 13:40
+På baggrund af Aalborg Roklubs centrale ønsker til et IT-system (se afsnit \ref{subsec:itSystem}), vil dette afsnit undersøge om de eksisterende IT-systemer på markedet kan opfylde disse behov. De undersøgte systemer er udvalgt på baggrund af sejlsport.dk’s \cite{Sejlsport_system} anbefalinger til ro- og bådforeninger. Gruppen har kun valgt de systemer, som har en demoside tilgængelig.\\
+
+Foruden at undersøge systemerne på de rent funktionelle parameter, så vurderes systemerne samtidigt på opstarts- og abonnementspriser samt design af brugergrænseflade (se \ref{sec:trunktesting} for en detaljeret gennemgang af designet). For at dette kan lade sig gøre, har gruppen valgt at opstille et scenarie, som afspejler en skaleret version af Aalborg Roklubs specifikationer. Tabell \ref{tab:nuvaerende_systemer} giver et visuelt overblik, om hvorvidt systemerne opfylder Aalborg Roklubs ønsker, samt det opstillede scenarie:
+\begin{itemize_small}
+\item Systemet skal kunne holde 300 medlemmer
+\item Booking af materiale, skal kunne foretages af medlemmerne selv
+\item Tilbyde holdstyring
+\end{itemize_small}
+Se bilag \ref{bil:nuvaerende_systemer} for at se hele listen over parametre, som gruppen har valgt at undersøge.
+\begin{table}[H]
+    \begin{tabularx}{\textwidth}{l|X}
+    \textbf{Navn}          & \textbf{Beskrivelse} \\ \hline \hline
+    ForeningLet   & Systemet lever op til de fleste krav, og er ligeledes et af de billigste løsninger. Designet er moderne og intuitivt \\ \hline 
+    KlubModul     & Systemet er forholdsvis dyrt, men indeholder nogle af de elementære funktioner. Designet er moderne og intuitivt \\ \hline 
+    Medlemskortet & Medlemskortet er dyrt i opstart, og besidder ikke mange af de ønskede krav \\ \hline 
+    MemberLink    & MemberLink er relativt dyrt, og lever ikke op til kravene om kontingent-betaling \\ \hline 
+    TeamClub      & TeamClub lever op til mange af de opstillede krav. Brugergrænsefladen virker lidt rodet \\
+    \end{tabularx}
+    \caption{\textit{Oversigt over nuværende systemer. \tabelgroup}}
+    \label{tab:nuvaerende_systemer}
+\end{table} 
+
+Gruppen har på baggrund af denne gennemgang valgt at fokusere på ForeningLet og Klubmodul. ForeningLet anvendes af over 200 foreninger, og har tilsammen over 50.000 aktive medlemmer \cite{ForeningLet}. Begge systemer opfylder Aalborg Roklubs initierende krav. Systemerne er generelt opbygget således, at de indeholder et administrationssystem og et medlemssystem. Idéen med at have to systemer er, at nogle oplysninger ikke skal være tilgængelige for andre end bestyrelsen - såsom kontingentbetalinger. Hermed vil den fremadrettede beskrivelse særskille de to systemer, idet at systemerne bør ses uafhængig af hinanden. I forhold til modulbeskrivelsen, har gruppen valgt kun at gøre dette på ForeningLets system, da ville være gentagelse at gøre det to gange.
+
+\subsubsection{Administrationssystem}
+Administrationssystemets funktioner er at tillade en eller flere administrationsansvarlige at holde øje med, og styre, klubbens anliggender. Der skal kunne ses og redigeres i materiel- og medlemsinformation, oprettes aktiviteter og overvåges i flere forskellige afdelinger af foreningen. Der skal også sendes regninger og beskeder rundt til alle medlemmer.
+
+\subsubsubsection{Medlemsmodul}
+Alle foreninger har nødvendigvis et antal medlemmer. Disse medlemmer har nogle oplysninger tilknyttet, som andre moduler skal bruge. Dette er oplysninger som rettigheder og kontigentbeløb. På figur \ref{fig:medlemslisteFL} ses et eksempel på de oplusninger, der kan være med i et medlemsmodul:
+\figur{Figurer/Modulbeskrivelse/medlemslisteFL.png}{ForeningLets medlemsliste\cite{ForeningLet} \screenshotgroup}{medlemslisteFL}{1.0}
+Medlemsnummer, navn og fødselsdato bruges primært til identificerende formål. Adresse og kontaktinfo bruges for at komme i kontakt med medlemmet, mens kontigentbeløb bruges af en kasserer til at lave regnskab.
+Der er mange oplysninger, ud over disse, som er interessante for en forening at vide om medlemmer - såsom deres uddannelsesniveau. Dette er ligeledes muligt at påføre medlemmets oplysninger.
+
+\subsubsubsection{Materielmodul}
+Ligesom en klub har medlemmer, så er det også sandsynligt, at den råder over en mængde materiel, der er samlet i en materieldatabase, hvorfra andre moduler, såsom bookingsystem, også kan tilgå dem. Administratorer skal have lov til at tilføje nyt materiel og at redigere et vilkårligt materiels informationer.\\
+Et eksempel på en materieldatabase fra ForeningLet\cite{ForeningLet} ses på figur \ref{fig:materieldatabaseFL}
+
+\figur{Figurer/Modulbeskrivelse/materieldatabaseFL.png}{ForeningLets materialeliste \screenshotgroup}{materieldatabaseFL}{1.0}
+
+% Rune 20-05-2014 14:30
+\subsubsubsection{Aktiviteter og afdelinger}
+En forening har brug for at holde styr på aktiviteter. En administrator skal kunne oprette og overvåge disse aktiviteter igennem administrationspanelet. Det er for eksempel vigtigt at vide, om der er nok tilslutning blandt medlemmerne til at holde arrangementet, eller om det skal flyttes til et senere tidspunkt. På figur \ref{fig:aktivitetFL} ses hvordan ForeningLet har valgt at implementere denne funktion
+\figur{Figurer/Modulbeskrivelse/aktivitetFL.png}{ForeningLets aktivitetsmodul \screenshotgroup}{aktivitetFL}{1.0}
+Når en aktivitet er oprettet, kan medlemmer melde sig på det fra medlemssiden. Administratorer kan overvåge begivenheden vha. et kalendermodul, som indeholder alle klubbens aktiviteter.
+
+\subsubsubsection{Regnskabsføring og opkrævning}
+En stor og kompliceret del af opgaverne til en forening er at holde styr på økonomien. Der skal laves regnskab for foreningen, hvor man som minimum skal kunne se udgifter kontra indtægter. Ligeledes er der medlemskontingent, hvor der er forskellige kontingentsniveauer, og hvor nogle medlemmer har specielle omstændigheder. Et godt regnskabssystem kan potentielt spare meget tid for administratoren.
+Størrelsen af et sådant system kan abstraheres ved at iagttage mængden af muligheder i ForeningLets system\cite{ForeningLet} som vist på figur \ref{fig:regnskabsfoeringFL}
+
+\figur{Figurer/Modulbeskrivelse/regnskabsfoeringFL.png}{ForeningLets regnskab og opkrævningsmoduler dropdown menuer \screenshotgroup}{regnskabsfoeringFL}{0.6}
+
+\subsubsection{Kommunikation}
+Det er vigtigt at kunne komme i kontakt med Aalborg Roklubs medlemmer, hvad end det er for at informere om annulleringen af et arrangement, eller blot udsende det årlige nyhedsbrev. Et system, som tillader en administrator at udsende e-mails eller SMS'er til specifikke grupper af foreningsmedlemmer, er et værktøj som sparer meget tid. Samtidig er der mulighed for at automatisere nogle dele af arbejdet, som for eksempel kontakttagen ved annullering af begivenheder, eller hvis lånt materiale ikke er blevet tilbageleveret.
+
+\subsubsection{Medlemssystem}
+Medlemssystemet skulle være det system, som medlemmerne interagerer med, når de går ind på Aalborg Roklubs hjemmeside eller bookingprogram. Det er vigtigt, at dette system er meget brugervenligt og let at finde rundt i, da der er medlemmer af foreningen, som ikke er vant til IT. Medlemssystemet bruges primært til at booke materiale eller plads på hold, men det har også visse sekundære funktioner såsom at informere medlemmerne omkring klubanliggender eller at fungere som et medium, hvorpå medlemmer kan udtrykke sig. I Aalborg Roklubs eksempel er dette system implementeret med en touchskærm, der kun kan tilgås i klubben (Se afsnit \ref{subsec:itSystem}).
+
+\subsubsubsection{Klubinformation}
+Medlemssiden er det sted, hvor medlemmer kan hente information omkring klubben eller bare se billederne fra sidste event. Information omkring klubbens formål og tema er også vigtigt at have her for at trække nye medlemmer til. 
+
+\subsubsubsection{Medlemsoprettelse}
+Det er vigtigt for både medlemmer og bestyrelsen, at indregistreringer af nye medlemmer er let og hurtigt. Fra medlemmernes synspunkt ville dette være mest praktisk, hvis det skete øjeblikkeligt, som er tilfældet med et internetbaseret system. Dette mindsker arbejdsbyrden for bestyrelsen, da de ikke selv skal indregistre oplysningnerne til det nye medlem.
+
+\subsubsubsection{Booking}
+Den primære funktion af medlemssystemet er at tillade medlemmer at booke materiel eller plads på hold. For at de kan gøre dette, benyttes der et par bookingfunktioner, som automatisk indsætter en brugers ønske ind i en kalender, hvor administrator og brugere kan se reserveringen. Et eksempel på dette bookingsystem, ses på figur \ref{fig:banebookingFL}
+
+\figur{Figurer/Modulbeskrivelse/banebookingFL.png}{ForeningLets resoursebooking\cite{ForeningLet}. Dette er et eksempel på hvordan medlemmerne kan booke sig på tennisbane \screenshotgroup}{banebookingFL}{0.6} 
+
+Efter denne grundlæggende forklaring af de mest elementære funktioner, som er ønsket af Aalborg Roklub, er der opnået tilstrækkelig viden til at undersøge, hvor godt disse moduler er implementeret i forskellige systemer. Det er nu relevant at få en form for perspektiv oven på teorien. Dette vises i praksis i næste afsnit.
+
+%\subsection{Modulbeskrivelse}
+%\label{sec:modulbeskrivelse}
+%På baggrund af Aalborg Roklubs centrale ønsker til et IT-system (se afsnit \ref{subsec:itSystem}), vil dette afsnit undersøge om de eksisterende IT-systemet på markedet kan opfylde disse behov. De undersøgte systemer er udvalgt på baggrund af sejlsport.dk’s \cite{Sejlsport_system} anbefalinger til ro- og bådforeninger. Gruppen har kun valgt de systemer, som har en demoside tilgængelig. \\
+%Foruden at undersøge systemerne på de rent funktionelle parameter, vurderes systemernes samtidig på opstarts- og abonnementspriser, samt design (se \ref{sec:trunktesting} for en detaljeret gennemgang af designet). For at dette kan lade sig gøre, har gruppen valgt at opstille et scenarie, som afspejler Aalborg Roklubs specifikationer. Tabellen (\ref{tab:nuvaerende_systemer}) giver et visuelt overblik, om hvorvidt systemerne opfylder Aalborg Roklubs ønsker, samt det opstillede scenarie:
+%\begin{itemize}
+%\begin{item} Systemet skal kunne holde 300 medlemmer
+%\begin{item} Booking af materiale, skal kunne foretages af medlemmerne selv
+%\begin{item} Tilbyde holdstyring
+%\end{itemize}
+%Se bilag \ref{bil:nuvaerende_systemer} for at se hele listen over parametre, som gruppen har valgt at undersøge.
+%\begin{table}[H]
+%    \begin{tabularx}{\textwidth}{l|X}
+%    \textbf{Navn}          & \textbf{Beskrivelse} \\ \hline \hline
+%    ForeningLet   & Systemet lever op til de fleste krav, og er ligeledes et af de billigste løsninger. Designet er %moderne og intuitivt \\ \hline 
+%    KlubModul     & Systemet er forholdsvis dyrt, men indeholder nogle af de elementære funktioner. Designet er %moderne og intuitivt \\ \hline 
+%    Medlemskorteret & Medlemskorteret er dyrt i opstart, og besidder ikke mange af de ønskede krav \\ \hline 
+%    MemberLink    & MemberLink er relativt dyrt, og lever ikke op til kravene om kontingent-betaling \\ \hline 
+%%    TeamClub      & TeamClub lever op til mange af de opstillede krav. Designet virker lidt rodet \\
+%    \end{tabularx}
+%    \caption{\textit{Oversigt over nuværende systemer. \tabelgroup}}
+%    \label{tab:nuvaerende_systemer}
+%\end{table}
+%Gruppen har på baggrund af denne gennemgang, valgt at fokusere på ForeningLet og Klubmodul. Systemerne anvendes af over 200 foreninger, og indeholder alle opstillede krav. Klubmoduls årsabonnement er dog væsentlige dyrere end ForenningLet.
+
+
+%\subsubsection{Administrationssystem}
+%Administrationssystemets funktion er at tillade en administrationsansvarlig at holde øje med og styre klubbens anliggender. Der skal kunne ses og redigeres i materiel- og medlemsinformation, oprettes aktiviteter, og overvåges i disse, i flere forskellige afdelinger af foreningen (ungdoms, senior osv.), og der skal sendes regninger og beskeder rundt til alle medlemmer.\mafix{Mange af de ting som her bliver beskrevet som en nødvendig del af et administrationsmodul har vi ikke i vores system. Lad os lige kontrollere at vi har specificeret nok i afgrænsning/kravsspek osv. præcis hvad vi afgrænser os fra at lave i vores system.}
+
+%\subsubsubsection{Medlemsmodul}
+%Alle foreninger har nødvendigvis et antal medlemmer. Disse medlemmer har nogle oplysninger tilknyttet, som andre moduler skal bruge. Dette er ting som rettigheder og kontigentbeløb. På figur \ref{fig:medlemslisteFL} ses et eksempel på de funktioner, der kan være med i et medlemsmodul:
+
+%\figur{Figurer/Modulbeskrivelse/medlemslisteFL.png}{ForeningLets medlemsliste\cite{ForeningLet}. Dette er et demo system, så det viste persondata er ikke rigtigt. Søgefunktionen er meget vigtig, da man kan finde information omkring et medlem med få oplysninger \figuregroup}{medlemslisteFL}{1.0}
+
+%Følgende standardiserede informationer kan ses i ForeningLets medlemsliste:
+
+%\begin{itemize}[itemsep=0ex,topsep=1ex]
+%\item Medlemsnummer
+%\item Navn
+%\item Adresse
+%\item Kontaktinfo
+%\item Fødselsdato
+%\item Kontigentbeløb
+%\end{itemize}
+
+%Medlemsnummer, navn og fødselsdato bruges primært til identificerende formål. Adresse og kontaktinfo bruges for at komme i kontakt med medlemmet, mens kontigentbeløb bruges af en kasserer til at lave regnskab.
+
+%Der er mange oplysninger ud over disse, som er interessante for en forening at vide om medlemmer - såsom deres uddannelsesniveau inden for Aalborg Roklubs emne. Dette bør være muligt at kunne føre ind i medlemsdatabasen. På figur \ref{fig:medlemsformFL} ses det ved "Felt" 3 til 10.
+
+%\figur{Figurer/Modulbeskrivelse/medlemsformFL.png}{ForeningLets medlemsform\cite{ForeningLet}. Resten af formen er ude af billedet, men det ses at man kan skrive data ind som ikke er generelt, således at man kan få medlemsdata ind som er relevant for den specifikke klub \figuregroup}{medlemsformFL}{1.0}
+
+%Ekstra funktioner i medlemsmodulet er:
+%\begin{itemize_small}
+%\item \textbf{Medlemsudtræk}: Sammenfatter en liste af medlemmer baseret på valgte kriterier
+%\item \textbf{Importér}: Importerer medlemmer fra en excel- eller CSV-fil
+%\item \textbf{Eksportér}: Samler alle medlemmer i et excel-ark eller pdf-fil - sorteret efter angivne kriterier
+%\item \textbf{Diverse}: Samler personer som ikke nuværende er en del af klubben i lister (fx. venteliste, midlertidig udmeldte, blacklistet, udmeldte) 
+%\end{itemize_small}
+
+%\subsubsubsection{Materielmodul}
+%Ligesom en klub har medlemmer, er det også sandsynligt at den råder over en mængde materiel. Dette materiel er samlet i en materieldatabase, hvorfra andre moduler, såsom bookingsystem, kan tilgå dem. Administratorer skal have lov til at tilføje nyt materiel og redigere i nuværende materiels informationer.\\
+
+%I en båddatabase kunne hver båd have følgende oplysninger tilknyttet:
+%\begin{itemize_small}
+%\item ID
+%\item Navn
+%\item Status (Udlånt/utilrådelig eller tilrådelig)
+%\item Kategori og sub-kategori
+%\item Pladser i båden
+%\item Beskrivelse
+%\end{itemize_small}
+% Udkommenteret af Mikkel, 19-05-2014 09:24
+
+%Et eksempel på en materieldatabase fra ForeningLet\cite{ForeningLet} ses på figur \ref{fig:materieldatabaseFL}
+
+%\figur{Figurer/Modulbeskrivelse/materieldatabaseFL.png}{Data giver ikke meget mening, da det er en demoside. Hvis man trykker på noget materiel, kommer der en uddybende menu frem, hvor blandt andet en objektbeskrivelse og en sorteringsprioritet er placeret \figuregroup}{materieldatabaseFL}{1.0}
+
+%\subsubsubsection{Aktiviteter og afdelinger}
+%En klub har nødvendigvis også aktiviteter, som hænger mere eller mindre sammen med klubbens tema. Disse aktiviteter kan henvende sig til forskellige dele af klubben, såsom junior- eller seniorafdelingen.
+%En administrator skal kunne oprette og overvåge disse aktiviteter igennem administrationspanelet. Det er for eksempel vigtigt at vide, om der er nok tilslutning blandt medlemmerne til at holde arrangementet, eller om det skal flyttes til et senere tidspunkt. \mafix{Vi har ikke lavet et aktivitetsmodul til nogen af vores systemer. Det har ikke været relevant for ARK. Derfor er det vel heller ikke nødvendigt i teorien at beskrive hvordan et sådant ser ud? Et muligt sted at skære et par sider fra.}
+
+%Figur \ref{fig:aktivitetFL} viser et oprettelsesskema for en aktivitet i ForeningLets system\cite{ForeningLet}.
+
+%\figur{Figurer/Modulbeskrivelse/aktivitetFL.png}{Et navn og en beskrivelse tildeles. Der associeres nogle ressourcer (materiel) til hver aktivitet, som kan bruges af medlemmerne. Det er muligt at oprette ugentlige aktiviter vha. mulighederne under \textit{"Periode, tidspunkt og dage"} \figuregroup}{aktivitetFL}{1.0}
+
+%Når en aktivitet er oprettet, kan medlemmer melde sig på det fra medlemssiden. Administratorer kan overvåge begivenheden vha. et kalendermodul, som indeholder alle klubbens aktiviteter.
+
+%\subsubsubsection{Regnskabsføring og opkrævning}
+%En stor og kompliceret del af drivelsen af en forening, er at holde styr på finanserne. Der skal laves regnskab for foreningen, hvor man som minimum skal kunne se udgifter kontra indtægter. Dette, og meget mere, skal overvejes og tages i betragtning. Der er også spørgsmålet om medlemskontigent, hvor der er forskellige kontigentniveauer og nogle medlemmer har specielle omstændigheder. Et godt regnskabssystem sparer oceaner af tid for administratoren.\mafix{Samme som ovenstående. Vi afskar os fra at lave et faktureringssystem, derfor er det ikke relevant at have det med i teorien, da det ikke bliver brugt til noget.}\\
+
+%Størrelsen af et sådant system kan anes ved at iagttage mængden af muligheder i ForeningLets system\cite{ForeningLet}, som vist på figur \ref{fig:regnskabsfoeringFL}
+
+%\figur{Figurer/Modulbeskrivelse/regnskabsfoeringFL.png}{ForeningLets regnskab og opkrævningsmoduler dropdown menuer \figuregroup}{regnskabsfoeringFL}{0.6}
+
+%\subsubsubsection{Kommunikation}
+%Det er vigtigt at kunne komme i kontakt med Aalborg Roklubs medlemmer, hvad end det er for at informere om annulleringen af et arrangement, eller bare udsende det årlige nyhedsbrev. Et system, som tillader en administrator at udsende e-mails eller sms'er til specifikke grupper af foreningsmedlemmer, er et værktøj som sparer meget tid i forhold til alternativet, som er selv at skulle skrive hver e-mail adresse ind i adressebaren. Samtidig er der mulighed for at automatisere nogle dele af arbejdet, som for eksempel kontakttagen ved annullering af begivenheder, eller hvis lånt materiale ikke er blevet tilbageleveret.
+
+%\subsubsection{Medlemssystem}
+%Medlemssystemet er det system som medlemmer interagerer med, når de går ind på Aalborg Roklubs hjemmeside eller bookingprogram. Det er vigtigt at dette system er meget brugervenligt og let at finde rundt i, da der ofte er medlemmer af en forening, som ikke er så vant til it. Medlemssystemet bruges primært til at booke materiale eller plads på hold, men det har også visse sekundære funktioner, såsom at informere medlemmerne omkring klubanliggender eller fungere som et medium hvorpå medlemmer kan udtrykke sig.
+
+%\subsubsubsection{Klubinformation}
+%Medlemssiden er det sted medlemmer kan hente information omkring klubben, eller bare se billederne fra sidste fest. Information omkring klubbens formål og tema er også vigtigt at have her, for at trække nye potentielle medlemmer til. Klubinformation som kunne stå på siden, kunne være følgende: \mafix{Vi har vel ikke noget der ligner dette i nogen af vores programmer. Kunne måske skæres væk.} 
+
+%\begin{itemize_small}
+%\item En forside med nyheder eller billeder fra sidste arrangement
+%\item En "Om foreningen"-fane, som beskriver klubbens formål, historie, beliggenhed osv.
+%\item En "bestyrelse"-fane, som nævner klubbens ledelse
+%\item En "kontakt os"-fane, som indeholder e-mail og åbningstider
+%\end{itemize_small}
+
+%\subsubsubsection{Medlemsoprettelse}
+%Det er vigtigt for både medlemmer og administratorer, at medlemmer kan tilmelde sig til foreningen effektivt. Det er dejligt for medlemmer at det sker øjeblikkeligt med et internetbaseret system, og det er tidsbesparende for administratoren at han/hun ikke selv skal indtaste hvert medlem. \mafix{Vi bruger ikke dette til noget i vores løsning heller. Vi tager jo bare data fra deres medlemskartotek.}
+
+%En medlemsform, som kan udfyldes for automatisk at blive indført i systemet, kunne anmode om følgende oplysninger:
+
+%\begin{itemize_small}
+%\item Navn
+%\item Adresse
+%\item Kontaktinformation (e-mail, telefonnummer)
+%\item Køn/fødselsdato (for at placere medlemmet i den korrekte afdeling)
+%\item Relevant træning (fx. duelighedsbevis)
+%\end{itemize_small}
+
+%\figur{Figurer/Modulbeskrivelse/indmeldingsformFL.png}{ForeningLets indmeldingsform\cite{ForeningLet}. }{indmeldingsformFL}{0.1}
+
+%\subsubsubsection{Booking}
+%Den primære funktion af medlemssystemet, er at tillade medlemmer at booke materiel eller plads på hold. For at de kan gøre dette, benyttes der et par bookingfunktioner, som automatisk plotter brugerens ønsker ind i en kalender, hvor administrator og bruger kan se reserveringen. Et eksempel på dette bookingsystem, ses på figur \ref{fig:banebookingFL}
+
+%\figur{Figurer/Modulbeskrivelse/banebookingFL.png}{ForeningLets resoursebooking\cite{ForeningLet}. Der er to tennisbaner, som kan bookes på timebasis \figuregroup}{banebookingFL}{0.6}
+
+%\figur{Figurer/Modulbeskrivelse/holdplanFL.png}{ForeningLets holdtilmeldelse\cite{ForeningLet}. En liste over hold med relevante oplysninger er vist.}{holdplanFL}{0.6}
+%Fjernet af Mikkel
+
+%\subsubsection{Materielmodul}
+%Ligesom en klub har medlemmer, er det også sandsynligt at den råder over en mængde aktiver. Disse aktiver er samlet i en materieldatabase, hvorfra andre moduler, såsom bookingsystem, kan tilgå dem. Medlemmer af klubben skal have mulighed for at se disse, men ikke rette i dem. Administratorer skal have lov til at tilføje nye materialer og redigere i nuværende materialers informationer.\\
+
+%Herunder ses ARK's intergrerede materielmodul.
+
+%\figur{Figurer/Modulbeskrivelse/materieldatabaseARK.png}{ARK's båddatabase. Hver felt er en båd. De røde både er udlånt/utilgængelige. I bunden er der et sorteringssystem.}{medlemsdatabaseARK}{0.8}
+
+%Hver båd i databasen har følgende oplysninger tilknyttet:
+%\begin{itemize}
+%\item Navn
+%\item Status (Udlånt/utilrådelig eller tilrådelig)
+%\item Kategori og sub-kategori
+%\item pladser i båden
+%\end{itemize}
+
+%\subsubsection{Booking og kalender}
+%En klub afholder ofte aktiviteter associeret med klubbens tema. I den sammenhæng er det en %fordel for klubbens administrative personel, at være klar over hvor mange medlemmer der %kommer til disse arrangementer. Derfor er et booking- og kalendermodul vigtigt. Klubbens %medlemmer vil ligeledes være informerede om hvornår og hvordan disse arrangementer foregår, %og kan tilmelde sig dem ved hjælp af et sådant modul.
+%Klubber ejer også ofte materiale som medlemmerne kan låne eller leje. I et sådant modul ville %det være muligt for medlemmerne at booke materialer i diverse tidsrum.
+%Administratorer skal kunne oprette og redigere begivenheder. Medlemmer skal kunne melde sig %på begivenheder og booke materiel.
+%En kaldender begivenhed kunne indeholder følgende information:
+
+%\begin{itemize}
+%\item Deltagere
+%\item Sted
+%\item Anvendt Materiel
+%\item Start- og sluttidspunkt
+%\item Evt. instruktør/underviser
+%\end{itemize}
+%Bookingsystemet skal tage højde for, om det ønskede materiel allerede er udlånt, om deltagern%e besidder rettighederne til brug af det ønskede materiel, om det ønskede materiel kræver %vedligeholdelse(reparation) og om den forventede hjemkost overskrider en given deadline.
+%
+%
+
+
+
+
+%\subsubsection{Statistik}
+%Hvis en klub er stor kan det være svært at holde overblikket. Derfor er statistik nødvendigt. Det tillader en bestyrelse at tage informerede beslutninger omkring klubbens anliggender. Samtidig er det muligt for klubbens medlemmer at holde øje med deres personlige statistik i klubben. Statistik dannes ved at samle data fra alle dele af klubben, såsom betaling, medlemmer og booking.
+
+
+%\figur{Figurer/Modulbeskrivelse/modulsamarbejde.png}{Ikke færdig. Bliver opdateret når jeg er sikker på de endelige moduler.}{modulsamarbejde}{0.8}
+
+
+% modul skal være en redegørelse for alle modulerne i et administrations program. og i usability kan man så se hvordan de moduler der er blevet talt om i modul afsnittet bliver brugt i en færdig løsning
+

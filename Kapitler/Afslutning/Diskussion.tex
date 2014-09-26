@@ -1,0 +1,30 @@
+%Jimmi 20-05-2014 1500
+% Rune 20-05-2014 16:00
+
+\chapter{Diskussion}
+\label{sec:Diskussion}
+I dette afsnit undersøges hele rapporten for at finde ud af, om de valg og afgrænsninger, der er blevet truffet undervejs i rapporten, var de korrekte. Ligeledes vil der blive diskuteret fejlkilder, og hvordan disse har påvirket rapporten.\\
+
+\textbf{Database}\\
+Under programmeringsopstarten blev der diskuteret, om hvorvidt gruppen skulle bibeholde Aalborg Roklubs eksisterende XML-filer, eller om gruppen skulle oprette disse properties på ny for dermed at blive uafhængig af deres eksisterende medlemskartotek. Problemstilling var her, at Aalborg Roklubs eksisterende system, medlemskartoteket, stadig blev anvendt af bestyrelsen. Dette betød, at hvis gruppen oprettede sine egne properties, ville disse ikke være korresponderende med medlemskartotekets data. Det var her væsentligt at medlemskartotekets properties, såsom medlemmernes navn, adresse m.v., ikke skal ændres i to systemer - dette ville kun ledsage til formindsket brugervenlighed. Det endelig valg blev at beholde XML-filerne og implementere en konverteringsmetode, som skulle konvertere fra XML-fil til in-memory objekter (læs mere om XML-parseren i afsnit \ref{sec:xmlparser}).\\
+
+Denne opsætning var en afspejling af deres eksisterende opsætning, som havde den ulempe, at XML-filerne skulle eksporteres og importeres manuelt mellem henholdsvis medlemskartoteket og protokolsystemet. Denne proces var tidskrævende, og for at komme dette til livs valgte gruppen at konstruere to metoder, \textit{UpdateBoatsFromFtp} og \textit{UpdateMemberFromFtp}, som havde til formål at undersøge, om de korresponderende filer mellem gruppens system og deres nuværende medlemskartotek havde ændret indhold. Denne kontrol sker en gang i timen, og hvis det sker, at der findes ændringer, hentes den nyeste XML-fil.\\
+
+\textbf{Brugergrænseflade}\\
+Aalborg Roklub brugte på deres nuværende protokolsystem en 15” touch-skærm. Denne bliver aktivt brugt af Aalborg Roklubs medlemmer til at registrere lån af materiel. Denne løsning syntes gruppen var ganske fornuftig, og blev derfor stærkt inspireret i udarbejdelsen af det nye protokolsystem. Gruppen valgte i programudarbejdelsen at fokusere meget på brugerdesignet, idet vi i problemanalysen fandt ud af, at størstedelen af de aktive medlemmer var over 50 år (se \ref{sec:aalborg_robklub_organisation}). Hertil blev der inddraget relevant teori om brugerinteraktion, samt erfaringer fra udførte usability- og trunktest. \\
+
+Gruppen valgte at lave administrationssystemet responsivt, så det skaleres automatisk efter den skærmoplysningen, som systemet køres på. Dette er grundet, at der er flere personer i bestyrelsen, som skal have adgang til administrationssystemet fra forskellige computere. \\
+
+Et supplerende designvalg, som gruppen valgte at implementere, var at administrationspanelet skal kunne tilgås fra protokolsystemet. Dette var et valg, som gruppen traf på baggrund af, at nogle af metoderne, såsom at godkende en blanket, skulle kunne håndteres hurtigt og uden besvær inde i klubben. \\
+
+I forbindelse med implementationen af brugergrænsefladen, fandt gruppen sent ud af, at der burde være blevet anvendt mere asynkron programmering. Problemstillingen kommer til udtryk, når der skiftes mellem views og når der derved indhentes data. Dette tager nogle steder op til ca. 500ms, hvilket er for lang tid at lade brugeren vente på programmet. Dette skyldes, at indlæsning af data og instantiering af objekter tager lang tid. Nogle steder bliver dette allerede håndteret asynkront, men ikke alle steder. Dette er en optimering, som kan medvirke til en hurtigere eksekvering af programmet og endnu vigtigere, så vil det sørge for, at UI-tråden ikke "hænger"\mbox{}. Brugergrænsefladen vil derfor forblive responsiv.\\
+
+\textbf{Entity Framework}\\
+Gruppen har valgt at gøre brug af et ORM-framework, der hedder Entity Framework, som bruges til at håndtere MySQL-databasen. Her håndterer EF den objekt-relationelle mapping af objekterne med MySQL-databasen. På denne måde er databasen altid opdateret, grundet at EF håndterer oprettelsen af nye elementer i databasen, hvis der er et objekt i koden (læs mere om EF i afsnit \ref{sec:teori_database}).\\
+
+Der er dog en række komplikationer forbundet med anvendelsen af EF. På trods af den store indsats, der er lagt i udviklingen af EF, så er det en leaky abstraction. Dette kommer f.eks. til udtryk, idet vi anvender en MySQL RDBMS som persistenslag.
+En mangel i EF er dog at det endnu ikke har implementeret en metode til at omdøbe en index i MySQL-databasen, så der derfor kastes en \textit{NotImplementedException}.\\
+
+Enity Framework skalerer heller ikke godt i forhold til at indhente eller ændre store mængder af data. EF er beregnet til at behandle enkelte elementer af gangen. Mange samtidige CRUD\footnote{CRUD: Create, Read, Update, Delete}-operationer håndterer EF heller ikke godt, da den laver et roundtrip til databasen. Hvert request har ligeledes den ulempe, at hvis man skal importere en mængde data i form af \textit{INSERT}, \textit{DELETE}, \textit{UPDATE} eller \textit{SELECT} request, så vil EF tage hver handling med en request af gangen. Derved går det meget langsomt, og tager mange ressourcer, hvis databasen skal modtage og svare på mange requests. \\
+
+Dette vælger gruppen at se bort fra, da hastigheden på programmets opstart ikke er en væsentlig faktor på protokolsystemet. Dette skyldes at Aalborg Roklubs protokolsystem ikke skal startes op særligt ofte.

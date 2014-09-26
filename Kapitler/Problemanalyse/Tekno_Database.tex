@@ -1,0 +1,36 @@
+\subsection{Databaseteknologi}
+% Beskrivelse af databaser. Hvilken slags filtyper der kan bruges (XML fx.). Hvordan der skrives til og fra databaser osv, kloning af filer, konvertering fra en filtype til en anden osv.
+
+%Mads Skrevet 28/2
+%Linjeskift-fix af Mikkel 2/3-14
+%Mere skrivning af Mads 2/3-14
+%Redigering og top and tail tilføjelse af Martin. 03-03-2014 13:23
+%Rettelse af Søren 11/3-14 - 14:08
+%Rettelse af Jimmi 10/4-14 - 09:45
+
+\label{sec:Databaseteknologi}
+Databaser benyttes til at lagre oplysninger og informationer. Fordelen ved dette, er at dataen ikke nulstilles i tilfælde af system-nedbrud - som ville være tilfældet, hvis daten blev holdt i RAM'ene\footnote{Random Access Memory}. Aalborg Roklub anvender to typer databaseteknologier, som det følgende afsnit vil belyse. Ulemperne ved databaseteknologierne vil blive fremlagt, som afslutningsvis vil munde ud i et forbedringsforslag. \\
+
+{\bf{XML-database}}\\
+En XML-database\footnote{Extensible Markup Language} er en tekstbaseret fil, som indeholder data om f.eks. medlemmer. Hertil kan man let åbne filen i en hvilken som helst editor og læse indholdet af databasen. Dette gør det meget venligt at redigere og læse i.\\
+
+Fordelene ved XML er at det er et simpelt format at bruge - derudover eksisterer der også en del standardbiblioteker, der kan læse XML og det er derfor let at benytte dette i programmer. Nogle af ulemperne er, at der er meget ekstra tekst og filerne bliver meget nemt større end nødvendigt og indeholder heller ikke nogen form for komprimering som standard.
+
+\figur{Figurer/xmldatabase.png}{Et medlems informationer i en XML-database. Det kan ses at antal tegn associeret med hver stykke information er meget stort. \screenshotgroup}{xmldatabase}{0.7}
+
+{\bf{Access-database}}\\
+Access-databasen er opbygget med en anderledes formatering end XML-filerne. Forskellen på formateringen er at dataene bliver komprimeret og derved ikke fylder særlig meget. Derudover er der også mulighed for at linke forskellige tabeller med hinanden og man behøver altså ikke flere filer. Udover dette understøtter Access også SQL\footnote{Structured Query Language}, hvilket er et standardsprog til at hente og skrive til databaser. Ulemperne ved Access-databaser er at det er platformspecifikt og kræver bestemte programmer for at kunne fungere.\\
+
+Aalborg Roklub benytter flere typer af databaser til medlemskartoteket og protokolsystemet. Det nuværende medlemskartotek gemmer data i en Microsoft Access 2000-database. Protokolsystemet benytter derimod XML-filer til at gemme data i. Denne opsætning giver nogle problemer med hensyn til deling af data mellem de 2 applikationer. Den nuværende løsning uploader nogle XML-filer fra medlemskartoteket til en FTP server\footnote{File Transfer Protocol}, som protokolsystemet automatisk downloader og overskriver de nuværende filer med. Herefter bliver de data protokolsystemet har gemt, uploadet og medlemskartoteket skal importere disse.\\
+
+De to systemer er, på grund af opbygningen af to databaser, ikke særlig brugervenlige og data vil også blive forsinket, fordi systemet er nødt til at vente på, at der bliver hentet en ny database. Dette giver som konsekvens en langsommere brugeroplevelse for personerne der administrerer systemerne, fordi de skal være sikre på at filerne bliver uploadet til FTP-serveren.\\
+
+{\bf{SQL-server}}\\
+I stedet for at anvende XML- eller Access-databaser, kunne Aalborg Roklub eventuelt anvende en database på en SQL-server. Fordelen ved SQL-servere er, at brugeren af den kan hente eller opdatere data på en hvilken som helst platform, og på en hvilken som helst lokation. Dette gør det meget fleksibelt at arbejde med og dette kunne ligeledes give Aalborg Roklub en samling af deres systemer. SQL-serveres databaser komprimeres ligesom Access-databaser. Via online paneler (eksempelvis PhpMyAdmin) kan denne komprimering afkodes, således at brugeren kan læse det med det samme. Selve databasen tilgås gennem SQL på samme måde som Access-databasen (mere info om SQL i afsnit \ref{sec:teori_database}). Der findes flere forskellige typer af SQL-servere - nogle eksempler er Microsoft SQL Server og MySQL. En af ulemperne ved en SQL-server er, at der typisk skal bruges eksterne software-biblioteker til at kommunikere med databasen - dog er disse biblioteker ofte tilgængelige på de fleste store platforme.
+
+\subsubsection*{Opsummering}
+\begin{itemize_small}
+    \item Aalborg Roklub bruger XML-database og Access-database, hvilket er ineffektivt og giver forsinkelser
+    \item Problemet kan løses med en SQL-server
+\end{itemize_small}
+%Aalborg Roklub bruger nuværende to databaser: En XML-database og en Access-database. Der er et par ulemper ved disse, såsom ineffektivt databrug, dataforsinkelse ved to databasesystemer og inkombatibilitet med nogle operativsystemer. Disse ulemper kan løses ved at skifte til en SQL-server.

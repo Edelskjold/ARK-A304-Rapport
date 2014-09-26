@@ -1,0 +1,25 @@
+\subsubsection*{Opsummering}
+%Skrevet af Jonas 03-03-2014 16:10
+%Redigeret af Martin 03-03-2014 23-27
+
+I forbindelse med den foregående usability- og trunktest, har gruppen fundet forskellige karakteristika som kendetegner et godt program.
+ForeningLet var generelt et bedre system end KlubModul i begge tests - dette skyldtes i høj grad at ForeningLet var mere fleksibelt, i forhold til at funktionalitet tilgængeligt i medlemsdelen også var tilgængeligt i administrationsdelen. Dette gjorde opgaver så som "bulk"\mbox{}-medlemsregistrering\footnote{Oprettelse af flere medlemmer ad gangen} nemmere.\\
+
+I forhold til design havde ForeningLet også en fordel i forhold til KlubModul, da designet generelt er opbygget på en sådan måde, så det er nemmere at navigere i systemet, som påpeget i trunktesten.\\
+
+Aalborg Roklubs protokolsystem blev også gennemgået, men dette system kan ikke direkte sammenlignes med hverken ForeningLet eller KlubModul, da protokolsystemet er designet med henblik på et touch-interface. Testene er dog stadig relevante, da et administrationssystem naturligt vil være opbygget omkring et interface med mus og keyboard, da et touch-baseret interface ikke er optimalt til større arbejdsopgaver.\\
+
+Da ForeningLet generelt var et bedre system end KlubModul, vil dette dog blive holdt op imod de konkrete problemstillinger, som blev opstillet i afsnit \ref{subsec:itSystem}, med det formål at klargøre om et eksisterende system er i stand til at løse disse.
+
+\begin{itemize}
+%    \item Problemet med at Aalborg Roklubs nuværende medlemssystem er lavet i VB6\footnote{Visual Basic 6}, bliver løst af ForeningLet, da problemet består i, at support til VB6 er besværligt. Da ForeningLet er lavet i aktuelle teknologier, bl.a. html og javascript, er support nem, og problemstillingen bliver løst af ForeningLet.
+    \item ForeningLet har fine muligheder for at tilknytte kommentarer til medlemmer, så denne problemstilling bliver ligeledes løst
+    \item I ForeningLet er det som sagt muligt at tilknytte en kommentar omkring kompetencer, men systemet tillader ikke forskellige brugergrupper med adgangskontrol. Der er en form for adgangskontrol indbygget, men dette er kun i forbindelse med adgangen til administrative oplysninger og funktioner. Yderligere er denne adgangskontrol ikke særlig specifik, og den løfter ikke problemstillingen, der går ud på at begrænse medlemmers adgang til noget materiel
+    \item Alle instanser af ForeningLets system bliver hostet af ForeningLet selv, og vi har som udgangspunkt ingen mulighed for at vide hvordan deres backend er skruet sammen. Det vil dog være rimeligt at gå ud fra, at ForeningLet sørger for at tage backup af kundernes data, da dette er god praksis og eftersom det er et større firma, vil det være naturligt at gå ud fra at de har dette i orden. I praksis har vi dog ingen viden omkring dette, så vi ved ikke om ForeningLet løser problemstillingen med ordentlig backup
+    \item Under de udførte test af ForeningLets demo-system blev der ikke oplevet problemer med systemet, der betød at medlemsdata gik tabt. Der må derfor tages udgangspunkt i, at ForeningLet ikke har problemer med periodiske fejl
+    \item I forhold til at indrapportere skader på både tilbyder ForeningLet ingen muligheder. Det er ligeledes ikke muligt at se status på både i tilfælde af skade. Dette betyder at ForeningLet ikke løser problemstillingen, der er indrapportering og oversigt over skader
+    \item På samme måde som det ikke er muligt at indsende skadesanmeldelser, så er det ikke muligt at indsende og godkende langtursadmodninger via ForeningLets system. Denne problemstilling bliver derfor heller ikke løst
+    \item ForeningLet giver ikke brugeren mulighed for at registere ture, så problemstillingen bestående i, at det ikke muligt at ændre i denne efter oprettelsen, er derfor ikke aktuel, da det ikke er muligt at oprette en.
+\end{itemize}
+
+Disse tests har, sammen med modulanalysen, givet gruppen et indblik i hvordan et velfungerende administrativt system, til drift af foreninger, er designet og opbygget. I afsnit \ref{sec:Databaseteknologi} vil der blive analyseret på endnu en vigtig del af et administrations- og protokolsystem; databaser.

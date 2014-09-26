@@ -1,0 +1,19 @@
+% Sourcecode highlight i utf8 format
+\usepackage{listingsutf8}
+
+% Danske bogstaver i kodefiler
+\lstset{literate=%
+    {æ}{{\ae}}1
+    {å}{{\aa}}1
+    {ø}{{\o}}1
+    {Æ}{{\AE}}1
+    {Å}{{\AA}}1
+    {Ø}{{\O}}1
+}
+
+% Source code tekster
+\renewcommand{\lstlistingname}{Kode}
+\renewcommand{\lstlistlistingname}{Koder}
+
+% Kode kommandoer
+\newcommand{\kode}[3]{\fix{Benyt ikke kode kommandoen}}
